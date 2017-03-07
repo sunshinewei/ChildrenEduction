@@ -1,14 +1,16 @@
 package com.example.administrator.childreneduction.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.TextView;
 
 import com.example.administrator.childreneduction.R;
-import com.example.baselibrary.base.BaseActivity;
 
-public class MainActivity extends BaseActivity {
+
+public class MainActivity extends EduBaseActivity {
     private long start;
+
+    private TextView mTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mTextView= (TextView) findViewById(R.id.tv_main);
     }
 
 
