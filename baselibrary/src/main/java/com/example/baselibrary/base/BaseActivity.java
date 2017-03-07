@@ -8,13 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.example.baselibrary.R;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  *
  */
@@ -24,7 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityManager.getInstance().addActivity(this);
+//        ActivityManager.getInstance().addActivity(this);
         setContentView(setLayout());
         mContext = this;
     }

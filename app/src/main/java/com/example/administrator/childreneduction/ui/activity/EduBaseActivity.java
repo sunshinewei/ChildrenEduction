@@ -1,7 +1,6 @@
 package com.example.administrator.childreneduction.ui.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import com.example.administrator.childreneduction.App;
 import com.example.administrator.childreneduction.da.component.ActivityComponent;
@@ -18,9 +17,10 @@ public abstract class EduBaseActivity extends BaseActivity {
 
     public ActivityComponent mActivityComponent;
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initActivityComponent();
     }
 

@@ -2,15 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
-    tools:context="com.example.administrator.childreneduction.ui.activity.MainActivity"
-    android:background="?attr/custom_attr_app_bg">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.administrator.childreneduction.ui.activity.HomeActivity">
 
     <TextView
-        android:background="?attr/custom_attr_app_title_layout_bg"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_main"
@@ -19,6 +22,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="更改主题"
         android:id="@+id/but_theme"
-        android:background="?attr/custom_attr_app_bg"/>
+        android:textColor="?attr/colorPrimary"
+        />
+
 </LinearLayout>

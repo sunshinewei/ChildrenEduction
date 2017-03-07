@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 日间模式下app背景色 -->
+    <color name="custom_color_app_bg_day">#FFFFFF</color>
+    <!-- 日间模式下app标题栏背景色 -->
+    <color name="custom_color_app_title_layout_bg_day">#FF2F3A4C</color>
+</resources>
