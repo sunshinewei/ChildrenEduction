@@ -17,7 +17,6 @@ public abstract class EduBaseActivity extends BaseActivity {
 
     public ActivityComponent mActivityComponent;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
