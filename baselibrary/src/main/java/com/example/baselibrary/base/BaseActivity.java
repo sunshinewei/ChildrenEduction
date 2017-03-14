@@ -17,7 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(this);
         setContentView(setLayout());
         mContext = this;
     }
@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityManager.getInstance().removeActivity(this);
+        ActivityManager.getInstance().killActivity(this);
     }
 
     /**

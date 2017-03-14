@@ -16,9 +16,13 @@ public class ActivityManager {
 
     }
 
-    public static synchronized ActivityManager getInstance() {
+    public static  ActivityManager getInstance() {
         if (mActivityManager == null) {
-            mActivityManager = new ActivityManager();
+            synchronized (ActivityManager.class){
+                if (mActivityManager==null){
+                    mActivityManager = new ActivityManager();
+                }
+            }
         }
         return mActivityManager;
     }
@@ -60,7 +64,7 @@ public class ActivityManager {
     /**
      * 结束指定的Activity
      */
-    private void killActivity(Activity activity) {
+    public void killActivity(Activity activity) {
         if (activity != null) {
             mActivityStack.remove(activity);
             activity.finish();
