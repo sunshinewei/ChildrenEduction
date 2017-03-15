@@ -1,12 +1,11 @@
 package com.example.administrator.childreneduction.net;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,6 +20,20 @@ public class NetService {
 
     private static NetService mNetService;
     private static Retrofit.Builder mBuilder;
+
+    /**
+     * Dangerous interceptor that rewrites the server's cache-control header.
+     */
+    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+        @Override
+        public Response intercept(Interceptor.Chain chain) throws IOException {
+            Response originalResponse = chain.proceed(chain.request());
+            return originalResponse.newBuilder()
+                    .header("Cache-Control", "max-age=60")
+                    .build();
+        }
+    };
+
 
     /**
      *
@@ -39,21 +52,21 @@ public class NetService {
     private OkHttpClient.Builder initOkhttp() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
-                .readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS)
-                .cookieJar(new CookieJar() {
-                    @Override
-                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                        if (!cookies.isEmpty()){
-                            //保存到共享参数值
-
-                        }
-                    }
-
-                    @Override
-                    public List<Cookie> loadForRequest(HttpUrl url) {
-                        return null;
-                    }
-                });
+                .readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS);
+//                .cookieJar(new CookieJar() {
+//                    @Override
+//                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//                        if (!cookies.isEmpty()) {
+//                            //保存到共享参数值
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public List<Cookie> loadForRequest(HttpUrl url) {
+//                        return null;
+//                    }
+//                }).addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR);
         return builder;
     }
 

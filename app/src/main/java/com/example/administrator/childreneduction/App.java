@@ -31,6 +31,9 @@ public class App extends Application {
                 .aPPModule(new APPModule(this))
                 .build();
         initJpush();
+        initCrashHandler();
+        initLogger();
+        initUmeng();
     }
 
     /**
@@ -106,4 +109,11 @@ public class App extends Application {
         return info;
     }
 
+    /**
+     * 初始化CrashHandler中的Crash信息
+     */
+    private void initCrashHandler(){
+        CrashHandler mCrashHandler=CrashHandler.getInstance();
+        mCrashHandler.init(mAppComponent.getConext());
+    }
 }
