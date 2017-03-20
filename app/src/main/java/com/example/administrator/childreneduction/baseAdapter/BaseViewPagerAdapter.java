@@ -2,7 +2,7 @@ package com.example.administrator.childreneduction.baseAdapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +14,11 @@ import java.util.List;
  * PagerAdapter  //视图比较简单时使用
  */
 
-public class BaseViewPagerAdapter extends FragmentStatePagerAdapter {
-    private FragmentManager mFragmentManager;
+public class BaseViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragmentList=new ArrayList<>();
     public BaseViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.mFragmentManager=fm;
     }
-
     /**
      * 添加Fragment
      * @param mFragment
@@ -34,8 +31,12 @@ public class BaseViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
     }
+
     @Override
     public int getCount() {
         return mFragmentList.size();
     }
+
+
+
 }
