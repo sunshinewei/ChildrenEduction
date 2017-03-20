@@ -1,4 +1,4 @@
-package com.example.administrator.childreneduction.baseAdapter.recyclerview;
+package com.example.administrator.childreneduction.widgets.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
