@@ -1,9 +1,11 @@
 package com.example.administrator.childreneduction.ui.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.widgets.recyclerview.BaseAdapter;
 import com.example.administrator.childreneduction.widgets.recyclerview.BaseViewHolder;
 
@@ -14,10 +16,11 @@ import java.util.List;
  */
 
 public class ShowHomeAdapter extends BaseAdapter {
-
+    private Context mContext;
 
     public ShowHomeAdapter(Context context, List list) {
         super(context, list);
+        this.mContext=context;
     }
 
     @Override
@@ -28,16 +31,13 @@ public class ShowHomeAdapter extends BaseAdapter {
 
     @Override
     public BaseViewHolder createCustomViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View inflate = LayoutInflater.from(context).inflate(R.layout.activity_home, parent, false);
+
+        return new BaseViewHolder(inflate);
     }
 
     @Override
     public void bindCustomViewHolder(BaseViewHolder holder, int position) {
-
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+//        holder.setText()
     }
 }

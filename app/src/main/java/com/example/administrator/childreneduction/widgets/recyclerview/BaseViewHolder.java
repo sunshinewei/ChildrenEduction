@@ -2,10 +2,13 @@ package com.example.administrator.childreneduction.widgets.recyclerview;
 
 import android.content.Context;
 import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,18 +27,17 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @param parent
      * @param resId
      */
-//    public BaseViewHolder(ViewGroup parent, @LayoutRes int resId) {
-//        super(LayoutInflater.from(parent.getContext()).inflate(resId,parent,false));
-//        mSparseArray=new SparseArray<>();
-//    }
+    public BaseViewHolder(ViewGroup parent, @LayoutRes int resId) {
+        super(LayoutInflater.from(parent.getContext()).inflate(resId,parent,false));
+        mSparseArray=new SparseArray<>();
+    }
 
     /**
      * @param mView
      */
-    public BaseViewHolder(View mView,Context mConetxt){
+    public BaseViewHolder(View mView){
         super(mView);
         mSparseArray=new SparseArray<>();
-        this.mContext=mConetxt;
         this.convertView=mView;
     }
 
@@ -61,6 +63,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public Context getContext(){
         return itemView.getContext();
     }
+
 
     public BaseViewHolder setText(int viewId, CharSequence value) {
         TextView view = getView(viewId);
