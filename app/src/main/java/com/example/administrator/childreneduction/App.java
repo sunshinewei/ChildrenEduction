@@ -30,6 +30,7 @@ public class App extends Application {
         mAppComponent = DaggerAPPComponent.builder()
                 .aPPModule(new APPModule(this))
                 .build();
+
         initJpush();
         initCrashHandler();
         initLogger();

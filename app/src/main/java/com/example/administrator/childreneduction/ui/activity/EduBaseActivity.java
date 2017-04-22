@@ -33,6 +33,7 @@ public abstract class EduBaseActivity extends BaseActivity {
                 .aPPComponent(App.getAppComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
+        mActivityComponent.inject(this);
     }
 
     public ActivityComponent getActivityComponent() {

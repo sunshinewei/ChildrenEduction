@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Red系列-->
+    <color name="red_most">#d50000</color>
+    <color name="red_more">#ff1744</color>
+    <color name="red_much">#ff5252</color>
+    <color name="red_little">#ff8a80</color>
+    <color name="red_less">#ef9a9a</color>
+    <color name="red_normal">#ffebee</color>
+</resources>

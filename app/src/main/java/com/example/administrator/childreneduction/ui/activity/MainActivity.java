@@ -3,11 +3,11 @@ package com.example.administrator.childreneduction.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.administrator.childreneduction.R;
+
 
 
 public class MainActivity extends EduBaseActivity {
@@ -31,16 +31,16 @@ public class MainActivity extends EduBaseActivity {
 
     @Override
     public void initView() {
-        mTextView = (TextView) findViewById(R.id.tv_main);
-        mButton = (Button) findViewById(R.id.but_theme);
-
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setAPPTheme();
-                recreate();
-            }
-        });
+//        mTextView = (TextView) findViewById(R.id.tv_main);
+//        mButton = (Button) findViewById(R.id.but_theme);
+//
+//        mButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setAPPTheme();
+//                recreate();
+//            }
+//        });
     }
 
     public void setAPPTheme() {
