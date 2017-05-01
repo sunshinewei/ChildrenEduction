@@ -10,12 +10,16 @@ buildscript {
         // in the individual module build.gradle files
         //添加apt插件
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+//        添加bmob云服务
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        //Bmob的maven仓库地址，必须填写
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
 }
 
