@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.administrator.childreneduction.App;
 import com.example.administrator.childreneduction.da.component.DaggerFragmentComponent;
@@ -109,4 +110,28 @@ public abstract class BaseFagment extends Fragment implements BaseView{
     public abstract void initView(View mRootView);
     public abstract void initData();
 
+    @Override
+    public void showProgress(@Nullable String msg) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showAlert(String msg) {
+
+    }
+
+    @Override
+    public void showLongToast(String msg) {
+        Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
+    }
 }
