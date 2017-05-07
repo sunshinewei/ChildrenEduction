@@ -8,6 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+
 /**
  *
  */
@@ -19,6 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(setLayout());
+        ButterKnife.bind(this);
         mContext = this;
     }
 

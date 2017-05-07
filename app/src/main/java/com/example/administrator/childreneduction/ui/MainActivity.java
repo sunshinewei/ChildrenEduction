@@ -1,4 +1,4 @@
-package com.example.administrator.childreneduction.ui.activity;
+package com.example.administrator.childreneduction.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.administrator.childreneduction.R;
-
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 
 
 public class MainActivity extends EduBaseActivity {
@@ -22,6 +22,11 @@ public class MainActivity extends EduBaseActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_home);
 //        setAPPTheme();
+    }
+
+    @Override
+    public void initActivityComponent() {
+
     }
 
     @Override

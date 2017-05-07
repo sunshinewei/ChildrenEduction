@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 //添加如下代码，应用apt插件
 apply plugin: 'com.neenbedankt.android-apt'
+//butterknife
+//apply plugin: 'com.android.library'
+//apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -61,6 +64,9 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //butterknife
+//    compile 'com.jakewharton:butterknife:8.5.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     // JPush 3.0.0 版本为例。
     compile 'cn.jiguang.sdk:jpush:3.0.0'
     compile 'cn.jiguang.sdk:jcore:1.0.0'  // 此处以JCore 1.0.0 版本为例。

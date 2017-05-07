@@ -1,11 +1,9 @@
-package com.example.administrator.childreneduction.ui.activity;
+package com.example.administrator.childreneduction.ui.base;
 
 import android.os.Bundle;
 
 import com.example.administrator.childreneduction.App;
 import com.example.administrator.childreneduction.da.component.ActivityComponent;
-import com.example.administrator.childreneduction.da.component.DaggerActivityComponent;
-import com.example.administrator.childreneduction.da.module.ActivityModule;
 import com.example.baselibrary.base.BaseActivity;
 
 import cn.jpush.android.api.JPushInterface;
@@ -28,13 +26,7 @@ public abstract class EduBaseActivity extends BaseActivity {
     /**
      * 初始化dagger2中的componnent
      */
-    public void initActivityComponent() {
-        mActivityComponent = DaggerActivityComponent.builder()
-                .aPPComponent(App.getAppComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-        mActivityComponent.inject(this);
-    }
+    public abstract void initActivityComponent() ;
 
     public ActivityComponent getActivityComponent() {
         return mActivityComponent;

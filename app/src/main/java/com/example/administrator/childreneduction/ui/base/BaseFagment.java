@@ -1,4 +1,4 @@
-package com.example.administrator.childreneduction.ui.fragment;
+package com.example.administrator.childreneduction.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

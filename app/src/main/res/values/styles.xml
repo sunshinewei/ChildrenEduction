@@ -25,4 +25,15 @@
         <item name="custom_attr_app_title_layout_bg">@color/custom_color_app_title_layout_bg_night</item>
     </style>
 
+
+
+    <!--首页-->
+
+    <!--底部字体样式-->
+    <style name="style_home_activity_text">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">#FF000a</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

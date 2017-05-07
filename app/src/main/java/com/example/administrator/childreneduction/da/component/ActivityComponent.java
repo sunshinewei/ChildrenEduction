@@ -6,7 +6,7 @@ import android.content.Context;
 import com.example.administrator.childreneduction.da.module.ActivityModule;
 import com.example.administrator.childreneduction.da.scope.ContextLife;
 import com.example.administrator.childreneduction.da.scope.PerActivity;
-import com.example.administrator.childreneduction.ui.activity.MainActivity;
+import com.example.administrator.childreneduction.ui.home.activity.HomeActivity;
 
 import dagger.Component;
 
@@ -25,5 +25,5 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-    void inject(MainActivity mActivity);
+    void inject(HomeActivity mActivity);
 }

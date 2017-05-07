@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         jcenter()
+//        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
@@ -12,6 +13,8 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 //        添加bmob云服务
         classpath 'com.android.tools.build:gradle:1.2.3'
+        //butterknife
+//        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
     }
 }
 
