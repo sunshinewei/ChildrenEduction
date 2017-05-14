@@ -5,4 +5,17 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary_night">#FF0000</color>
     <color name="colorPrimaryDark_night">#308900</color>
+    
+    
+    
+    <color name="color_toolbar_background_red">#e51c23</color>
+    <color name="color_text_white">#FCFCFC</color>
+    <color name="color_text_blank_100">#F5F5F5</color>
+    <color name="color_text_blank_200">#EEEEEE</color>
+    <color name="color_text_blank_400">#BDBDBD</color>
+    <color name="color_text_blank_500">#9E9E9E</color>
+    <color name="color_text_blank_600">#757575</color>
+    <color name="color_text_blank_700">#616161</color>
+    <color name="color_text_blank_800">#424242</color>
+    <color name="color_text_blank_900">#212121</color>
 </resources>

@@ -1,7 +1,5 @@
 package com.example.administrator.childreneduction.ui.base;
 
-import android.os.Bundle;
-
 import com.example.administrator.childreneduction.App;
 import com.example.administrator.childreneduction.da.component.ActivityComponent;
 import com.example.baselibrary.base.BaseActivity;
@@ -16,13 +14,6 @@ import cn.jpush.android.api.JPushInterface;
 public abstract class EduBaseActivity extends BaseActivity {
 
     public ActivityComponent mActivityComponent;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initActivityComponent();
-    }
-
     /**
      * 初始化dagger2中的componnent
      */

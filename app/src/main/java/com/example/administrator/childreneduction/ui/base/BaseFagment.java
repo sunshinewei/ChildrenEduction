@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.administrator.childreneduction.App;
-import com.example.administrator.childreneduction.da.component.DaggerFragmentComponent;
 import com.example.administrator.childreneduction.da.component.FragmentComponent;
-import com.example.administrator.childreneduction.da.module.FragmentModule;
 import com.example.baselibrary.base.BaseView;
 
 /**
@@ -26,15 +23,8 @@ public abstract class BaseFagment extends Fragment implements BaseView{
     public FragmentComponent mFragmentComponent;
     private LayoutInflater mLayoutInflater;
     public BaseFagment() {
-        super();
-        initFragmentComponent();
-        mLayoutInflater=LayoutInflater.from(mFragmentComponent.getActivityContext());//.....
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+//        initFragmentComponent();
+//        mLayoutInflater=LayoutInflater.from(mFragmentComponent.getActivityContext());//.....
     }
 
     @Override
@@ -52,17 +42,19 @@ public abstract class BaseFagment extends Fragment implements BaseView{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mView = inflater.inflate(getLayOutID(), null);
-        View  mRootView= addToolBar(mView);
-        initView(mRootView);
-
-        return mRootView;
+//        ButterKnife.bind(this,mView);
+//        View  mRootView= addToolBar(mView);
+        initView(mView);
+        return mView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isCreateView=true;
-        lazyLoad();
+
+        initData();
+//        lazyLoad();
     }
 
     /**
@@ -83,29 +75,21 @@ public abstract class BaseFagment extends Fragment implements BaseView{
     private View addToolBar(View mRootView){
         LinearLayout mLinearLayout=new LinearLayout(mFragmentComponent.getActivityContext());//...........
         mLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        if (isToolBar()){
-            View inflate = mLayoutInflater.inflate(getToolBarID(), null);
-            mLinearLayout.addView(inflate);
-            mLinearLayout.addView(mRootView);
-            return mLinearLayout;
-        }else
+//            View inflate = mLayoutInflater.inflate(getToolBarID(), null);
             return mRootView;
-
     }
 
 
     /**
      *
      */
-    public void initFragmentComponent(){
-        mFragmentComponent=DaggerFragmentComponent.builder()
-                .aPPComponent(App.getAppComponent())
-                .fragmentModule(new FragmentModule(this))
-                .build();
-    }
+//    public void initFragmentComponent(){
+//        mFragmentComponent=DaggerFragmentComponent.builder()
+//                .aPPComponent(App.getAppComponent())
+//                .fragmentModule(new FragmentModule(this))
+//                .build();
+//    }
 
-    public abstract boolean isToolBar();
-    public abstract int getToolBarID();
     public abstract int getLayOutID();
     public abstract void initView(View mRootView);
     public abstract void initData();

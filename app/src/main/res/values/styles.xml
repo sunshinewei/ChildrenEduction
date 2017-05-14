@@ -31,9 +31,30 @@
 
     <!--底部字体样式-->
     <style name="style_home_activity_text">
-        <item name="android:textSize">15dp</item>
-        <item name="android:textColor">#FF000a</item>
+        <item name="android:textSize">@dimen/dime_text_title_size</item>
+        <item name="android:textColor">@color/color_text_blank_800</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <!--条目 title-->
+    <style name="commen_text_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_text_content_size</item>
+        <item name="android:textColor">@color/color_text_blank_800</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <!--meFragment条目-->
+    <style name="style_item_mefragment">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textSize">@dimen/dimen_text_content_size</item>
+        <item name="android:textColor">@color/color_text_blank_800</item>
+    </style>
+
+
 </resources>
