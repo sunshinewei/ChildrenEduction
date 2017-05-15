@@ -12,6 +12,7 @@ import com.example.administrator.childreneduction.da.module.APPModule;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
@@ -33,7 +34,7 @@ public class App extends Application {
         mAppComponent = DaggerAPPComponent.builder()
                 .aPPModule(new APPModule(this))
                 .build();
-
+        Config.DEBUG=true;
         UMShareAPI.get(this);
 
         initJpush();
@@ -85,8 +86,8 @@ public class App extends Application {
      */
     private void initUmengShareAndLogin(){
         PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-        //豆瓣RENREN平台目前只能在服务器端配置
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+        //豆瓣RENREN平台目前只能在服务器端配置94c91203c01a414c7d120052b9a95863
+        PlatformConfig.setSinaWeibo("1568177975", "94c91203c01a414c7d120052b9a95863","http://sns.whalecloud.com");
         PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         PlatformConfig.setTwitter("3aIN7fuF685MuZ7jtXkQxalyi", "MK6FEYG63eWcpDFgRYw4w9puJhzDl0tyuqWjZ3M7XJuuG7mMbO");

@@ -1,112 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
 
-   <LinearLayout
-       android:id="@+id/user_login"
-       android:layout_width="match_parent"
-       android:layout_height="120dp"
-       android:background="@color/color_toolbar_background_red"
-       android:gravity="center">
-       <LinearLayout
-           android:id="@+id/tv_frag_me_phone"
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:layout_weight="1"
-           android:gravity="center">
-           <TextView
-               android:layout_width="60dp"
-               android:layout_height="60dp"
-               android:background="@drawable/phone"/>
-       </LinearLayout>
-       <LinearLayout
-           android:id="@+id/tv_frag_me_wx"
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:layout_weight="1"
-           android:gravity="center">
-           <TextView
-               android:layout_width="60dp"
-               android:layout_height="60dp"
-               android:background="@drawable/umeng_socialize_wechat"/>
-       </LinearLayout>
-       <LinearLayout
-           android:id="@+id/tv_frag_mqq"
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:layout_weight="1"
-           android:gravity="center">
-           <TextView
-               android:layout_width="60dp"
-               android:layout_height="60dp"
-               android:background="@drawable/umeng_socialize_qq"/>
-       </LinearLayout>
-       <LinearLayout
-           android:id="@+id/tv_frag_me_wb"
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:layout_weight="1"
-           android:gravity="center">
-           <TextView
-               android:layout_width="60dp"
-               android:layout_height="60dp"
-               android:background="@drawable/umeng_socialize_sina"/>
-       </LinearLayout>
-   </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/user_logined"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/color_toolbar_background_red"
+            android:gravity="center">
+
+            <com.example.youngkaaa.ycircleview.CircleView
+                android:id="@+id/img_frag_me_head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+            <TextView
+                android:id="@+id/tv_frag_me_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_blank_200"
+                android:text="用户名"
+                android:textSize="@dimen/dimen_text_content_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/user_login"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/color_toolbar_background_red"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/tv_frag_me_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/phone"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tv_frag_me_wx"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/umeng_socialize_wechat"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tv_frag_mqq"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/umeng_socialize_qq"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tv_frag_me_wb"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/umeng_socialize_sina"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp">
+
         <TextView
             android:id="@+id/tv_frag_me_mesg"
-            android:text="@string/tv_me_frag_message"
             style="@style/style_item_mefragment"
+            android:text="@string/tv_me_frag_message"
             />
+
         <TextView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="@drawable/right"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"/>
+            android:background="@drawable/right"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp">
+
         <TextView
             android:id="@+id/tv_frag_me_setting"
-            android:text="@string/string_me_frag_setting"
             style="@style/style_item_mefragment"
+            android:text="@string/string_me_frag_setting"
             />
+
         <TextView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="@drawable/right"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"/>
+            android:background="@drawable/right"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp">
+
         <TextView
             android:id="@+id/tv_frag_me_suggest"
-            android:text="@string/tv_ggestme_fragment_su"
             style="@style/style_item_mefragment"
+            android:text="@string/tv_ggestme_fragment_su"
             />
+
         <TextView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="@drawable/right"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"/>
+            android:background="@drawable/right"/>
     </RelativeLayout>
 
 </LinearLayout>
