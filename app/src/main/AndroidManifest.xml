@@ -201,6 +201,8 @@
             android:theme="@style/Theme.UMDefault"
             android:excludeFromRecents="true"
             />
+        <activity android:name=".ui.me.activity.ArticleActivty"/>
+        <activity android:name=".ui.home.activity.LookArticleActivity"/>
         <!--<activity-->
             <!--android:name="com.umeng.facebook.FacebookActivity"-->
             <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->

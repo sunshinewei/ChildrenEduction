@@ -134,4 +134,6 @@ dependencies {
     compile files('libs/umeng_social_shareboard.jar')
     compile files('libs/umeng_social_shareview.jar')
     compile files('libs/umeng_social_tool.jar')
+    //发表文章
+    compile 'com.github.mr5:icarus:0.1.14'
 }

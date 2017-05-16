@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.UserTable;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
+import com.example.administrator.childreneduction.ui.me.activity.ArticleActivty;
 import com.example.administrator.childreneduction.ui.me.iview.MeFragmentUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeFragmentPresenter;
 import com.umeng.socialize.UMAuthListener;
@@ -48,6 +49,9 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
     private TextView mTvFragMeMesg;
     private TextView mTvFragMeSetting;
     private TextView mTvFragMeSuggest;
+    private TextView mTvFragMeAdd;
+
+
 
 
     private MeFragmentPresenter mFragmentPresenter;
@@ -105,6 +109,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeMesg = (TextView) mRootView.findViewById(R.id.tv_frag_me_mesg);
         mTvFragMeSetting = (TextView) mRootView.findViewById(R.id.tv_frag_me_setting);
         mTvFragMeSuggest = (TextView) mRootView.findViewById(R.id.tv_frag_me_suggest);
+        mTvFragMeAdd = (TextView) mRootView.findViewById(R.id.tv_frag_me_add);
+
         mContext = this.getContext();
         mActivity = this.getActivity();
         setListener();
@@ -167,6 +173,13 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                 } else {
                     UMShareAPI.get(mContext).getPlatformInfo(mActivity, SHARE_MEDIA.SINA, umAuthListener);
                 }
+            }
+        });
+        //添加文章
+        mTvFragMeAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ArticleActivty.createInent(getContext()));
             }
         });
 

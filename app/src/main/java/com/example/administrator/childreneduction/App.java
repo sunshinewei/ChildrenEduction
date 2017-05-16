@@ -42,6 +42,7 @@ public class App extends Application {
         initLogger();
         initUmeng();
         initUmengShareAndLogin();
+        initBmob();
     }
 
 
