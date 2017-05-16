@@ -79,7 +79,7 @@ dependencies {
     //logger
     compile 'com.orhanobut:logger:1.15'
     //圆形头像
-
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     //友盟统计
     compile 'com.umeng.analytics:analytics:latest.integration'
     //glide

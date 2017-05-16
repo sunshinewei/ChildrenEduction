@@ -8,8 +8,8 @@ import java.util.Map;
 
 public interface MeFragmentUI {
 
-    /**登录成功
-     *
+    /**
+     * 登录成功
      */
     void login_ok(Map<String, String> map);
 
