@@ -3,11 +3,19 @@ package com.example.administrator.childreneduction.ui.me.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.childreneduction.R;
+import com.example.administrator.childreneduction.bmob.ArticleTable;
+import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
+import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
+import com.github.mr5.icarus.Callback;
 import com.github.mr5.icarus.Icarus;
 import com.github.mr5.icarus.TextViewToolbar;
 import com.github.mr5.icarus.Toolbar;
@@ -19,6 +27,7 @@ import com.github.mr5.icarus.popover.FontScalePopoverImpl;
 import com.github.mr5.icarus.popover.HtmlPopoverImpl;
 import com.github.mr5.icarus.popover.ImagePopoverImpl;
 import com.github.mr5.icarus.popover.LinkPopoverImpl;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,6 +40,9 @@ import java.util.HashMap;
 
 public class ArticleActivty extends EduBaseActivity {
 
+    private TextView mTvActivityArticleBack;
+    private TextView mTvActivityArticlePub;
+    private EditText mEdtActivityArticleTilte;
     private WebView mWebviewEditor;
     private TextView mButtonBold;
     private TextView mButtonLink;
@@ -51,6 +63,7 @@ public class ArticleActivty extends EduBaseActivity {
     private TextView mButtonFontScale;
     private TextView mButtonHtml5;
 
+
     private Icarus mIcarus;
 
 
@@ -70,6 +83,9 @@ public class ArticleActivty extends EduBaseActivity {
 
     @Override
     public void initView() {
+        mTvActivityArticleBack = (TextView) findViewById(R.id.tv_activity_article_back);
+        mTvActivityArticlePub = (TextView) findViewById(R.id.tv_activity_article_pub);
+        mEdtActivityArticleTilte = (EditText) findViewById(R.id.edt_activity_article_tilte);
         mWebviewEditor = (WebView) findViewById(R.id.webview_editor);
         mButtonBold = (TextView) findViewById(R.id.button_bold);
         mButtonLink = (TextView) findViewById(R.id.button_link);
@@ -89,8 +105,42 @@ public class ArticleActivty extends EduBaseActivity {
         mButtonStrikeThrough = (TextView) findViewById(R.id.button_strike_through);
         mButtonFontScale = (TextView) findViewById(R.id.button_font_scale);
         mButtonHtml5 = (TextView) findViewById(R.id.button_html5);
-
+        setListener();
         initData();
+    }
+
+    private void setListener(){
+        //发表文章
+        mTvActivityArticlePub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String title = mEdtActivityArticleTilte.getText().toString().trim();
+                mIcarus.getContent(new Callback() {
+                    @Override
+                    public void run(String params) {
+                        if (title==null){
+                            Toast.makeText(ArticleActivty.this,"文章标题不能为空！",Toast.LENGTH_LONG);
+                            return;
+                        }
+                        if (params==null){
+                            Toast.makeText(ArticleActivty.this,"内容不能为空！",Toast.LENGTH_LONG);
+                            return;
+                        }
+                        //发表文章
+                        Gson gson=new Gson();
+                        SharePrefernceUtils sharePrefernceUtils=new SharePrefernceUtils(getApplicationContext(), Content.SP_NAME);
+                        String string = sharePrefernceUtils.getString(Content.SP_NAME);
+                        LoginInfo loginInfo = gson.fromJson(string, LoginInfo.class);
+                        if (loginInfo.getId()!=null){
+                            ArticleTable articleTable=new ArticleTable();
+                            articleTable.setU_id(loginInfo.getId());
+                            articleTable.setA_title(title);
+                            articleTable.setA_content(params);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void initData(){
@@ -163,7 +213,6 @@ public class ArticleActivty extends EduBaseActivity {
         toolbar.addButton(fontScaleButton);
         return toolbar;
     }
-
 
 
     public void onDestroy() {

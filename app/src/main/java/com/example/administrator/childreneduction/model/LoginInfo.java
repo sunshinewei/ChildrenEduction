@@ -1,15 +1,26 @@
 package com.example.administrator.childreneduction.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/5/14.
  */
 
-public class LoginInfo {
+public class LoginInfo implements Serializable{
 
     private String id;
     private String name;
     private String url;
     private String type;
+    private String sex;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getId() {
         return id;

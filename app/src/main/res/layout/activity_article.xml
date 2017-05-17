@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/color_text_blank_200"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color_text_blank_100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_activity_article_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_activity_article_pub"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="发布"
+                android:textColor="@color/color_text_blank_600"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+    <EditText
+        android:id="@+id/edt_activity_article_tilte"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_text_blank_100"
+        android:textColor="@color/color_text_blank_700"
+        android:layout_marginTop="1dp"
+        android:textSize="@dimen/dime_text_title_size"
+        android:text="请输入标题"
+        android:layout_marginBottom="1dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:maxLines="1"
+        />
+
     <WebView
         android:id="@+id/webview_editor"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_weight="99"
-        android:gravity="center" />
+        android:gravity="center"/>
 
     <HorizontalScrollView
         style="@style/EditorIcon"
@@ -27,92 +73,92 @@
             <TextView
                 android:id="@+id/button_bold"
                 style="@style/EditorIcon"
-                android:text="@string/icon_bold" />
+                android:text="@string/icon_bold"/>
 
             <TextView
                 android:id="@+id/button_link"
                 style="@style/EditorIcon"
-                android:text="@string/icon_link" />
+                android:text="@string/icon_link"/>
 
             <TextView
                 android:id="@+id/button_image"
                 style="@style/EditorIcon"
-                android:text="@string/icon_image" />
+                android:text="@string/icon_image"/>
 
             <TextView
                 android:id="@+id/button_list_ol"
                 style="@style/EditorIcon"
-                android:text="@string/icon_list_ol" />
+                android:text="@string/icon_list_ol"/>
 
             <TextView
                 android:id="@+id/button_list_ul"
                 style="@style/EditorIcon"
-                android:text="@string/icon_list_ul" />
+                android:text="@string/icon_list_ul"/>
 
             <TextView
                 android:id="@+id/button_blockquote"
                 style="@style/EditorIcon"
-                android:text="@string/icon_blockquote" />
+                android:text="@string/icon_blockquote"/>
 
             <TextView
                 android:id="@+id/button_hr"
                 style="@style/EditorIcon"
-                android:text="@string/icon_hr" />
+                android:text="@string/icon_hr"/>
 
             <TextView
                 android:id="@+id/button_align_left"
                 style="@style/EditorIcon"
-                android:text="@string/icon_align_left" />
+                android:text="@string/icon_align_left"/>
 
             <TextView
                 android:id="@+id/button_align_center"
                 style="@style/EditorIcon"
-                android:text="@string/icon_align_center" />
+                android:text="@string/icon_align_center"/>
 
             <TextView
                 android:id="@+id/button_align_right"
                 style="@style/EditorIcon"
-                android:text="@string/icon_align_right" />
+                android:text="@string/icon_align_right"/>
 
             <TextView
                 android:id="@+id/button_italic"
                 style="@style/EditorIcon"
-                android:text="@string/icon_italic" />
+                android:text="@string/icon_italic"/>
 
             <TextView
                 android:id="@+id/button_indent"
                 style="@style/EditorIcon"
-                android:text="@string/icon_indent" />
+                android:text="@string/icon_indent"/>
 
             <TextView
                 android:id="@+id/button_outdent"
                 style="@style/EditorIcon"
-                android:text="@string/icon_outdent" />
+                android:text="@string/icon_outdent"/>
 
             <TextView
                 android:id="@+id/button_math"
                 style="@style/EditorIcon"
-                android:text="@string/icon_code" />
+                android:text="@string/icon_code"/>
 
             <TextView
                 android:id="@+id/button_underline"
                 style="@style/EditorIcon"
-                android:text="@string/icon_underline" />
+                android:text="@string/icon_underline"/>
 
             <TextView
                 android:id="@+id/button_strike_through"
                 style="@style/EditorIcon"
-                android:text="@string/icon_strike_through" />
+                android:text="@string/icon_strike_through"/>
 
             <TextView
                 android:id="@+id/button_font_scale"
                 style="@style/EditorIcon"
-                android:text="@string/icon_font" />
+                android:text="@string/icon_font"/>
 
             <TextView
                 android:id="@+id/button_html5"
                 style="@style/EditorIcon"
-                android:text="@string/icon_html5" />
+                android:text="@string/icon_html5"/>
         </LinearLayout>
     </HorizontalScrollView>
 </LinearLayout>
