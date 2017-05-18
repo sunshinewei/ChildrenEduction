@@ -10,11 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.childreneduction.R;
-import com.example.administrator.childreneduction.bmob.ArticleTable;
-import com.example.administrator.childreneduction.model.Content;
-import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
-import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.github.mr5.icarus.Callback;
 import com.github.mr5.icarus.Icarus;
 import com.github.mr5.icarus.TextViewToolbar;
@@ -27,7 +23,6 @@ import com.github.mr5.icarus.popover.FontScalePopoverImpl;
 import com.github.mr5.icarus.popover.HtmlPopoverImpl;
 import com.github.mr5.icarus.popover.ImagePopoverImpl;
 import com.github.mr5.icarus.popover.LinkPopoverImpl;
-import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -115,28 +110,15 @@ public class ArticleActivty extends EduBaseActivity {
             @Override
             public void onClick(View v) {
                 final String title = mEdtActivityArticleTilte.getText().toString().trim();
+                if (title.length()==0){
+                    Toast.makeText(ArticleActivty.this,"文章标题不能为空！",Toast.LENGTH_LONG);
+                    return;
+                }
                 mIcarus.getContent(new Callback() {
                     @Override
                     public void run(String params) {
-                        if (title==null){
-                            Toast.makeText(ArticleActivty.this,"文章标题不能为空！",Toast.LENGTH_LONG);
-                            return;
-                        }
-                        if (params==null){
-                            Toast.makeText(ArticleActivty.this,"内容不能为空！",Toast.LENGTH_LONG);
-                            return;
-                        }
-                        //发表文章
-                        Gson gson=new Gson();
-                        SharePrefernceUtils sharePrefernceUtils=new SharePrefernceUtils(getApplicationContext(), Content.SP_NAME);
-                        String string = sharePrefernceUtils.getString(Content.SP_NAME);
-                        LoginInfo loginInfo = gson.fromJson(string, LoginInfo.class);
-                        if (loginInfo.getId()!=null){
-                            ArticleTable articleTable=new ArticleTable();
-                            articleTable.setU_id(loginInfo.getId());
-                            articleTable.setA_title(title);
-                            articleTable.setA_content(params);
-                        }
+                        //
+                        System.out.println("params"+params);
                     }
                 });
             }
