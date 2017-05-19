@@ -224,10 +224,10 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
      * 查询用户是否存在，如果存在不添加
      */
     private void queryData(Map<String, String> map) {
-        String uid = map.get("uid");
-        String name = map.get("name");
-        String gender = map.get("gender");
-        String iconurl = map.get("iconurl");
+        final String uid = map.get("uid");
+        final String name = map.get("name");
+        final String gender = map.get("gender");
+        final String iconurl = map.get("iconurl");
         LoginInfo loginInfo=new LoginInfo();
         loginInfo.setId(uid);
         loginInfo.setName(name);
@@ -235,7 +235,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         loginInfo.setUrl(iconurl);
         Gson gson=new Gson();
         String s = gson.toJson(loginInfo);
-        SharePrefernceUtils sharePrefernceUtils=new SharePrefernceUtils(getApplicationContext(), Content.SP_NAME);
+        SharePrefernceUtils sharePrefernceUtils=new SharePrefernceUtils(getContext(), Content.SP_NAME);
         sharePrefernceUtils.putString(Content.SP_NAME,s);
         System.out.println("返回信息" + uid + ":" + name + ":" + iconurl);
         mUserLogin.setVisibility(View.GONE);
@@ -252,6 +252,24 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                     System.out.println("存在此用户，不需要再次添加！");
                     isExit = true;
                 }
+                else {
+                    System.out.println("size"+list.size());
+                    UserTable userTable = new UserTable();
+                    userTable.setU_id(uid);
+                    userTable.setU_name(name);
+                    userTable.setU_img(iconurl);
+                    userTable.setU_sex(gender);
+                    userTable.save(getContext(), new SaveListener() {
+                        @Override
+                        public void onSuccess() {
+                            System.out.println("用户保存成功！");
+                        }
+                        @Override
+                        public void onFailure(int i, String s) {
+
+                        }
+                    });
+                }
             }
 
             @Override
@@ -259,26 +277,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
 
             }
         });
-        if (!isExit) {
-            UserTable userTable = new UserTable();
-            userTable.setU_id(uid);
-            userTable.setU_name(name);
-            userTable.setU_img(iconurl);
-            userTable.setU_sex(gender);
-            userTable.save(getContext(), new SaveListener() {
-                @Override
-                public void onSuccess() {
-                    System.out.println("用户保存成功！");
-                }
-
-                @Override
-                public void onFailure(int i, String s) {
-
-                }
-            });
             Toast.makeText(getContext(), "返回信息" + uid + ":" + name + ":" + iconurl, Toast.LENGTH_SHORT);
         }
-    }
 
     @Override
     public void login_fail() {

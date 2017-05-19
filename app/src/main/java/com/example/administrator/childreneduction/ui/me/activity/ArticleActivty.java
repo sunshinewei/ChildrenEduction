@@ -10,7 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.childreneduction.R;
+import com.example.administrator.childreneduction.bmob.ArticleTable;
+import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
+import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.github.mr5.icarus.Callback;
 import com.github.mr5.icarus.Icarus;
 import com.github.mr5.icarus.TextViewToolbar;
@@ -23,9 +27,17 @@ import com.github.mr5.icarus.popover.FontScalePopoverImpl;
 import com.github.mr5.icarus.popover.HtmlPopoverImpl;
 import com.github.mr5.icarus.popover.ImagePopoverImpl;
 import com.github.mr5.icarus.popover.LinkPopoverImpl;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.HashMap;
+
+import cn.bmob.v3.listener.SaveListener;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -60,6 +72,8 @@ public class ArticleActivty extends EduBaseActivity {
 
 
     private Icarus mIcarus;
+    private SharePrefernceUtils mPrefernceUtils;
+    private Gson mGson;
 
 
     public static Intent createInent(Context context){
@@ -100,6 +114,8 @@ public class ArticleActivty extends EduBaseActivity {
         mButtonStrikeThrough = (TextView) findViewById(R.id.button_strike_through);
         mButtonFontScale = (TextView) findViewById(R.id.button_font_scale);
         mButtonHtml5 = (TextView) findViewById(R.id.button_html5);
+
+        mPrefernceUtils=new SharePrefernceUtils(this, Content.SP_NAME);
         setListener();
         initData();
     }
@@ -116,11 +132,53 @@ public class ArticleActivty extends EduBaseActivity {
                 }
                 mIcarus.getContent(new Callback() {
                     @Override
-                    public void run(String params) {
+                    public void run(final String params) {
                         //
-                        System.out.println("params"+params);
+                        Observable.just(params)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<String>() {
+                                    @Override
+                                    public void accept(@NonNull String s) throws Exception {
+                                        System.out.println("params"+params);
+                                        if(params.length()==0){
+                                            Toast.makeText(ArticleActivty.this,"文章内容不能为空！",Toast.LENGTH_LONG);
+                                            return;
+                                        }
+                                        else {
+                                            String string = mPrefernceUtils.getString(Content.SP_NAME);
+                                            mGson=new Gson();
+                                            LoginInfo loginInfo = mGson.fromJson(string, LoginInfo.class);
+                                            ArticleTable articleTable=new ArticleTable();
+                                            articleTable.setA_title(title);
+                                            articleTable.setA_content(params);
+                                            articleTable.setU_id(loginInfo.getId());
+                                            articleTable.setA_type("0");
+                                            saveArticle(articleTable);
+                                        }
+                                    }
+                                });
                     }
                 });
+            }
+        });
+    }
+
+    /**
+     * 保存文章
+     * @param articleTable
+     */
+    private void saveArticle(ArticleTable articleTable){
+        articleTable.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+               Toast.makeText(ArticleActivty.this,"发表成功！",Toast.LENGTH_LONG);
+                finish();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(ArticleActivty.this,"发表失败！",Toast.LENGTH_LONG);
             }
         });
     }
