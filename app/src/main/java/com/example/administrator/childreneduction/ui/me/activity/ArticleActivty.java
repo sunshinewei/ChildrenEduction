@@ -154,6 +154,7 @@ public class ArticleActivty extends EduBaseActivity {
                                             articleTable.setA_content(params);
                                             articleTable.setU_id(loginInfo.getId());
                                             articleTable.setA_type("0");
+                                            articleTable.setU_name(loginInfo.getName());
                                             saveArticle(articleTable);
                                         }
                                     }

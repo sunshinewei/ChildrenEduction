@@ -1,5 +1,7 @@
 package com.example.administrator.childreneduction.bmob;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -7,14 +9,42 @@ import cn.bmob.v3.BmobObject;
  * 文章信息表
  */
 
-public class ArticleTable extends BmobObject {
+public class ArticleTable extends BmobObject implements Serializable {
     private String a_id;
     private String u_id;
+    private String u_name;
+
     private String a_title;
     private String a_content;
     private String a_url;
     private String a_type;
     private String a_label;
+    private int coll;
+    private int share;
+
+    public String getU_name() {
+        return u_name;
+    }
+
+    public void setU_name(String u_name) {
+        this.u_name = u_name;
+    }
+
+    public int getColl() {
+        return coll;
+    }
+
+    public void setColl(int coll) {
+        this.coll = coll;
+    }
+
+    public int getShare() {
+        return share;
+    }
+
+    public void setShare(int share) {
+        this.share = share;
+    }
 
     public String getU_id() {
         return u_id;

@@ -15,6 +15,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.utils.Log;
 
 import cn.bmob.v3.Bmob;
 import cn.jpush.android.api.JPushInterface;
@@ -34,7 +35,8 @@ public class App extends Application {
         mAppComponent = DaggerAPPComponent.builder()
                 .aPPModule(new APPModule(this))
                 .build();
-        Config.DEBUG=true;
+        Log.LOG = true;
+        Config.isJumptoAppStore = true;
         UMShareAPI.get(this);
 
         initJpush();
@@ -46,7 +48,7 @@ public class App extends Application {
     }
 
 
-    private void initBmob(){
+    private void initBmob() {
         //第一：默认初始化
         Bmob.initialize(this, "4f44154c942912226ccb1fb492f4c3eb");
 
@@ -63,6 +65,7 @@ public class App extends Application {
         //.build();
         //Bmob.initialize(config);
     }
+
     /**
      * 打印日志
      */
@@ -83,12 +86,13 @@ public class App extends Application {
     }
 
     /**
-     *Umeng  三方登录与分享
+     * Umeng  三方登录与分享
      */
-    private void initUmengShareAndLogin(){
+    private void initUmengShareAndLogin() {
+        Config.DEBUG = true;
         PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
         //豆瓣RENREN平台目前只能在服务器端配置94c91203c01a414c7d120052b9a95863
-        PlatformConfig.setSinaWeibo("1568177975", "94c91203c01a414c7d120052b9a95863","http://sns.whalecloud.com");
+        PlatformConfig.setSinaWeibo("1568177975", "94c91203c01a414c7d120052b9a95863", "http://sns.whalecloud.com");
         PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         PlatformConfig.setTwitter("3aIN7fuF685MuZ7jtXkQxalyi", "MK6FEYG63eWcpDFgRYw4w9puJhzDl0tyuqWjZ3M7XJuuG7mMbO");
@@ -97,8 +101,8 @@ public class App extends Application {
         PlatformConfig.setPinterest("1439206");
         PlatformConfig.setKakao("e4f60e065048eb031e235c806b31c70f");
         PlatformConfig.setDing("dingoalmlnohc0wggfedpk");
-        PlatformConfig.setVKontakte("5764965","5My6SNliAaLxEm3Lyd9J");
-        PlatformConfig.setDropbox("oz8v5apet3arcdy","h7p2pjbzkkxt02a");
+        PlatformConfig.setVKontakte("5764965", "5My6SNliAaLxEm3Lyd9J");
+        PlatformConfig.setDropbox("oz8v5apet3arcdy", "h7p2pjbzkkxt02a");
     }
 
     /**
@@ -158,8 +162,8 @@ public class App extends Application {
     /**
      * 初始化CrashHandler中的Crash信息
      */
-    private void initCrashHandler(){
-        CrashHandler mCrashHandler=CrashHandler.getInstance();
+    private void initCrashHandler() {
+        CrashHandler mCrashHandler = CrashHandler.getInstance();
         mCrashHandler.init(mAppComponent.getConext());
     }
 }

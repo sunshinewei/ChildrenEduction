@@ -2,6 +2,7 @@ package com.example.administrator.childreneduction.ui.me.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -54,8 +55,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
     private TextView mTvFragMeSetting;
     private TextView mTvFragMeSuggest;
     private TextView mTvFragMeAdd;
-
-
+    private TextView mTvFragMeVideo;
 
 
     private MeFragmentPresenter mFragmentPresenter;
@@ -114,6 +114,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeSetting = (TextView) mRootView.findViewById(R.id.tv_frag_me_setting);
         mTvFragMeSuggest = (TextView) mRootView.findViewById(R.id.tv_frag_me_suggest);
         mTvFragMeAdd = (TextView) mRootView.findViewById(R.id.tv_frag_me_add);
+        mTvFragMeVideo = (TextView) mRootView.findViewById(R.id.tv_frag_me_video);
 
         mContext = this.getContext();
         mActivity = this.getActivity();
@@ -184,6 +185,14 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
             @Override
             public void onClick(View v) {
                 startActivity(ArticleActivty.createInent(getContext()));
+            }
+        });
+        //添加视频
+        mTvFragMeVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent=new Intent(getContext(), com.example.administrator.childreneduction.ui.me.activity.MainActivity.class);
+                startActivityForResult(mIntent,Content.REQUEST_VIDEO);
             }
         });
 
@@ -285,4 +294,12 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==Content.REQUEST_VIDEO && resultCode== Content.RESULT_VIDEO){
+            String path = data.getStringExtra("PATH");
+            System.out.println("path"+path);
+        }
+    }
 }

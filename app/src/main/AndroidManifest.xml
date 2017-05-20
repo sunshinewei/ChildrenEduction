@@ -7,6 +7,14 @@
 
     <uses-sdk android:minSdkVersion="8"></uses-sdk>
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -37,7 +45,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:theme">
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -166,58 +175,70 @@
             android:name="UMENG_CHANNEL"
             android:value="Channel ID"/>
 
-         <!--友盟分享与登录-->
+        <!--友盟分享与登录-->
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="58c4ff2eaed17952830000a2" >
+            android:value="58c4ff2eaed17952830000a2">
         </meta-data>
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data android:scheme="tencent1106088961" />
+                <data android:scheme="tencent1106088961"/>
             </intent-filter>
         </activity>
         <activity
-            android:name="com.umeng.qq.tencent.AssistActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
-            android:theme="@style/Theme.UMDefault"
             android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault"
             />
-        <activity android:name=".ui.me.activity.ArticleActivty"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
-            android:configChanges="keyboardHidden|orientation"/>
-        <activity android:name=".ui.home.activity.LookArticleActivity"/>
+
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <!--<activity-->
-            <!--android:name="com.umeng.facebook.FacebookActivity"-->
-            <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
-            <!--android:label="@string/app_name"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <!--android:name="com.umeng.socialize.editorpage.ShareActivity"-->
+        <!--android:theme="@style/Theme.UMDefault"-->
+        <!--android:excludeFromRecents="true"-->
+        <!--/>-->
+        <activity
+            android:name=".ui.me.activity.ArticleActivty"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".ui.home.activity.LookArticleActivity"/>
+        <activity
+            android:name=".ui.me.activity.VideoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.me.activity.MainActivity"/>
+        <!--<activity-->
+        <!--android:name="com.umeng.facebook.FacebookActivity"-->
+        <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <!--<provider-->
-            <!--android:name="com.umeng.facebook.FacebookContentProvider"-->
-            <!--android:authorities="com.facebook.app.FacebookContentProvider"-->
-            <!--android:exported="true" />-->
+        <!--android:name="com.umeng.facebook.FacebookContentProvider"-->
+        <!--android:authorities="com.facebook.app.FacebookContentProvider"-->
+        <!--android:exported="true" />-->
 
         <!--<meta-data-->
-            <!--android:name="com.facebook.sdk.ApplicationId"-->
-            <!--android:value="@string/facebook_app_id" />-->
+        <!--android:name="com.facebook.sdk.ApplicationId"-->
+        <!--android:value="@string/facebook_app_id" />-->
 
     </application>
 

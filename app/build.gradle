@@ -9,6 +9,11 @@ android {
     buildToolsVersion "25.0.2"
     //**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
     useLibrary 'org.apache.http.legacy'
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     defaultConfig {
         applicationId "cn.bmob.android"
         applicationId "com.example.administrator.childreneduction"
@@ -47,7 +52,8 @@ android {
             debug {
                 minifyEnabled true
                 signingConfig signingConfigs.debug
-                proguardFiles 'proguard-rules.pro'
+                debuggable true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
         }
 
@@ -67,7 +73,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.0'
+//    compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
     compile project(':baselibrary')
     compile 'com.google.dagger:dagger:2.4'
@@ -126,11 +132,11 @@ dependencies {
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile 'cn.bmob.android:http-legacy:1.0'
     //    如果需要兼容Android6.0系统，请添加以下两项：
-    compile 'com.android.support:support-v4:23.2.1'
+//    compile 'com.android.support:support-v4:23.2.1'
     compile 'cn.bmob.android:http-legacy:1.0'
     //刷新和加载更多
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
-    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+//    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     compile files('libs/SocialSDK_Sina_Simplify.jar')
     compile files('libs/SocialSDK_WeChat_Simplify.jar')
@@ -142,4 +148,8 @@ dependencies {
     compile files('libs/umeng_social_tool.jar')
     //发表文章
     compile 'com.github.mr5:icarus:0.1.14'
+    //下拉刷新
+    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
+    //权限申请
+    compile 'com.yanzhenjie:permission:1.0.7'
 }
