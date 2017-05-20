@@ -19,6 +19,7 @@ import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.me.activity.ArticleActivty;
 import com.example.administrator.childreneduction.ui.me.iview.MeFragmentUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeFragmentPresenter;
+import com.example.administrator.childreneduction.ui.me.presenter.VideoPublishPresenter;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.google.gson.Gson;
 import com.umeng.socialize.UMAuthListener;
@@ -61,6 +62,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
     private MeFragmentPresenter mFragmentPresenter;
     private Context mContext;
     private Activity mActivity;
+    private SharePrefernceUtils mPrefernceUtils;
+    private Gson gson;
 
     private boolean isExit;
     boolean isauth;
@@ -191,8 +194,9 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent=new Intent(getContext(), com.example.administrator.childreneduction.ui.me.activity.MainActivity.class);
-                startActivityForResult(mIntent,Content.REQUEST_VIDEO);
+                Intent mIntent=new Intent(getContext(), VideoPublishPresenter.class);
+                startActivity(mIntent);
+
             }
         });
 
@@ -294,12 +298,4 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==Content.REQUEST_VIDEO && resultCode== Content.RESULT_VIDEO){
-            String path = data.getStringExtra("PATH");
-            System.out.println("path"+path);
-        }
-    }
 }

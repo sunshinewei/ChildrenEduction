@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color_text_blank_100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_activity_video_back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="视频"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:textSize="@dimen/dime_text_title_size"
+                android:textColor="@color/color_text_blank_600"
+                />
+
+            <TextView
+                android:id="@+id/tv_activity_video_pub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:gravity="end"
+                android:text="发布"
+                android:textColor="@color/color_text_blank_600"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+    <EditText
+        android:id="@+id/edt_activity_video_tilte"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_text_blank_100"
+        android:textColor="@color/color_text_blank_700"
+        android:layout_marginTop="1dp"
+        android:textSize="@dimen/dime_text_title_size"
+        android:hint="请输入标题"
+        android:layout_marginBottom="1dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:maxLines="1"
+        />
+
+    <EditText
+        android:id="@+id/edt_activity_video_contebt"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/color_text_blank_100"
+        android:textColor="@color/color_text_blank_700"
+        android:layout_marginTop="1dp"
+        android:textSize="@dimen/dime_text_title_size"
+        android:hint="身边的新鲜事"
+        android:gravity="start"
+        android:layout_marginBottom="1dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp"
+        android:maxLines="1"
+        />
+    <ImageView
+        android:id="@+id/img_act_video_recode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/vedio"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>
