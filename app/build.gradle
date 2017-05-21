@@ -152,4 +152,6 @@ dependencies {
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
     //权限申请
     compile 'com.yanzhenjie:permission:1.0.7'
+    //视频播放
+    compile 'fm.jiecao:jiecaovideoplayer:5.5.4'
 }
