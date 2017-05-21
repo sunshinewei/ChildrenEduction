@@ -3,10 +3,48 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recy_frag_coll_item"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="收藏中心"
+        android:textSize="@dimen/dime_text_title_size"
+        android:textColor="@color/color_text_blank_800"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_frag_coll_art"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="文章"
+            android:gravity="center"
+            android:textSize="@dimen/dime_text_title_size"
+            android:textColor="@color/color_text_blank_700"
+            />
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/color_text_blank_600"/>
+        <TextView
+            android:id="@+id/tv_frag_coll_video"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="视频"
+            android:gravity="center"
+            android:textSize="@dimen/dime_text_title_size"
+            android:textColor="@color/color_text_blank_700"
+            />
+
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/fram_fram_coll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
 
+    </FrameLayout>
 </LinearLayout>

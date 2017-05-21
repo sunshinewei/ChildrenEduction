@@ -102,6 +102,8 @@ public class LookArticleActivity extends EduBaseActivity {
                 UA_Table ua_table=new UA_Table();
                 ua_table.setU_id(loginInfo.getId());
                 ua_table.setA_id(extra.getObjectId());
+                ua_table.setA_title(extra.getA_title());
+                ua_table.setAu_name(extra.getU_name());
                 ua_table.setUa_coll("1");
                 ua_table.save(LookArticleActivity.this, new SaveListener() {
                     @Override

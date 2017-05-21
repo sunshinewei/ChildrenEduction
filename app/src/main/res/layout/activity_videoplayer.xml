@@ -2,6 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
+
+    <com.afollestad.easyvideoplayer.EasyVideoPlayer
+        android:id="@+id/evp_act_vp_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:evp_autoPlay="false"
+        app:evp_customLabelText="Custom label text if rightAction is customLabel"
+        app:evp_disableControls="false"
+        app:evp_hideControlsOnPlay="true"
+        app:evp_leftAction="restart"
+        app:evp_pauseDrawable="@drawable/evp_action_pause"
+        app:evp_playDrawable="@drawable/evp_action_play"
+        app:evp_restartDrawable="@drawable/evp_action_restart"
+        app:evp_retryText="@string/evp_retry"
+        app:evp_rightAction="none"
+        app:evp_submitText="@string/evp_submit"
+        app:evp_autoFullscreen="false"
+        app:evp_loop="false"/>
 
 </LinearLayout>

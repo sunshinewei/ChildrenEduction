@@ -1,5 +1,6 @@
 package com.example.administrator.childreneduction.ui.vedio.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
+import com.example.administrator.childreneduction.ui.vedio.activity.VideoPlayerActivity;
 import com.example.administrator.childreneduction.ui.vedio.adapter.VedioAdapter;
 import com.example.administrator.childreneduction.ui.vedio.iview.VedioFragmentUI;
 import com.example.administrator.childreneduction.ui.vedio.presenter.VedioFragmentPresenter;
@@ -39,7 +41,7 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI {
         mRecyFragVedioItem = (RecyclerView) mRootView.findViewById(R.id.recy_frag_vedio_item);
     }
 
-    private void initRecyclerView(List<VedioTable> vedioTable){
+    private void initRecyclerView(final List<VedioTable> vedioTable){
         RecyclerView.LayoutManager manager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         mRecyFragVedioItem.setLayoutManager(manager);
         mRecyFragVedioItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
@@ -50,6 +52,13 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI {
             @Override
             public void setOnClickListener(View view, int position) {
                 Toast.makeText(getContext(),"点击了"+position,Toast.LENGTH_LONG);
+
+                VedioTable vedio = vedioTable.get(position);
+                if (vedioTable!=null){
+                    Intent intent = VideoPlayerActivity.createIntent(getContext());
+                    intent.putExtra("VEDIO", vedio);
+                    startActivity(intent);
+                }
             }
         });
     }

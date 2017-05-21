@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="120dp"
+                                    android:background="#FFFF"
+                                    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_adapter_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            />
+        <LinearLayout
+            android:id="@+id/user_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_adapter_home_user"
+                style="@style/commen_text_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="生命练习"
+                android:textSize="@dimen/dimen_text_anno_size"/>
+
+            <TextView
+                android:id="@+id/tv_adapter_home_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:gravity="end"
+                android:text="2017-08-09"
+                android:textSize="@dimen/dimen_text_anno_size"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_adapter_home_tile"
+            style="@style/commen_text_title"
+            android:layout_below="@+id/user_info"
+            android:layout_marginTop="10dp"
+            android:text="关于教育孩子的几点心得"
+            />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

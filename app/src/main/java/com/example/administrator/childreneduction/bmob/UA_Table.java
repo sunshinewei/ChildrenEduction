@@ -10,9 +10,27 @@ public class UA_Table extends BmobObject {
 
     private String u_id;
     private String a_id;
+    private String a_title;
+    private String au_name;
     private String ua_comm;
     private String ua_coll;
     private String ua_laud;
+
+    public String getA_title() {
+        return a_title;
+    }
+
+    public void setA_title(String a_title) {
+        this.a_title = a_title;
+    }
+
+    public String getAu_name() {
+        return au_name;
+    }
+
+    public void setAu_name(String au_name) {
+        this.au_name = au_name;
+    }
 
     public String getU_id() {
         return u_id;

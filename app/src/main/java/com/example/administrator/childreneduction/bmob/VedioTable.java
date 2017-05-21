@@ -1,5 +1,7 @@
 package com.example.administrator.childreneduction.bmob;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -7,7 +9,7 @@ import cn.bmob.v3.BmobObject;
  * 视频信息表
  */
 
-public class VedioTable extends BmobObject {
+public class VedioTable extends BmobObject implements Serializable{
     private String v_id;
     private String u_id;
     private String u_name;

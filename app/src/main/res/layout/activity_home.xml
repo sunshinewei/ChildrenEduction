@@ -23,12 +23,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_vertical|center">
             <TextView
                 android:id="@+id/tv_act_main_homeimg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/home"/>
+                android:background="@mipmap/articled"/>
             <TextView
                 android:id="@+id/tv_act_main_hometext"
                 android:text="首页"
@@ -40,12 +40,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_vertical|center">
             <TextView
                 android:id="@+id/tv_act_main_vedioimg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/home"/>
+                android:background="@mipmap/video"/>
             <TextView
                 android:id="@+id/tv_act_main_vediotext"
                 android:text="视频"
@@ -57,12 +57,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_vertical|center">
             <TextView
                 android:id="@+id/tv_act_main_collimg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/home"/>
+                android:background="@mipmap/collect"/>
             <TextView
                 android:id="@+id/tv_act_main_colltext"
                 android:text="收藏"
@@ -74,12 +74,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_vertical|center">
             <TextView
                 android:id="@+id/tv_act_main_meimg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/home"/>
+                android:background="@mipmap/me"/>
             <TextView
                 android:id="@+id/tv_act_main_metext"
                 android:text="我的"

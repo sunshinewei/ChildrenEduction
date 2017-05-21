@@ -10,9 +10,28 @@ import cn.bmob.v3.BmobObject;
 public class UV_Table extends BmobObject {
     private String u_id;
     private String v_id;
+    private String vu_name;
+    private String vu_title;
     private String uv_comm;
+    private String uv_url;
     private String uv_coll;
     private String uv_laud;
+
+    public String getVu_name() {
+        return vu_name;
+    }
+
+    public void setVu_name(String vu_name) {
+        this.vu_name = vu_name;
+    }
+
+    public String getVu_title() {
+        return vu_title;
+    }
+
+    public void setVu_title(String vu_title) {
+        this.vu_title = vu_title;
+    }
 
     public String getU_id() {
         return u_id;
@@ -52,5 +71,13 @@ public class UV_Table extends BmobObject {
 
     public void setUv_laud(String uv_laud) {
         this.uv_laud = uv_laud;
+    }
+
+    public String getUv_url() {
+        return uv_url;
+    }
+
+    public void setUv_url(String uv_url) {
+        this.uv_url = uv_url;
     }
 }
