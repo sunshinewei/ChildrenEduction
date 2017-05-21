@@ -17,9 +17,9 @@ import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.me.activity.ArticleActivty;
+import com.example.administrator.childreneduction.ui.me.activity.VideoPublishActivity;
 import com.example.administrator.childreneduction.ui.me.iview.MeFragmentUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeFragmentPresenter;
-import com.example.administrator.childreneduction.ui.me.presenter.VideoPublishPresenter;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.google.gson.Gson;
 import com.umeng.socialize.UMAuthListener;
@@ -194,7 +194,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent=new Intent(getContext(), VideoPublishPresenter.class);
+                Intent mIntent=new Intent(getContext(), VideoPublishActivity.class);
                 startActivity(mIntent);
 
             }

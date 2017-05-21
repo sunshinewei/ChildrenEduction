@@ -10,6 +10,7 @@ import cn.bmob.v3.BmobObject;
 public class VedioTable extends BmobObject {
     private String v_id;
     private String u_id;
+    private String u_name;
     private String v_title;
     private String v_content;
     private String v_label;
@@ -18,6 +19,14 @@ public class VedioTable extends BmobObject {
     private String v_url;
     private String v_coll;
     private String v_comm;
+
+    public String getU_name() {
+        return u_name;
+    }
+
+    public void setU_name(String u_name) {
+        this.u_name = u_name;
+    }
 
     public String getU_id() {
         return u_id;

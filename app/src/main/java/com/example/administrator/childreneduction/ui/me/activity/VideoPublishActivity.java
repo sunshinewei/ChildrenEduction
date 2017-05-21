@@ -78,6 +78,7 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
                 }
                 VedioTable vedioTable=new VedioTable();
                 vedioTable.setU_id(loginInfo.getId());
+                vedioTable.setU_name(loginInfo.getName());
                 vedioTable.setV_coll("0");
                 vedioTable.setV_comm("0");
                 vedioTable.setV_title(title);
