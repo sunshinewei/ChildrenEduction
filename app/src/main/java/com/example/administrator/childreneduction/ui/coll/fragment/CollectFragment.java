@@ -25,6 +25,10 @@ public class CollectFragment extends BaseFagment {
 
     private  FragmentManager mManager;
 
+    public static CollectFragment newInstance(){
+        return new CollectFragment();
+    }
+
     @Override
     public int getLayOutID() {
         return R.layout.fragment_collect;

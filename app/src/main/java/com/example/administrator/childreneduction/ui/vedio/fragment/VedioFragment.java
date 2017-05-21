@@ -30,6 +30,9 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI {
 
     private VedioFragmentPresenter mFragmentPresenter;
 
+    public static VedioFragment newInstance(){
+        return new VedioFragment();
+    }
 
     @Override
     public int getLayOutID() {

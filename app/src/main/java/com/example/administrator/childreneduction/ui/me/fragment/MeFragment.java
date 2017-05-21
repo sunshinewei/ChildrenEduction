@@ -68,6 +68,10 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
     private boolean isExit;
     boolean isauth;
 
+    public static MeFragment newInstance(){
+        return new MeFragment();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

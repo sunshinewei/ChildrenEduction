@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.afollestad.easyvideoplayer.EasyVideoPlayer
         android:id="@+id/evp_act_vp_player"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/user_care"
         app:evp_autoPlay="false"
         app:evp_customLabelText="Custom label text if rightAction is customLabel"
         app:evp_disableControls="false"
@@ -23,4 +23,28 @@
         app:evp_autoFullscreen="false"
         app:evp_loop="false"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|end"
+        android:id="@+id/user_care"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/img_adapter_home_coll"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/coll"
+            />
+
+        <ImageView
+            android:id="@+id/img_adapter_home_share"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/share"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

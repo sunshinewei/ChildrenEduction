@@ -1,5 +1,7 @@
 package com.example.administrator.childreneduction.ui.coll.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +38,12 @@ public class VideoCollFragment extends BaseFagment implements BGARefreshLayout.B
     private LoginInfo login;
     private SharePrefernceUtils mPrefernceUtils;
     private Gson mGson;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     public static VideoCollFragment newInsatance(){
         return new VideoCollFragment();

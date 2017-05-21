@@ -32,6 +32,10 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI{
 
     private HomeFragmentPresenter mFragmentPresenter;
 
+    public static HomeFragment newInstance(){
+        return new HomeFragment();
+    }
+
     @Override
     public int getLayOutID() {
         return R.layout.fragment_home;

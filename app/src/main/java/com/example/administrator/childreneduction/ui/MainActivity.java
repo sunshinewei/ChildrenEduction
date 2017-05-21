@@ -86,10 +86,10 @@ public class MainActivity extends EduBaseActivity implements ViewPager.OnPageCha
      */
     private void initFragment() {
         mFragments = new ArrayList<>();
-        mCollectFragment = new CollectFragment();
-        mMeFragment = new MeFragment();
-        mHomeFragment = new HomeFragment();
-        mVedioFragment = new VedioFragment();
+        mCollectFragment = CollectFragment.newInstance();
+        mMeFragment = MeFragment.newInstance();
+        mHomeFragment = HomeFragment.newInstance();
+        mVedioFragment = VedioFragment.newInstance();
         mFragments.add(mHomeFragment);
         mFragments.add(mVedioFragment);
         mFragments.add(mCollectFragment);
