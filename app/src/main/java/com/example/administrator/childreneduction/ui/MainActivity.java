@@ -79,6 +79,9 @@ public class MainActivity extends EduBaseActivity implements ViewPager.OnPageCha
 
     private void setListener() {
         mTvActMainHomeimg.setOnClickListener(this);
+        mTvActMainMeimg.setOnClickListener(this);
+        mTvActMainVedioimg.setOnClickListener(this);
+        mTvActMainCollimg.setOnClickListener(this);
     }
 
     /**
@@ -138,18 +141,24 @@ public class MainActivity extends EduBaseActivity implements ViewPager.OnPageCha
         switch (position) {
             case 0:
                 mVpActMainShow.setCurrentItem(position);
+                initButton(R.id.tv_act_main_homeimg,0);
                 break;
             case 1:
+                initButton(R.id.tv_act_main_vedioimg,1);
                 mVpActMainShow.setCurrentItem(position);
                 break;
             case 2:
+                initButton(R.id.tv_act_main_collimg,2);
                 mVpActMainShow.setCurrentItem(position);
                 break;
             case 3:
+                initButton(R.id.tv_act_main_meimg,3);
                 mVpActMainShow.setCurrentItem(position);
                 break;
         }
     }
+
+
 
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -159,7 +168,21 @@ public class MainActivity extends EduBaseActivity implements ViewPager.OnPageCha
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_act_main_hometext:
+            case R.id.tv_act_main_homeimg:
+                mVpActMainShow.setCurrentItem(0);
+                initButton(v.getId(),6);
+                break;
+            case R.id.tv_act_main_vedioimg:
+                mVpActMainShow.setCurrentItem(1);
+                initButton(v.getId(),6);
+                break;
+            case R.id.tv_act_main_collimg:
+                mVpActMainShow.setCurrentItem(2);
+                initButton(v.getId(),6);
+                break;
+            case R.id.tv_act_main_meimg:
+                mVpActMainShow.setCurrentItem(3);
+                initButton(v.getId(),6);
                 break;
         }
     }
@@ -191,6 +214,66 @@ public class MainActivity extends EduBaseActivity implements ViewPager.OnPageCha
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 显示按钮和字体
+     * @param id
+     * @param position
+     */
+    private void initButton(int id,int position ){
+        if (position==0 || id==R.id.tv_act_main_homeimg){
+            mTvActMainHomeimg.setBackground(getResources().getDrawable(R.mipmap.articled));
+            mTvActMainHometext.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
+
+            mTvActMainVedioimg.setBackground(getResources().getDrawable(R.mipmap.video));
+            mTvActMainVediotext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainCollimg.setBackground(getResources().getDrawable(R.mipmap.collect));
+            mTvActMainColltext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainMeimg.setBackground(getResources().getDrawable(R.mipmap.me));
+            mTvActMainMetext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+        }
+        if (position==1 || id==R.id.tv_act_main_vedioimg){
+            mTvActMainHomeimg.setBackground(getResources().getDrawable(R.mipmap.arctle));
+            mTvActMainHometext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainVedioimg.setBackground(getResources().getDrawable(R.mipmap.videoed));
+            mTvActMainVediotext.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
+
+            mTvActMainCollimg.setBackground(getResources().getDrawable(R.mipmap.collect));
+            mTvActMainColltext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainMeimg.setBackground(getResources().getDrawable(R.mipmap.me));
+            mTvActMainMetext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+        }
+        if (position==2 || id==R.id.tv_act_main_collimg){
+            mTvActMainHomeimg.setBackground(getResources().getDrawable(R.mipmap.arctle));
+            mTvActMainHometext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainVedioimg.setBackground(getResources().getDrawable(R.mipmap.video));
+            mTvActMainVediotext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainCollimg.setBackground(getResources().getDrawable(R.mipmap.collected));
+            mTvActMainColltext.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
+
+            mTvActMainMeimg.setBackground(getResources().getDrawable(R.mipmap.me));
+            mTvActMainMetext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+        }
+        if (position==3 || id==R.id.tv_act_main_meimg){
+            mTvActMainHomeimg.setBackground(getResources().getDrawable(R.mipmap.arctle));
+            mTvActMainHometext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainVedioimg.setBackground(getResources().getDrawable(R.mipmap.video));
+            mTvActMainVediotext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainCollimg.setBackground(getResources().getDrawable(R.mipmap.collect));
+            mTvActMainColltext.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+
+            mTvActMainMeimg.setBackground(getResources().getDrawable(R.mipmap.med));
+            mTvActMainMetext.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
+        }
     }
 
 }
