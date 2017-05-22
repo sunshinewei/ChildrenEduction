@@ -5,4 +5,6 @@
     <string name="tv_me_frag_message">消息通知</string>
     <string name="tv_me_fragment_add">添加文章</string>
     <string name="string_frag_me_video">添加视频</string>
+    <string name="string_me_frag_mearct">我的文章</string>
+    <string name="string_me_frag_mevideo">我的视频</string>
 </resources>

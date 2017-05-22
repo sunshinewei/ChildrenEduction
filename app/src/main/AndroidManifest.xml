@@ -228,6 +228,8 @@
         <activity android:name=".ui.me.activity.VideoPublishActivity"/>
         <activity android:name=".ui.vedio.activity.VideoPlayerActivity"
                   android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"/>
+        <activity android:name=".ui.me.activity.MeArticleActivity"/>
+        <activity android:name=".ui.me.activity.MeVideoActivity"/>
         <!--<activity-->
         <!--android:name="com.umeng.facebook.FacebookActivity"-->
         <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->

@@ -17,6 +17,8 @@ import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.me.activity.ArticleActivty;
+import com.example.administrator.childreneduction.ui.me.activity.MeArticleActivity;
+import com.example.administrator.childreneduction.ui.me.activity.MeVideoActivity;
 import com.example.administrator.childreneduction.ui.me.activity.VideoPublishActivity;
 import com.example.administrator.childreneduction.ui.me.iview.MeFragmentUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeFragmentPresenter;
@@ -57,6 +59,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
     private TextView mTvFragMeSuggest;
     private TextView mTvFragMeAdd;
     private TextView mTvFragMeVideo;
+    private TextView mTvFragMeMearct;
+    private TextView mTvFragMeMevideo;
 
 
     private MeFragmentPresenter mFragmentPresenter;
@@ -68,7 +72,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
     private boolean isExit;
     boolean isauth;
 
-    public static MeFragment newInstance(){
+    public static MeFragment newInstance() {
         return new MeFragment();
     }
 
@@ -122,6 +126,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeSuggest = (TextView) mRootView.findViewById(R.id.tv_frag_me_suggest);
         mTvFragMeAdd = (TextView) mRootView.findViewById(R.id.tv_frag_me_add);
         mTvFragMeVideo = (TextView) mRootView.findViewById(R.id.tv_frag_me_video);
+        mTvFragMeMearct = (TextView) mRootView.findViewById(R.id.tv_frag_me_mearct);
+        mTvFragMeMevideo = (TextView) mRootView.findViewById(R.id.tv_frag_me_mevideo);
 
         mContext = this.getContext();
         mActivity = this.getActivity();
@@ -198,9 +204,23 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent=new Intent(getContext(), VideoPublishActivity.class);
+                Intent mIntent = new Intent(getContext(), VideoPublishActivity.class);
                 startActivity(mIntent);
 
+            }
+        });
+        //我的文章
+        mTvFragMeMearct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MeArticleActivity.createIntent(getContext()));
+            }
+        });
+        //我的视频
+        mTvFragMeMevideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MeVideoActivity.createIntent(getContext()));
             }
         });
 
@@ -245,15 +265,15 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         final String name = map.get("name");
         final String gender = map.get("gender");
         final String iconurl = map.get("iconurl");
-        LoginInfo loginInfo=new LoginInfo();
+        LoginInfo loginInfo = new LoginInfo();
         loginInfo.setId(uid);
         loginInfo.setName(name);
         loginInfo.setSex(gender);
         loginInfo.setUrl(iconurl);
-        Gson gson=new Gson();
+        Gson gson = new Gson();
         String s = gson.toJson(loginInfo);
-        SharePrefernceUtils sharePrefernceUtils=new SharePrefernceUtils(getContext(), Content.SP_NAME);
-        sharePrefernceUtils.putString(Content.SP_NAME,s);
+        SharePrefernceUtils sharePrefernceUtils = new SharePrefernceUtils(getContext(), Content.SP_NAME);
+        sharePrefernceUtils.putString(Content.SP_NAME, s);
         System.out.println("返回信息" + uid + ":" + name + ":" + iconurl);
         mUserLogin.setVisibility(View.GONE);
         mUserLogined.setVisibility(View.VISIBLE);
@@ -268,9 +288,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                 if (list.size() > 0) {
                     System.out.println("存在此用户，不需要再次添加！");
                     isExit = true;
-                }
-                else {
-                    System.out.println("size"+list.size());
+                } else {
+                    System.out.println("size" + list.size());
                     UserTable userTable = new UserTable();
                     userTable.setU_id(uid);
                     userTable.setU_name(name);
@@ -281,6 +300,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                         public void onSuccess() {
                             System.out.println("用户保存成功！");
                         }
+
                         @Override
                         public void onFailure(int i, String s) {
 
@@ -294,8 +314,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
 
             }
         });
-            Toast.makeText(getContext(), "返回信息" + uid + ":" + name + ":" + iconurl, Toast.LENGTH_SHORT);
-        }
+        Toast.makeText(getContext(), "返回信息" + uid + ":" + name + ":" + iconurl, Toast.LENGTH_SHORT);
+    }
 
     @Override
     public void login_fail() {

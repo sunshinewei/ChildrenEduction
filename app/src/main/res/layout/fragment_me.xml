@@ -169,6 +169,46 @@
         android:layout_marginTop="2dp">
 
         <TextView
+            android:id="@+id/tv_frag_me_mearct"
+            style="@style/style_item_mefragment"
+            android:text="@string/string_me_frag_mearct"
+            />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
+
+        <TextView
+            android:id="@+id/tv_frag_me_mevideo"
+            style="@style/style_item_mefragment"
+            android:text="@string/string_me_frag_mevideo"
+            />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
+
+        <TextView
             android:id="@+id/tv_frag_me_mesg"
             style="@style/style_item_mefragment"
             android:text="@string/tv_me_frag_message"
