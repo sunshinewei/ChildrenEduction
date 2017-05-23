@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.ui.coll.fragment.CollectFragment;
@@ -106,6 +107,7 @@ public class MainActivity extends EduBaseActivity implements ViewPager.OnPageCha
         FragmentManager manager = getSupportFragmentManager();
         mVPAdapter = new VPAdapter(manager, mFragments);
         mVpActMainShow.setAdapter(mVPAdapter);
+        mVpActMainShow.setPageTransformer(true, new RotateUpTransformer());
         mVpActMainShow.addOnPageChangeListener(this);
     }
 

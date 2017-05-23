@@ -31,15 +31,28 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
     private SharePrefernceUtils mPrefernceUtils;
 
     private LoginInfo loginInfo;
-    public HomeAdapter(Context mContext, List<ArticleTable> list) {
+    public HomeAdapter(Context mContext) {
         this.mContext = mContext;
-        this.list = list;
         mPrefernceUtils=new SharePrefernceUtils(mContext, Content.SP_NAME);
         Gson gson = new Gson();
         String string = mPrefernceUtils.getString(Content.SP_NAME);
         loginInfo = gson.fromJson(string, LoginInfo.class);
     }
 
+    public void refresh(List<ArticleTable> lis){
+        if (list!=null){
+            list.clear();
+        }
+        this.list=lis;
+    }
+
+    public void addData(List<ArticleTable> lis){
+        list.addAll(lis);
+    }
+
+    public List<ArticleTable> getList() {
+        return list;
+    }
 
     @Override
     public HViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

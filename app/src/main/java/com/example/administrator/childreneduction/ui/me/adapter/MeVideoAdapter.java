@@ -57,6 +57,9 @@ public class MeVideoAdapter extends RecyclerView.Adapter<MeVideoAdapter.CViewHol
         }
     }
 
+    public List<VedioTable> getList() {
+        return mList;
+    }
 
     @Override
     public CViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

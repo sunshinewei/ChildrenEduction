@@ -37,9 +37,23 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.VViewHolder>
 
     private OnClickListener mOnClickListener;
 
-    public VedioAdapter(Context mContext,List<VedioTable> list) {
+    public VedioAdapter(Context mContext) {
         this.mContext = mContext;
-        this.mList=list;
+    }
+
+    public void refresh(List<VedioTable> vedioTable){
+        if (mList!=null){
+            mList.clear();
+        }
+        mList=vedioTable;
+    }
+
+    public void addData(List<VedioTable> vedioTable){
+        mList.addAll(vedioTable);
+    }
+
+    public List<VedioTable> getList() {
+        return mList;
     }
 
     @Override

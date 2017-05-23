@@ -1,5 +1,7 @@
 package com.example.administrator.childreneduction.ui.coll.fragment;
 
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +15,14 @@ import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.coll.adapter.ArticleCollAdapter;
 import com.example.administrator.childreneduction.ui.coll.iview.ArticleFragmentUI;
 import com.example.administrator.childreneduction.ui.coll.presenter.ArticleCollPresenter;
+import com.example.administrator.childreneduction.ui.home.activity.LookArticleActivity;
+import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
 import com.google.gson.Gson;
+import com.willowtreeapps.spruce.Spruce;
+import com.willowtreeapps.spruce.animation.DefaultAnimations;
+import com.willowtreeapps.spruce.sort.DefaultSort;
 
 import java.util.List;
 
@@ -66,11 +73,30 @@ public class ArticleCollFragment extends BaseFagment implements BGARefreshLayout
     }
 
     private void initRecyclerView(){
-        RecyclerView.LayoutManager manager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        RecyclerView.LayoutManager manager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false){
+            @Override
+            public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+                super.onLayoutChildren(recycler, state);
+                new Spruce.SpruceBuilder(mRecyFramArtcollItem)
+                        .sortWith(new DefaultSort(100))
+                        .animateWith(DefaultAnimations.shrinkAnimator(mRecyFramArtcollItem, 800),
+                                ObjectAnimator.ofFloat(mRecyFramArtcollItem, "translationX", -mRecyFramArtcollItem.getWidth(), 0f).setDuration(800))
+                        .start();
+            }
+        };
         mRecyFramArtcollItem.setLayoutManager(manager);
         mRecyFramArtcollItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
         mCollectAdapter=new ArticleCollAdapter(getContext());
         mRecyFramArtcollItem.setAdapter(mCollectAdapter);
+
+        mCollectAdapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void setOnClickListener(View view, int position) {
+                UA_Table ua_table = mCollectAdapter.getList().get(position);
+                Intent intent = LookArticleActivity.createIntent(getContext());
+                intent.putExtra(Content.ARTICLE_INFO,ua_table);
+            }
+        });
     }
 
     @Override

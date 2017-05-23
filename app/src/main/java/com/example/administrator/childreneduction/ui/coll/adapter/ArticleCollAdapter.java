@@ -46,6 +46,9 @@ public class ArticleCollAdapter extends RecyclerView.Adapter<ArticleCollAdapter.
         }
     }
 
+    public List<UA_Table> getList() {
+        return mList;
+    }
 
     @Override
     public CViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -1,22 +1,29 @@
 package com.example.administrator.childreneduction.ui.me.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.ui.me.adapter.MeVideoAdapter;
 import com.example.administrator.childreneduction.ui.me.iview.MeVideoUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeVideoPresenter;
+import com.example.administrator.childreneduction.ui.vedio.activity.VideoPlayerActivity;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
 import com.example.baselibrary.base.BaseActivity;
 import com.google.gson.Gson;
+import com.willowtreeapps.spruce.Spruce;
+import com.willowtreeapps.spruce.animation.DefaultAnimations;
+import com.willowtreeapps.spruce.sort.DefaultSort;
 
 import java.util.List;
 
@@ -72,11 +79,31 @@ public class MeVideoActivity extends BaseActivity implements MeVideoUI, BGARefre
     }
 
     private void initRecyclerView(){
-        RecyclerView.LayoutManager manager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        RecyclerView.LayoutManager manager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false){
+            @Override
+            public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+                super.onLayoutChildren(recycler, state);
+                new Spruce.SpruceBuilder(mRecyActViditem)
+                        .sortWith(new DefaultSort(100))
+                        .animateWith(DefaultAnimations.shrinkAnimator(mRecyActViditem, 800),
+                                ObjectAnimator.ofFloat(mRecyActViditem, "translationX", -mRecyActViditem.getWidth(), 0f).setDuration(800))
+                        .start();
+            }
+        };
         mRecyActViditem.setLayoutManager(manager);
         mRecyActViditem.addItemDecoration(new RecycleViewDivider(this, DividerItemDecoration.VERTICAL));
         mVideoAdapter=new MeVideoAdapter(this);
         mRecyActViditem.setAdapter(mVideoAdapter);
+
+       mVideoAdapter.setOnClickListener(new OnClickListener() {
+           @Override
+           public void setOnClickListener(View view, int position) {
+               VedioTable vedioTable = mVideoAdapter.getList().get(position);
+               Intent intent = VideoPlayerActivity.createIntent(MeVideoActivity.this);
+               intent.putExtra("VEDIO", vedioTable);
+               startActivity(intent);
+           }
+       });
     }
 
     @Override

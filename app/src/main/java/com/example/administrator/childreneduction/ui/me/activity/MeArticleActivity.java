@@ -1,15 +1,19 @@
 package com.example.administrator.childreneduction.ui.me.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.home.activity.LookArticleActivity;
+import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.ui.me.adapter.MeArticleAdapter;
 import com.example.administrator.childreneduction.ui.me.iview.MeArticleUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeArticlePresenter;
@@ -17,6 +21,9 @@ import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
 import com.example.baselibrary.base.BaseActivity;
 import com.google.gson.Gson;
+import com.willowtreeapps.spruce.Spruce;
+import com.willowtreeapps.spruce.animation.DefaultAnimations;
+import com.willowtreeapps.spruce.sort.DefaultSort;
 
 import java.util.List;
 
@@ -72,11 +79,31 @@ public class MeArticleActivity extends BaseActivity implements BGARefreshLayout.
     }
 
     private void initRecyclerView(){
-        RecyclerView.LayoutManager manager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        RecyclerView.LayoutManager manager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false){
+            @Override
+            public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+                super.onLayoutChildren(recycler, state);
+                new Spruce.SpruceBuilder(mRecyActItem)
+                        .sortWith(new DefaultSort(100))
+                        .animateWith(DefaultAnimations.shrinkAnimator(mRecyActItem, 800),
+                                ObjectAnimator.ofFloat(mRecyActItem, "translationX", -mRecyActItem.getWidth(), 0f).setDuration(800))
+                        .start();
+            }
+        };
         mRecyActItem.setLayoutManager(manager);
         mRecyActItem.addItemDecoration(new RecycleViewDivider(this, DividerItemDecoration.VERTICAL));
         mArticleAdapter=new MeArticleAdapter(this);
         mRecyActItem.setAdapter(mArticleAdapter);
+
+        mArticleAdapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void setOnClickListener(View view, int position) {
+                ArticleTable articleTable = mArticleAdapter.getList().get(position);
+                Intent intent = LookArticleActivity.createIntent(MeArticleActivity.this);
+                intent.putExtra(Content.ARTICLE_INFO,articleTable);
+                startActivity(intent);
+            }
+        });
     }
 
 

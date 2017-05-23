@@ -19,6 +19,7 @@ import cn.bmob.v3.listener.FindListener;
 public class VedioFragmentPresenter {
 
     private VedioFragmentUI mFragmentUI;
+    private int page=1;
     public VedioFragmentPresenter(VedioFragmentUI fragmentUI){
         this.mFragmentUI=fragmentUI;
     }
@@ -28,8 +29,12 @@ public class VedioFragmentPresenter {
      * 获取视频条目
      * @param mContext
      */
-    public void video_item(Context mContext){
+    public void video_item(Context mContext,int state){
         BmobQuery<VedioTable> query=new BmobQuery<>();
+        if (state==1){
+            page++;
+            query.setSkip(page*10+1);
+        }
         query.findObjects(mContext, new FindListener<VedioTable>() {
             @Override
             public void onSuccess(List<VedioTable> list) {

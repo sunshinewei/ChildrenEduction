@@ -160,4 +160,8 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.0.7'
     //视频播放
     compile 'com.afollestad:easyvideoplayer:0.3.0'
+    //动画
+    compile 'com.willowtreeapps.spruce:spruce-android:1.0.0'
+    //viewpager
+    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
 }

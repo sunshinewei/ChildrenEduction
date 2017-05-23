@@ -17,14 +17,20 @@ import cn.bmob.v3.listener.FindListener;
 public class HomeFragmentPresenter {
 
     private HomeFragmentUI mFragmentUI;
+    private int page=1;
 
     public HomeFragmentPresenter(HomeFragmentUI fragmentUI){
         this.mFragmentUI=fragmentUI;
     }
 
-    public void getArticle(Context mContext){
+    public void getArticle(Context mContext,int state){
         BmobQuery<ArticleTable> query=new BmobQuery<>();
-        query.setLimit(20);
+        query.setLimit(10);
+        if (state==1){
+            page++;
+            query.setSkip(page*10+1);
+        }
+
         query.findObjects(mContext, new FindListener<ArticleTable>() {
             @Override
             public void onSuccess(List<ArticleTable> list) {

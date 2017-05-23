@@ -46,6 +46,9 @@ public class MeArticleAdapter extends RecyclerView.Adapter<MeArticleAdapter.CVie
         }
     }
 
+    public List<ArticleTable> getList() {
+        return mList;
+    }
 
     @Override
     public CViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

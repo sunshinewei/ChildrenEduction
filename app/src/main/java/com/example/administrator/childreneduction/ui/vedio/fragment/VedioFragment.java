@@ -19,18 +19,25 @@ import com.example.administrator.childreneduction.widgets.recyclerview.RecycleVi
 
 import java.util.List;
 
+import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+
+import static com.example.administrator.childreneduction.R.mipmap.vedio;
+
 /**
  * Created by Administrator on 2017/5/7.
  */
 
-public class VedioFragment extends BaseFagment implements VedioFragmentUI {
+public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARefreshLayout.BGARefreshLayoutDelegate {
     private RecyclerView mRecyFragVedioItem;
 
     private VedioAdapter mVedioAdapter;
-
+    private BGARefreshLayout mRefresh;
     private VedioFragmentPresenter mFragmentPresenter;
 
-    public static VedioFragment newInstance(){
+    private int state;
+
+    public static VedioFragment newInstance() {
         return new VedioFragment();
     }
 
@@ -42,22 +49,29 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI {
     @Override
     public void initView(View mRootView) {
         mRecyFragVedioItem = (RecyclerView) mRootView.findViewById(R.id.recy_frag_vedio_item);
+        mRefresh = (BGARefreshLayout) mRootView.findViewById(R.id.refresh);
+        initRecyclerView();
     }
 
-    private void initRecyclerView(final List<VedioTable> vedioTable){
-        RecyclerView.LayoutManager manager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+    private void initRecyclerView() {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyFragVedioItem.setLayoutManager(manager);
         mRecyFragVedioItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
-        mVedioAdapter=new VedioAdapter(getContext(),vedioTable);
+        mVedioAdapter = new VedioAdapter(getContext());
         mRecyFragVedioItem.setAdapter(mVedioAdapter);
 
+        setListener();
+    }
+
+    private void setListener() {
         mVedioAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void setOnClickListener(View view, int position) {
-                Toast.makeText(getContext(),"点击了"+position,Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "点击了" + position, Toast.LENGTH_LONG);
 
-                VedioTable vedio = vedioTable.get(position);
-                if (vedioTable!=null){
+                List<VedioTable> list = mVedioAdapter.getList();
+                VedioTable vedioTable = list.get(position);
+                if (vedioTable != null) {
                     Intent intent = VideoPlayerActivity.createIntent(getContext());
                     intent.putExtra("VEDIO", vedio);
                     startActivity(intent);
@@ -67,22 +81,43 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI {
     }
 
 
-
     @Override
     public void initData() {
-        mFragmentPresenter=new VedioFragmentPresenter(this);
-        mFragmentPresenter.video_item(getContext());
+        mFragmentPresenter = new VedioFragmentPresenter(this);
+
+        mRefresh.setDelegate(this);
+        BGANormalRefreshViewHolder normalRefreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
+        mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
+        mRefresh.beginRefreshing();
     }
 
     @Override
     public void video_item_ok(List<VedioTable> vedioTable) {
-        if (vedioTable!=null){
-            initRecyclerView(vedioTable);
+        if (vedioTable != null) {
+            if (state == 0) {
+                mVedioAdapter.refresh(vedioTable);
+            }
+            if (state == 1) {
+                mVedioAdapter.addData(vedioTable);
+            }
         }
     }
 
     @Override
     public void video_item_fail() {
 
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        state = 0;
+        mFragmentPresenter.video_item(getContext(),state);
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        state = 1;
+        mFragmentPresenter.video_item(getContext(),state);
+        return false;
     }
 }

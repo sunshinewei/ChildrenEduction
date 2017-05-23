@@ -4,11 +4,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
     android:background="@color/color_text_blank_100">
+    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recy_frag_home_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </android.support.v7.widget.RecyclerView>
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 
 </LinearLayout>
