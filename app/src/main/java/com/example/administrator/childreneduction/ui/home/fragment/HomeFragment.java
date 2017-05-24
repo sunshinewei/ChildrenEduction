@@ -123,6 +123,8 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
         if (state==1){
             mHomeAdapter.addData(list);
         }
+        mRefresh.endRefreshing();
+        mRefresh.endLoadingMore();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.administrator.childreneduction.ui.vedio.fragment;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,9 @@ import com.example.administrator.childreneduction.ui.vedio.adapter.VedioAdapter;
 import com.example.administrator.childreneduction.ui.vedio.iview.VedioFragmentUI;
 import com.example.administrator.childreneduction.ui.vedio.presenter.VedioFragmentPresenter;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
+import com.willowtreeapps.spruce.Spruce;
+import com.willowtreeapps.spruce.animation.DefaultAnimations;
+import com.willowtreeapps.spruce.sort.DefaultSort;
 
 import java.util.List;
 
@@ -54,7 +58,17 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
     }
 
     private void initRecyclerView() {
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false){
+            @Override
+            public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+                super.onLayoutChildren(recycler, state);
+                new Spruce.SpruceBuilder(mRecyFragVedioItem)
+                        .sortWith(new DefaultSort(100))
+                        .animateWith(DefaultAnimations.shrinkAnimator(mRecyFragVedioItem, 800),
+                                ObjectAnimator.ofFloat(mRecyFragVedioItem, "translationX", -mRecyFragVedioItem.getWidth(), 0f).setDuration(800))
+                        .start();
+            }
+        };
         mRecyFragVedioItem.setLayoutManager(manager);
         mRecyFragVedioItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
         mVedioAdapter = new VedioAdapter(getContext());
@@ -101,6 +115,8 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
                 mVedioAdapter.addData(vedioTable);
             }
         }
+        mRefresh.endRefreshing();
+        mRefresh.endLoadingMore();
     }
 
     @Override

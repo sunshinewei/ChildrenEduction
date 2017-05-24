@@ -35,14 +35,14 @@ public class ArticleCollAdapter extends RecyclerView.Adapter<ArticleCollAdapter.
      */
     public void setAddData(List<UA_Table> list){
         mList.addAll(list);
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
     }
 
     public void refresh(List<UA_Table> list){
         if (mList!=null){
             mList.clear();
             mList.addAll(list);
-            notifyDataSetChanged();
+//            notifyDataSetChanged();
         }
     }
 
