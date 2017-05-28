@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.administrator.childreneduction.App;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
@@ -54,7 +55,7 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
     public void initView(View mRootView) {
         mRecyFragVedioItem = (RecyclerView) mRootView.findViewById(R.id.recy_frag_vedio_item);
         mRefresh = (BGARefreshLayout) mRootView.findViewById(R.id.refresh);
-        initRecyclerView();
+
     }
 
     private void initRecyclerView() {
@@ -100,8 +101,10 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
         mFragmentPresenter = new VedioFragmentPresenter(this);
 
         mRefresh.setDelegate(this);
-        BGANormalRefreshViewHolder normalRefreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
+        BGANormalRefreshViewHolder normalRefreshViewHolder = new BGANormalRefreshViewHolder(App.getContext(), true);
+//        BGAStickinessRefreshViewHolder normalRefreshViewHolder=new BGAStickinessRefreshViewHolder(getContext(),true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
+        initRecyclerView();
         mRefresh.beginRefreshing();
     }
 
@@ -116,7 +119,7 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
             }
         }
         mRefresh.endRefreshing();
-        mRefresh.endLoadingMore();
+//        mRefresh.endLoadingMore();
     }
 
     @Override

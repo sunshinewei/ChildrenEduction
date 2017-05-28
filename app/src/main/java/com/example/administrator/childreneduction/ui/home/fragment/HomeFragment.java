@@ -61,11 +61,12 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
     @Override
     public void initData() {
         mFragmentPresenter = new HomeFragmentPresenter(this);
-        initRecyclerView();
 
         mRefresh.setDelegate(this);
         BGANormalRefreshViewHolder normalRefreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
+//        BGAMoocStyleRefreshViewHolder normalRefreshViewHolder=new BGAMoocStyleRefreshViewHolder(App.getContext(),true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
+        initRecyclerView();
         mRefresh.beginRefreshing();
     }
 
@@ -124,7 +125,7 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
             mHomeAdapter.addData(list);
         }
         mRefresh.endRefreshing();
-        mRefresh.endLoadingMore();
+//        mRefresh.endLoadingMore();
     }
 
     @Override

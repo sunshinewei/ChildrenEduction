@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_text_blank_100"
+              android:orientation="vertical">
+    <TextView
+        android:id="@+id/head"
+        android:text="精选文章"
+        android:gravity="center"
+        style="@style/commen_text_title"
+        android:layout_height="50dp"/>
+</LinearLayout>
