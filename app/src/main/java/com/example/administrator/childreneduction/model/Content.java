@@ -17,4 +17,8 @@ public class Content {
     public static final int RESULT_VIDEO=10001;
 
 
+    public static final String LABEL="LABEL";//选择标签
+    public static final int REQUEST_LABEL=1;
+
+
 }

@@ -75,6 +75,8 @@ public class ArticleActivty extends EduBaseActivity {
     private SharePrefernceUtils mPrefernceUtils;
     private Gson mGson;
 
+    private String mLabel;
+
 
     public static Intent createInent(Context context){
         return new Intent(context,ArticleActivty.class);
@@ -114,6 +116,7 @@ public class ArticleActivty extends EduBaseActivity {
         mButtonStrikeThrough = (TextView) findViewById(R.id.button_strike_through);
         mButtonFontScale = (TextView) findViewById(R.id.button_font_scale);
         mButtonHtml5 = (TextView) findViewById(R.id.button_html5);
+        mTvActivityArticlePub = (TextView) findViewById(R.id.tv_activity_article_pub);
 
         mPrefernceUtils=new SharePrefernceUtils(this, Content.SP_NAME);
         setListener();
@@ -121,6 +124,15 @@ public class ArticleActivty extends EduBaseActivity {
     }
 
     private void setListener(){
+        //添加标签
+        mTvActivityArticleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = LabelActivity.createIntent(ArticleActivty.this);
+                startActivityForResult(intent,Content.REQUEST_LABEL);
+            }
+        });
+
         //发表文章
         mTvActivityArticlePub.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +140,10 @@ public class ArticleActivty extends EduBaseActivity {
                 final String title = mEdtActivityArticleTilte.getText().toString().trim();
                 if (title.length()==0){
                     Toast.makeText(ArticleActivty.this,"文章标题不能为空！",Toast.LENGTH_LONG);
+                    return;
+                }
+                if (mLabel==null){
+                    Toast.makeText(ArticleActivty.this,"请选择标签！",Toast.LENGTH_LONG);
                     return;
                 }
                 mIcarus.getContent(new Callback() {
@@ -154,6 +170,7 @@ public class ArticleActivty extends EduBaseActivity {
                                             articleTable.setA_content(params);
                                             articleTable.setU_id(loginInfo.getId());
                                             articleTable.setA_type("0");
+                                            articleTable.setA_label(mLabel);
                                             articleTable.setU_name(loginInfo.getName());
                                             saveArticle(articleTable);
                                         }
@@ -261,4 +278,12 @@ public class ArticleActivty extends EduBaseActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==Content.REQUEST_LABEL && resultCode==RESULT_OK){
+            mLabel = data.getStringExtra(Content.LABEL);
+            System.out.println("mLabel"+mLabel);
+        }
+    }
 }

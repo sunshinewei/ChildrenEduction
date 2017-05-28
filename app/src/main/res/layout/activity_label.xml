@@ -7,20 +7,34 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/color_text_blank_100">
+        android:background="@color/color_text_blank_100"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center"
+                android:layout_weight="1"
                 android:text="用户标签"
                 android:textColor="@color/color_text_blank_800"
                 android:textSize="@dimen/dime_text_title_size"/>
+
+            <TextView
+                android:id="@+id/tv_act_label_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_text_blank_800"
+                android:textSize="@dimen/dime_text_title_size"
+                android:text="确定"
+                android:paddingRight="10dp"/>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
