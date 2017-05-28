@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.bingoogolapple.refreshlayout.BGARefreshLayout
-    android:id="@+id/refresh"
+<LinearLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recy_frag_home_item"
+    <android.support.v7.widget.Toolbar
+        android:background="@color/color_text_blank_100"
+        android:layout_height="60dp"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/tv_activity_article"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:textColor="@color/color_text_blank_600"
+                android:text="文章头条"
+                android:gravity="center"
+                android:textSize="@dimen/dime_text_title_size"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/tv_activity_article_search"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_width="wrap_content"
+                android:background="@mipmap/search"
+                android:textColor="@color/color_text_blank_600"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+        android:id="@+id/refresh"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-    </android.support.v7.widget.RecyclerView>
-</cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_frag_home_item"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+</LinearLayout>

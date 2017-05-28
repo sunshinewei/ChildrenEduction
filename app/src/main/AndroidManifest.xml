@@ -231,6 +231,7 @@
         <activity android:name=".ui.me.activity.MeArticleActivity"/>
         <activity android:name=".ui.me.activity.MeVideoActivity"/>
         <activity android:name=".ui.me.activity.LabelActivity"/>
+        <activity android:name=".ui.home.activity.SearchActivity"/>
         <!--<activity-->
         <!--android:name="com.umeng.facebook.FacebookActivity"-->
         <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->

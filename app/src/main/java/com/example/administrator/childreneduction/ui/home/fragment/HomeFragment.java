@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.home.activity.LookArticleActivity;
+import com.example.administrator.childreneduction.ui.home.activity.SearchActivity;
 import com.example.administrator.childreneduction.ui.home.adapter.HomeAdapter;
 import com.example.administrator.childreneduction.ui.home.iview.HomeFragmentUI;
 import com.example.administrator.childreneduction.ui.home.presenter.HomeFragmentPresenter;
@@ -35,6 +37,8 @@ import static com.example.administrator.childreneduction.App.mContext;
 public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefreshLayout.BGARefreshLayoutDelegate {
 
     private RecyclerView mRecyFragHomeItem;
+    private TextView mTvActivityArticleSearch;
+
     private HomeAdapter mHomeAdapter;
     private BGARefreshLayout mRefresh;
     private int state;
@@ -54,6 +58,7 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
     public void initView(View mRootView) {
         mRecyFragHomeItem = (RecyclerView) mRootView.findViewById(R.id.recy_frag_home_item);
         mRefresh = (BGARefreshLayout) mRootView.findViewById(R.id.refresh);
+        mTvActivityArticleSearch = (TextView) mRootView.findViewById(R.id.tv_activity_article_search);
         initLoadData();
 
     }
@@ -113,6 +118,14 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
     }
 
     private void setListener() {
+        //搜索
+        mTvActivityArticleSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearchActivity.createIntent(getContext()));
+            }
+        });
+
         //点击监听
         mHomeAdapter.setOnClickListener(new OnClickListener() {
             @Override
