@@ -44,9 +44,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
             list.clear();
         }
         this.list=lis;
+        notifyDataSetChanged();
     }
 
     public void addData(List<ArticleTable> lis){
+        System.out.println("加载更多");
         list.addAll(lis);
     }
 

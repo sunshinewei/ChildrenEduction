@@ -57,10 +57,13 @@ public class VideoCollFragment extends BaseFagment implements BGARefreshLayout.B
     public void initView(View mRootView) {
         mRefresh = (BGARefreshLayout) mRootView.findViewById(R.id.refresh);
         mRecyFramVideocollItem = (RecyclerView) mRootView.findViewById(R.id.recy_fram_videocoll_item);
+        initLoadData();
     }
 
-    @Override
-    public void initData() {
+    /**
+     * 加载数据
+     */
+    private void initLoadData(){
         mPrefernceUtils=new SharePrefernceUtils(getContext(), Content.SP_NAME);
         mGson=new Gson();
         String string = mPrefernceUtils.getString(Content.SP_NAME);
@@ -71,8 +74,14 @@ public class VideoCollFragment extends BaseFagment implements BGARefreshLayout.B
         BGANormalRefreshViewHolder normalRefreshViewHolder=new BGANormalRefreshViewHolder(getContext(),true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
         initRecyclerView();
-        mRefresh.beginRefreshing();
 
+        state=0;
+        mCollPresenter.coll_video(getContext(),state,login);
+    }
+
+    @Override
+    public void initData() {
+//        mRefresh.beginRefreshing();
     }
 
     private void initRecyclerView(){

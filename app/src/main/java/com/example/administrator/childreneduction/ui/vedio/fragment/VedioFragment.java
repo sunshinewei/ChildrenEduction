@@ -27,8 +27,6 @@ import java.util.List;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
-import static com.example.administrator.childreneduction.R.mipmap.vedio;
-
 /**
  * Created by Administrator on 2017/5/7.
  */
@@ -55,7 +53,7 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
     public void initView(View mRootView) {
         mRecyFragVedioItem = (RecyclerView) mRootView.findViewById(R.id.recy_frag_vedio_item);
         mRefresh = (BGARefreshLayout) mRootView.findViewById(R.id.refresh);
-
+        initLoadData();
     }
 
     private void initRecyclerView() {
@@ -88,7 +86,7 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
                 VedioTable vedioTable = list.get(position);
                 if (vedioTable != null) {
                     Intent intent = VideoPlayerActivity.createIntent(getContext());
-                    intent.putExtra("VEDIO", vedio);
+                    intent.putExtra("VEDIO", vedioTable);
                     startActivity(intent);
                 }
             }
@@ -96,16 +94,23 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
     }
 
 
-    @Override
-    public void initData() {
+    private void initLoadData(){
         mFragmentPresenter = new VedioFragmentPresenter(this);
 
         mRefresh.setDelegate(this);
         BGANormalRefreshViewHolder normalRefreshViewHolder = new BGANormalRefreshViewHolder(App.getContext(), true);
 //        BGAStickinessRefreshViewHolder normalRefreshViewHolder=new BGAStickinessRefreshViewHolder(getContext(),true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
+
         initRecyclerView();
-        mRefresh.beginRefreshing();
+
+        state = 0;
+        mFragmentPresenter.video_item(getContext(),state);
+    }
+
+    @Override
+    public void initData() {
+//        mRefresh.beginRefreshing();
     }
 
     @Override

@@ -41,11 +41,12 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.VViewHolder>
         this.mContext = mContext;
     }
 
-    public void refresh(List<VedioTable> vedioTable){
-        if (mList!=null){
+    public void refresh(List<VedioTable> vedioTable) {
+        if (mList != null) {
             mList.clear();
         }
-        mList=vedioTable;
+        mList = vedioTable;
+        notifyDataSetChanged();
     }
 
     public void addData(List<VedioTable> vedioTable){

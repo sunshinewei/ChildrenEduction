@@ -41,9 +41,9 @@ public class ArticleCollAdapter extends RecyclerView.Adapter<ArticleCollAdapter.
     public void refresh(List<UA_Table> list){
         if (mList!=null){
             mList.clear();
-            mList.addAll(list);
-//            notifyDataSetChanged();
         }
+        mList.addAll(list);
+        notifyDataSetChanged();
     }
 
     public List<UA_Table> getList() {

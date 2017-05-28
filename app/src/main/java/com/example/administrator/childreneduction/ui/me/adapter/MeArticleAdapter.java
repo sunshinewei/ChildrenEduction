@@ -41,9 +41,9 @@ public class MeArticleAdapter extends RecyclerView.Adapter<MeArticleAdapter.CVie
     public void refresh(List<ArticleTable> list){
         if (mList!=null){
             mList.clear();
-            mList.addAll(list);
-            notifyDataSetChanged();
         }
+        mList.addAll(list);
+        notifyDataSetChanged();
     }
 
     public List<ArticleTable> getList() {

@@ -75,7 +75,10 @@ public class MeArticleActivity extends BaseActivity implements BGARefreshLayout.
         BGANormalRefreshViewHolder normalRefreshViewHolder=new BGANormalRefreshViewHolder(this,true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
         initRecyclerView();
-        mRefresh.beginRefreshing();
+//        mRefresh.beginRefreshing();
+        state=0;
+        mArticlePresenter.load_mearticle(this,login.getId(),state);
+
     }
 
     private void initRecyclerView(){

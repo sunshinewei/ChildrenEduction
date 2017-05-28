@@ -55,10 +55,10 @@ public class ArticleCollFragment extends BaseFagment implements BGARefreshLayout
     public void initView(View mRootView) {
         mRefresh = (BGARefreshLayout) mRootView.findViewById(R.id.refresh);
         mRecyFramArtcollItem = (RecyclerView) mRootView.findViewById(R.id.recy_fram_artcoll_item);
+        initLoadData();
     }
 
-    @Override
-    public void initData() {
+    private void initLoadData(){
         mPrefernceUtils=new SharePrefernceUtils(getContext(), Content.SP_NAME);
         mGson=new Gson();
         String string = mPrefernceUtils.getString(Content.SP_NAME);
@@ -69,7 +69,12 @@ public class ArticleCollFragment extends BaseFagment implements BGARefreshLayout
         BGANormalRefreshViewHolder normalRefreshViewHolder=new BGANormalRefreshViewHolder(getContext(),true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
         initRecyclerView();
-        mRefresh.beginRefreshing();
+//        mRefresh.beginRefreshing();
+        state=0;
+        mCollPresenter.coll_article(getContext(),state,login);
+    }
+    @Override
+    public void initData() {
     }
 
     private void initRecyclerView(){

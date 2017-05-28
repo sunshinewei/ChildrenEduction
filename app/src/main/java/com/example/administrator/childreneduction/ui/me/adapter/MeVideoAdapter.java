@@ -52,9 +52,9 @@ public class MeVideoAdapter extends RecyclerView.Adapter<MeVideoAdapter.CViewHol
     public void refresh(List<VedioTable> list) {
         if (mList != null) {
             mList.clear();
-            mList.addAll(list);
-            notifyDataSetChanged();
         }
+        mList.addAll(list);
+        notifyDataSetChanged();
     }
 
     public List<VedioTable> getList() {

@@ -52,9 +52,9 @@ public class VideoCollAdapter extends RecyclerView.Adapter<VideoCollAdapter.CVie
     public void refresh(List<UV_Table> list) {
         if (mList != null) {
             mList.clear();
-            mList.addAll(list);
-            notifyDataSetChanged();
         }
+        mList.addAll(list);
+        notifyDataSetChanged();
     }
 
 

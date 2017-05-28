@@ -54,20 +54,38 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
     public void initView(View mRootView) {
         mRecyFragHomeItem = (RecyclerView) mRootView.findViewById(R.id.recy_frag_home_item);
         mRefresh = (BGARefreshLayout) mRootView.findViewById(R.id.refresh);
-
+        initLoadData();
 
     }
 
-    @Override
-    public void initData() {
+    /**
+     * 初始化加载数据
+     */
+    private void initLoadData(){
         mFragmentPresenter = new HomeFragmentPresenter(this);
 
         mRefresh.setDelegate(this);
         BGANormalRefreshViewHolder normalRefreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
 //        BGAMoocStyleRefreshViewHolder normalRefreshViewHolder=new BGAMoocStyleRefreshViewHolder(App.getContext(),true);
+        mRefresh.setIsShowLoadingMoreView(true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
+        // 设置正在加载更多时的文本
+        normalRefreshViewHolder.setLoadingMoreText("数据加载中");
+
+        // 设置整个加载更多控件的背景颜色资源 id
+        normalRefreshViewHolder.setLoadMoreBackgroundColorRes(R.color.color_text_blank_400);
+        // 设置整个加载更多控件的背景 drawable 资源 id
+        normalRefreshViewHolder.setLoadMoreBackgroundDrawableRes(R.drawable.edu);
+
         initRecyclerView();
-        mRefresh.beginRefreshing();
+//        mRefresh.beginRefreshing();
+        state=0;
+        mFragmentPresenter.getArticle(getContext(),state);
+    }
+
+
+    @Override
+    public void initData() {
     }
 
     /**
@@ -125,7 +143,7 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
             mHomeAdapter.addData(list);
         }
         mRefresh.endRefreshing();
-//        mRefresh.endLoadingMore();
+        mRefresh.endLoadingMore();
     }
 
     @Override
@@ -138,6 +156,6 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         state=1;
         mFragmentPresenter.getArticle(getContext(),state);
-        return false;
+        return true;
     }
 }

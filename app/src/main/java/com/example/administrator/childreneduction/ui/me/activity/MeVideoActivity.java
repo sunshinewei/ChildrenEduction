@@ -75,7 +75,9 @@ public class MeVideoActivity extends BaseActivity implements MeVideoUI, BGARefre
         BGANormalRefreshViewHolder normalRefreshViewHolder=new BGANormalRefreshViewHolder(this,true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
         initRecyclerView();
-        mRefresh.beginRefreshing();
+//        mRefresh.beginRefreshing();
+        state=0;
+        mVideoPresenter.load_mearticle(this,login.getId(),state);
     }
 
     private void initRecyclerView(){
