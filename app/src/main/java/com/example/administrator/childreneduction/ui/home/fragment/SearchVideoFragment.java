@@ -106,7 +106,7 @@ public class SearchVideoFragment extends BaseFagment implements SearchVideoUI, B
             public void setOnClickListener(View view, int position) {
                 VedioTable vedioTable = mVideoAdapter.getTables().get(position);
                 Intent intent = VideoPlayerActivity.createIntent(getContext());
-                intent.putExtra(Content.ARTICLE_INFO,vedioTable);
+                intent.putExtra("VEDIO",vedioTable);
                 startActivity(intent);
             }
         });

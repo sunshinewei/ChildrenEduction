@@ -66,7 +66,7 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
         holder.itemView.setTag(position);
 
         ArticleTable articleTable = mTables.get(position);
-        holder.mTvAdaUser.setText(articleTable.getU_name());
+        holder.mTvAdaUser.setText("用户："+articleTable.getU_name());
         holder.mTvAdaTitle.setText(articleTable.getA_title());
         holder.mTvAdaTime.setText("时间："+articleTable.getCreatedAt());
         holder.mTvAdaLabel.setText("标签："+articleTable.getA_label());

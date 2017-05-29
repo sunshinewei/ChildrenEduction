@@ -59,8 +59,8 @@ public class SearchVideoAdapter extends RecyclerView.Adapter<SearchVideoAdapter.
         VedioTable vedioTable = mTables.get(position);
         holder.mTvAdaUser.setText("用户：" + vedioTable.getU_name());
         holder.mTvAdaTitle.setText(vedioTable.getV_title());
-        holder.mTvAdaLabel.setText(vedioTable.getV_label());
-        holder.mTvAdaTime.setText(vedioTable.getCreatedAt());
+        holder.mTvAdaLabel.setText("标签："+vedioTable.getV_label());
+        holder.mTvAdaTime.setText("时间："+vedioTable.getCreatedAt());
 
         Glide.with(mContext)
                 .load(vedioTable.getU_url())
