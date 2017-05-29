@@ -1,22 +1,28 @@
 package com.example.administrator.childreneduction.ui.home.fragment;
 
 import android.animation.ObjectAnimator;
+import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.administrator.childreneduction.R;
+import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.home.adapter.SearchArticleAdapter;
+import com.example.administrator.childreneduction.ui.home.iview.SearchArticleUI;
+import com.example.administrator.childreneduction.ui.home.presenter.SearchArticlePresenter;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
 import com.google.gson.Gson;
 import com.willowtreeapps.spruce.Spruce;
 import com.willowtreeapps.spruce.animation.DefaultAnimations;
 import com.willowtreeapps.spruce.sort.DefaultSort;
+
+import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -26,19 +32,21 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * 搜索文章
  */
 
-public class SearchArticleFragment extends BaseFagment implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class SearchArticleFragment extends BaseFagment implements BGARefreshLayout.BGARefreshLayoutDelegate, SearchArticleUI {
 
     private BGARefreshLayout mRefresh;
     private RecyclerView mRecyFramArtsearItem;
 
-    private int state=0;
+    private int state = 0;
     private LoginInfo login;
     private SharePrefernceUtils mPrefernceUtils;
     private Gson mGson;
 
     private SearchArticleAdapter mArticleAdapter;
+    private SearchArticlePresenter mArticlePresenter;
+    private String mLabel;
 
-    public static SearchArticleFragment newInstance(){
+    public static SearchArticleFragment newInstance() {
         return new SearchArticleFragment();
     }
 
@@ -55,22 +63,24 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
         initToData();
     }
 
-    private void initToData(){
-        mPrefernceUtils=new SharePrefernceUtils(getContext(), Content.SP_NAME);
-        mGson=new Gson();
+    private void initToData() {
+        mPrefernceUtils = new SharePrefernceUtils(getContext(), Content.SP_NAME);
+        mGson = new Gson();
         String string = mPrefernceUtils.getString(Content.SP_NAME);
         login = mGson.fromJson(string, LoginInfo.class);
 
+        mArticlePresenter = new SearchArticlePresenter(this);
+
         mRefresh.setDelegate(this);
-        BGANormalRefreshViewHolder normalRefreshViewHolder=new BGANormalRefreshViewHolder(getContext(),true);
+        BGANormalRefreshViewHolder normalRefreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         mRefresh.setRefreshViewHolder(normalRefreshViewHolder);
         initRecyclerView();
 //        mRefresh.beginRefreshing();
-        state=0;
+
     }
 
-    private void initRecyclerView(){
-        RecyclerView.LayoutManager manager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false){
+    private void initRecyclerView() {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false) {
             @Override
             public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
                 super.onLayoutChildren(recycler, state);
@@ -83,7 +93,7 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
         };
         mRecyFramArtsearItem.setLayoutManager(manager);
         mRecyFramArtsearItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
-        mArticleAdapter=new SearchArticleAdapter(getContext());
+        mArticleAdapter = new SearchArticleAdapter(getContext());
         mRecyFramArtsearItem.setAdapter(mArticleAdapter);
 
 //        mArticleAdapter.setOnClickListener(new OnClickListener() {
@@ -94,6 +104,11 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
 //                intent.putExtra(Content.ARTICLE_INFO,ua_table);
 //            }
 //        });
+        Bundle arguments = getArguments();
+        mLabel = arguments.getString(Content.SEARCH_LABEL);
+        state = 0;
+        System.out.println("label值" + mLabel);
+        mArticlePresenter.upload_art(getContext(), mLabel, state);
     }
 
     @Override
@@ -103,11 +118,32 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        state = 0;
+        mArticlePresenter.upload_art(getContext(), mLabel, state);
 
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        state = 1;
+        mArticlePresenter.upload_art(getContext(), mLabel, state);
         return false;
+    }
+
+    @Override
+    public void upload_art_ok(List<ArticleTable> list) {
+        System.out.println("网络请求成功！");
+
+        if (state == 0) {
+            mArticleAdapter.refresh(list);
+        }
+        if (state == 1) {
+            mArticleAdapter.addData(list);
+        }
+    }
+
+    @Override
+    public void upload_art_fail() {
+
     }
 }

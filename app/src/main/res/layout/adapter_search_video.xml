@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_ada_searvi_head"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/back"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="5dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_ada_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用户名"
+            android:textSize="@dimen/dimen_text_content_size"
+            android:textColor="@color/color_text_blank_700"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/tv_ada_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textSize="@dimen/dimen_text_content_size"
+            android:textColor="@color/color_text_blank_700"
+            android:maxLines="1"/>
+        <TextView
+            android:id="@+id/tv_ada_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="标签"
+            android:textSize="@dimen/dimen_text_content_size"
+            android:textColor="@color/color_text_blank_700"
+            android:maxLines="1"/>
+        <TextView
+            android:id="@+id/tv_ada_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textSize="@dimen/dimen_text_content_size"
+            android:textColor="@color/color_text_blank_700"
+            android:maxLines="1"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -2,7 +2,10 @@ package com.example.administrator.childreneduction.ui.home.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.childreneduction.R;
+import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LabelBean;
 import com.example.administrator.childreneduction.ui.adapter.LabelAdater;
 import com.example.administrator.childreneduction.ui.home.fragment.SearchArticleFragment;
@@ -54,6 +58,9 @@ public class SearchActivity extends BaseActivity {
     private SearchArticleFragment mArticleFragment;
     private FragmentManager mFragmentManager;
 
+    private ArrayList<Fragment> mFragments;
+    private VPAdapter mVPAdapter;
+
     public static Intent createIntent(Context mContext) {
         return new Intent(mContext, SearchActivity.class);
     }
@@ -78,6 +85,7 @@ public class SearchActivity extends BaseActivity {
         initData();
     }
 
+
     /**
      *
      */
@@ -97,6 +105,8 @@ public class SearchActivity extends BaseActivity {
         }
         mRecyActSearchItem.setAdapter(mSearchAdapter);
 
+        vpAddFragment();
+        //条目点击监听
         mSearchAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void setOnClickListener(View view, int position) {
@@ -105,23 +115,31 @@ public class SearchActivity extends BaseActivity {
 
                 mRecyActSearchItem.setVisibility(View.GONE);
                 mVpFragment.setVisibility(View.VISIBLE);
+
+                //切换fragemnt
+//                mFragmentManager.beginTransaction()
+//                        .hide(mVideoFragment)
+//                        .show(mArticleFragment)
+//                        .commit();
+                Bundle mBundle = new Bundle();
+                mBundle.putString(Content.SEARCH_LABEL, bean.getName());
+                mVideoFragment.setArguments(mBundle);
+                mArticleFragment.setArguments(mBundle);
             }
         });
-
-        if (mVpFragment.getVisibility() == View.VISIBLE) {
-            vpAddFragment();
-        }
     }
 
 
+    /**
+     * 给ViewPager添加Fragment
+     */
     private void vpAddFragment() {
-        mFragmentManager.beginTransaction()
-                .add(R.id.vp_act_search, mVideoFragment)
-                .add(R.id.vp_act_search, mArticleFragment)
-                .hide(mVideoFragment)
-                .hide(mArticleFragment)
-                .show(mArticleFragment)
-                .commit();
+        mFragments = new ArrayList<>();
+        mFragments.add(mArticleFragment);
+        mFragments.add(mVideoFragment);
+        mVPAdapter = new VPAdapter(mFragmentManager, mFragments);
+        mVpActSearch.setAdapter(mVPAdapter);
+        mVpActSearch.setCurrentItem(0);
     }
 
     /**
@@ -157,7 +175,31 @@ public class SearchActivity extends BaseActivity {
 
     }
 
+    /**
+     * ViewPagerAdapter
+     */
+    class VPAdapter extends FragmentPagerAdapter {
 
+        private List<Fragment> mFragments;
+
+        public VPAdapter(FragmentManager fm, List<Fragment> mlist) {
+            super(fm);
+            this.mFragments = mlist;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments != null ? mFragments.size() : 0;
+        }
+    }
+
+
+    //标签条目Adapter
     class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SViewHolder> implements View.OnClickListener {
 
         private OnClickListener mOnClickListener;
@@ -178,6 +220,7 @@ public class SearchActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(SViewHolder holder, int position) {
             holder.itemView.setTag(position);
+
             LabelBean bean = mLabelBeen.get(position);
             holder.mTvAdaSearch.setText(bean.getName());
         }

@@ -33,6 +33,13 @@ public class SearchVideoFragment extends BaseFagment {
         mRecyFramVidsearItem = (RecyclerView) mRootView.findViewById(R.id.recy_fram_vidsear_item);
     }
 
+    /**
+     * 设置标签
+     * @param label
+     */
+    public void setLabel(String label){
+
+    }
 
     @Override
     public void initData() {

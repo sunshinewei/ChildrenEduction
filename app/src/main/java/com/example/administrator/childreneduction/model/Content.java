@@ -20,5 +20,7 @@ public class Content {
     public static final String LABEL="LABEL";//选择标签
     public static final int REQUEST_LABEL=1;
 
+    public static final String SEARCH_LABEL="LABEL";//根据标签查询
+
 
 }
