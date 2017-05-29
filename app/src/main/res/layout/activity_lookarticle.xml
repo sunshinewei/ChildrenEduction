@@ -48,6 +48,20 @@
         android:layout_below="@+id/tv_act_look_title">
     </WebView>
 
+    <Button
+        android:id="@+id/btn_getData"
+        android:onClick="ClickOnSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="生成图片分享"
+        android:padding="6dp"
+        android:background="#49BE38"
+        android:textSize="16sp"
+        android:textColor="#fff"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"/>
+
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
