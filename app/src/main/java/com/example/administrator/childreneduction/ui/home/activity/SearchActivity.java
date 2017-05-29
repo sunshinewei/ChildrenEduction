@@ -2,7 +2,6 @@ package com.example.administrator.childreneduction.ui.home.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -22,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.childreneduction.R;
-import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LabelBean;
 import com.example.administrator.childreneduction.ui.adapter.LabelAdater;
 import com.example.administrator.childreneduction.ui.home.fragment.SearchArticleFragment;
@@ -121,10 +119,11 @@ public class SearchActivity extends BaseActivity {
 //                        .hide(mVideoFragment)
 //                        .show(mArticleFragment)
 //                        .commit();
-                Bundle mBundle = new Bundle();
-                mBundle.putString(Content.SEARCH_LABEL, bean.getName());
-                mVideoFragment.setArguments(mBundle);
-                mArticleFragment.setArguments(mBundle);
+//                Bundle mBundle = new Bundle();
+//                mBundle.putString(Content.SEARCH_LABEL, bean.getName());
+//                mVideoFragment.setArguments(mBundle);
+//                mArticleFragment.setArguments(mBundle);
+                mArticleFragment.setLabel(bean.getName());
             }
         });
     }

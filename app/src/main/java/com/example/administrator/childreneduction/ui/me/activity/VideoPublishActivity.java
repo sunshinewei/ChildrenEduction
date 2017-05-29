@@ -33,6 +33,7 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
     private Gson mGson;
     private SharePrefernceUtils mPrefernceUtils;
     private String mVideoPath;
+    private String mLabel;
 
     @Override
     public int setLayout() {
@@ -60,6 +61,15 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
      * 设置监听
      */
     private void setListener(){
+        //标签
+        mTvActivityVideoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = LabelActivity.createIntent(VideoPublishActivity.this);
+                startActivityForResult(intent,Content.REQUEST_LABEL);
+            }
+        });
+
         //发布
         mTvActivityVideoPub.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +86,10 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
                     Toast.makeText(VideoPublishActivity.this,"请添加视频！",Toast.LENGTH_LONG);
                     return;
                 }
+                if (mLabel==null){
+                    Toast.makeText(VideoPublishActivity.this,"请选择标签！",Toast.LENGTH_LONG);
+                    return;
+                }
                 VedioTable vedioTable=new VedioTable();
                 vedioTable.setU_id(loginInfo.getId());
                 vedioTable.setU_name(loginInfo.getName());
@@ -85,6 +99,7 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
                 vedioTable.setV_content(content);
                 vedioTable.setV_url(mVideoPath);
                 vedioTable.setU_url(loginInfo.getUrl());
+                vedioTable.setV_label(mLabel);
                 //发布
                 mPresenter.pub_video(VideoPublishActivity.this,vedioTable);
             }
@@ -108,6 +123,9 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
             if (path!=null){
                 mPresenter.upload_video(VideoPublishActivity.this,path);
             }
+        }
+        if (requestCode==Content.REQUEST_LABEL && resultCode==RESULT_OK){
+            mLabel=data.getStringExtra(Content.LABEL);
         }
     }
 
@@ -133,4 +151,5 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
     public void pub_video_fail() {
         Toast.makeText(VideoPublishActivity.this,"发布失败！",Toast.LENGTH_LONG);
     }
+
 }

@@ -87,7 +87,7 @@ public class LookArticleActivity extends EduBaseActivity {
 
         Intent intent = getIntent();
         final ArticleTable extra = (ArticleTable) intent.getSerializableExtra(Content.ARTICLE_INFO);
-        mTvActLookTitle.setText("发表人："+extra.getA_title());
+        mTvActLookTitle.setText(extra.getA_title());
         mTvActLookHomeTime.setText("发表日期："+extra.getCreatedAt());
 //        mWbActivityWebviewShow.loadDataWithBaseURL(null,extra.getA_content(), "text/html", "utf-8", null);
         String content = extra.getA_content();

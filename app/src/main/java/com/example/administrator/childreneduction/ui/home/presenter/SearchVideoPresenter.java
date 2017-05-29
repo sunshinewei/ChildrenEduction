@@ -15,7 +15,6 @@ import cn.bmob.v3.listener.FindListener;
  */
 
 public class SearchVideoPresenter {
-
     private SearchVideoUI mSearchVideoUI;
     private int page=1;
 
@@ -25,7 +24,8 @@ public class SearchVideoPresenter {
 
     public void upload_video(Context mContext,int state,String label){
         BmobQuery<VedioTable> query=new BmobQuery<>();
-        query.addWhereContains("v_label",label);
+//        query.addWhereContains("v_label",label);
+        query.addWhereEqualTo("v_label",label);
         query.setLimit(10);
         if (state==1){
             page++;
@@ -36,7 +36,6 @@ public class SearchVideoPresenter {
             public void onSuccess(List<VedioTable> list) {
                 mSearchVideoUI.upload_video_ok(list);
             }
-
             @Override
             public void onError(int i, String s) {
                 mSearchVideoUI.upload_video_fail();

@@ -1,7 +1,7 @@
 package com.example.administrator.childreneduction.ui.home.fragment;
 
 import android.animation.ObjectAnimator;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +12,11 @@ import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
+import com.example.administrator.childreneduction.ui.home.activity.LookArticleActivity;
 import com.example.administrator.childreneduction.ui.home.adapter.SearchArticleAdapter;
 import com.example.administrator.childreneduction.ui.home.iview.SearchArticleUI;
 import com.example.administrator.childreneduction.ui.home.presenter.SearchArticlePresenter;
+import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
 import com.google.gson.Gson;
@@ -63,6 +65,10 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
         initToData();
     }
 
+    public void setLabel(String label) {
+        mLabel = label;
+    }
+
     private void initToData() {
         mPrefernceUtils = new SharePrefernceUtils(getContext(), Content.SP_NAME);
         mGson = new Gson();
@@ -96,18 +102,18 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
         mArticleAdapter = new SearchArticleAdapter(getContext());
         mRecyFramArtsearItem.setAdapter(mArticleAdapter);
 
-//        mArticleAdapter.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void setOnClickListener(View view, int position) {
-//                UA_Table ua_table = mArticleAdapter.getList().get(position);
-//                Intent intent = LookArticleActivity.createIntent(getContext());
-//                intent.putExtra(Content.ARTICLE_INFO,ua_table);
-//            }
-//        });
-        Bundle arguments = getArguments();
-        mLabel = arguments.getString(Content.SEARCH_LABEL);
+
+        mArticleAdapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void setOnClickListener(View view, int position) {
+                ArticleTable articleTable = mArticleAdapter.getTables().get(position);
+                Intent intent = LookArticleActivity.createIntent(getContext());
+                intent.putExtra(Content.ARTICLE_INFO,articleTable);
+                startActivity(intent);
+            }
+        });
+
         state = 0;
-        System.out.println("label值" + mLabel);
         mArticlePresenter.upload_art(getContext(), mLabel, state);
     }
 
@@ -133,6 +139,7 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
     @Override
     public void upload_art_ok(List<ArticleTable> list) {
         System.out.println("网络请求成功！");
+        System.out.println("list"+list.size());
 
         if (state == 0) {
             mArticleAdapter.refresh(list);
@@ -140,6 +147,8 @@ public class SearchArticleFragment extends BaseFagment implements BGARefreshLayo
         if (state == 1) {
             mArticleAdapter.addData(list);
         }
+        mRefresh.endRefreshing();
+        mRefresh.endLoadingMore();
     }
 
     @Override

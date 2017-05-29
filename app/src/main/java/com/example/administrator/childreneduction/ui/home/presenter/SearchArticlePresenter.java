@@ -31,7 +31,8 @@ public class SearchArticlePresenter {
      */
     public void upload_art(Context mContext, String label, int state){
         BmobQuery<ArticleTable> query=new BmobQuery<>();
-        query.addWhereContains("a_label",label);
+//        query.addWhereContains("a_label",label);
+        query.addWhereEqualTo("a_label",label);
         query.setLimit(10);
         if (state==1){
             page++;

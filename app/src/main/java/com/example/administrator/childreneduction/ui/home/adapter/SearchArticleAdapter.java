@@ -57,6 +57,10 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
         return new SAViewHolder(inflate);
     }
 
+    public List<ArticleTable> getTables() {
+        return mTables;
+    }
+
     @Override
     public void onBindViewHolder(SAViewHolder holder, int position) {
         holder.itemView.setTag(position);
@@ -90,6 +94,7 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
     public void setOnClickListener(OnClickListener onClickListener) {
         mOnClickListener = onClickListener;
     }
+
 
     class SAViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView mCivAdaSeararHead;
