@@ -84,7 +84,7 @@ public class VideoPublishActivity extends BaseActivity implements VideoPublishUI
                 vedioTable.setV_title(title);
                 vedioTable.setV_content(content);
                 vedioTable.setV_url(mVideoPath);
-
+                vedioTable.setU_url(loginInfo.getUrl());
                 //发布
                 mPresenter.pub_video(VideoPublishActivity.this,vedioTable);
             }

@@ -13,7 +13,7 @@ public class ArticleTable extends BmobObject implements Serializable {
     private String a_id;
     private String u_id;
     private String u_name;
-
+    private String u_url;
     private String a_title;
     private String a_content;
     private String a_url;
@@ -21,6 +21,14 @@ public class ArticleTable extends BmobObject implements Serializable {
     private String a_label;
     private int coll;
     private int share;
+
+    public String getU_url() {
+        return u_url;
+    }
+
+    public void setU_url(String u_url) {
+        this.u_url = u_url;
+    }
 
     public String getU_name() {
         return u_name;

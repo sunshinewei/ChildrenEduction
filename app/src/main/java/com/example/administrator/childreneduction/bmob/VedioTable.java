@@ -13,6 +13,7 @@ public class VedioTable extends BmobObject implements Serializable{
     private String v_id;
     private String u_id;
     private String u_name;
+    private String u_url;
     private String v_title;
     private String v_content;
     private String v_label;
@@ -21,6 +22,14 @@ public class VedioTable extends BmobObject implements Serializable{
     private String v_url;
     private String v_coll;
     private String v_comm;
+
+    public String getU_url() {
+        return u_url;
+    }
+
+    public void setU_url(String u_url) {
+        this.u_url = u_url;
+    }
 
     public String getU_name() {
         return u_name;

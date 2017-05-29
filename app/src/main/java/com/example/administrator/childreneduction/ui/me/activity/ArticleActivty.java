@@ -172,6 +172,7 @@ public class ArticleActivty extends EduBaseActivity {
                                             articleTable.setA_type("0");
                                             articleTable.setA_label(mLabel);
                                             articleTable.setU_name(loginInfo.getName());
+                                            articleTable.setU_url(loginInfo.getUrl());
                                             saveArticle(articleTable);
                                         }
                                     }
