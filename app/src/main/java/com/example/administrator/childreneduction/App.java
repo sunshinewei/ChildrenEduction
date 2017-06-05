@@ -90,7 +90,8 @@ public class App extends Application {
      */
     private void initUmengShareAndLogin() {
         Config.DEBUG = true;
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        //wxf7a2f8665504efde    48857a9510b16804ea939f9046b03b18
+        PlatformConfig.setWeixin("wxf7a2f8665504efde", "48857a9510b16804ea939f9046b03b18");
         //豆瓣RENREN平台目前只能在服务器端配置94c91203c01a414c7d120052b9a95863
         PlatformConfig.setSinaWeibo("1568177975", "94c91203c01a414c7d120052b9a95863", "http://sns.whalecloud.com");
         PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");

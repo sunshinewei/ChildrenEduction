@@ -103,13 +103,17 @@ public class GenPictureActivity extends BaseActivity {
 //        String data = article.getA_content();
         Article article= (Article) getIntent().getSerializableExtra("data");
 
+        System.out.println("articeel"+article.strData+article.strTitle);
         pd = new ProgressDialog(this);
         pd.setMessage("请稍后...");
-
-
-        initRadioButton(article.strData, article.strTitle);
+        String substring =null;
+        if(article.strData!=null && article.strData.length()>12){
+             substring=article.strData.substring(12, article.strData.length() - 2);
+        }
+        System.out.println("substring"+substring);
+        initRadioButton(article.strTitle, article.strTitle);
         //初始化控件填充内容
-        mGpv.init(article.strTitle,article.strData,"weilong","@163");
+        mGpv.init( article.strTitle, article.strTitle,"weilong","@163");
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     private void initRadioButton(final String data, final String title) {

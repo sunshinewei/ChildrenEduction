@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.bmob.UA_Table;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.base.CommonDialog;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.picture.Article;
@@ -31,6 +35,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -48,10 +53,14 @@ public class LookArticleActivity extends EduBaseActivity {
     private ImageView mImgActLookShare;
     private TextView mTvActLookTitle;
     private Button mBtnGetData;
+    private BGARefreshLayout mRefresh;
+    private RecyclerView mRecyActContentItem;
+
 
     private long mTime=0;
 
     private SharePrefernceUtils mPrefernceUtils;
+    private CommonDialog mCommonDialog;
 
     private LoginInfo loginInfo;
     private ArticleTable extra;
@@ -82,6 +91,9 @@ public class LookArticleActivity extends EduBaseActivity {
         mImgActLookShare = (ImageView) findViewById(R.id.img_act_look_share);
         mTvActLookTitle = (TextView) findViewById(R.id.tv_act_look_title);
         mBtnGetData = (Button) findViewById(R.id.btn_getData);
+        mRefresh = (BGARefreshLayout) findViewById(R.id.refresh);
+        mRecyActContentItem = (RecyclerView) findViewById(R.id.recy_act_content_item);
+
 
         initData();
         setListener();
@@ -99,12 +111,12 @@ public class LookArticleActivity extends EduBaseActivity {
             @Override
             public void getDataListener(String text) {
                 Intent intent = new Intent(LookArticleActivity.this,GenPictureActivity.class);
-                Article article = new Article(text,extra.getA_title());
+                Article article = new Article(extra.getA_content(),extra.getA_title());
 //                TextUtils.isEmpty(WebViewHelper.getInstance().getTitle())?"":"《"+WebViewHelper.getInstance().getTitle()+"》"
 //                if (extra!=null){
 //                    intent.putExtra("data",extra);
 //                    System.out.println("data"+extra.getA_title());
-//                }
+//              }
                 intent.putExtra("data",article);
                 startActivity(intent);
             }
@@ -184,6 +196,23 @@ public class LookArticleActivity extends EduBaseActivity {
                         .setCallback(mShareListener).open();
             }
         });
+        //添加评论
+        mImgActLookContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDialog();
+            }
+        });
+
+    }
+    private void setDialog(){
+        mCommonDialog=new CommonDialog(this);
+        View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_common, null, false);
+        mCommonDialog.setContentView(inflate);
+        mCommonDialog.show();
+        mCommonDialog.setLayoutAttrebutes();
+        EditText content= (EditText) inflate.findViewById(R.id.edt_dia_comm);
+        TextView pub= (TextView) inflate.findViewById(R.id.tv_dia_pub);
     }
 
     /**
