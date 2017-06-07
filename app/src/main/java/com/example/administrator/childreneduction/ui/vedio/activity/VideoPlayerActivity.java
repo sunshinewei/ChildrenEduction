@@ -81,6 +81,7 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
                 UV_Table uv_table=new UV_Table();
                 uv_table.setU_id(mLoginInfo.getId());
                 uv_table.setV_id(vedio.getV_id());
+                System.out.println("v_id"+vedio.getV_id());
                 uv_table.setVu_name(vedio.getU_name());
                 uv_table.setVu_title(vedio.getV_title());
                 uv_table.setUv_url(vedio.getV_url());

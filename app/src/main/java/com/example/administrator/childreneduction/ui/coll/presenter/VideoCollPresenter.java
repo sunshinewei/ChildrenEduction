@@ -34,6 +34,7 @@ public class VideoCollPresenter {
     public void coll_video(Context mContext, final int state, LoginInfo loginInfo) {
         final BmobQuery<UV_Table> query = new BmobQuery<>();
         query.addWhereEqualTo("u_id", loginInfo.getId());
+        query.addWhereEqualTo("uv_coll","1");
         query.setLimit(10);
         if (state == 1) {
             page++;

@@ -11,10 +11,19 @@ public class UA_Table extends BmobObject {
     private String u_id;
     private String a_id;
     private String a_title;
+    private String u_url;
     private String au_name;
     private String ua_comm;
     private String ua_coll;
     private String ua_laud;
+
+    public String getU_url() {
+        return u_url;
+    }
+
+    public void setU_url(String u_url) {
+        this.u_url = u_url;
+    }
 
     public String getA_title() {
         return a_title;

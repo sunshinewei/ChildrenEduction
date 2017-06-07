@@ -29,9 +29,9 @@ public class CommonDialog extends Dialog {
         WindowManager.LayoutParams attributes = window.getAttributes();
         WindowManager manager = window.getWindowManager();
         attributes.height= (int) (manager.getDefaultDisplay().getHeight()*0.2);
-        attributes.width= (int) (manager.getDefaultDisplay().getWidth()*0.8);
+        attributes.width= manager.getDefaultDisplay().getWidth();
         window.setAttributes(attributes);
-        window.setGravity(Gravity.CENTER);
+        window.setGravity(Gravity.BOTTOM);
     }
 
 }

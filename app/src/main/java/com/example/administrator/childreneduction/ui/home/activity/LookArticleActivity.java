@@ -26,6 +26,8 @@ import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.CommonDialog;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
+import com.example.administrator.childreneduction.ui.home.iview.LookArticleUI;
+import com.example.administrator.childreneduction.ui.home.presenter.LookArticlePresenter;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.picture.Article;
 import com.example.administrator.childreneduction.widgets.picture.WebViewHelper;
@@ -35,6 +37,8 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import java.util.List;
+
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -43,7 +47,7 @@ import cn.bmob.v3.listener.SaveListener;
  * 查看文章
  */
 
-public class LookArticleActivity extends EduBaseActivity {
+public class LookArticleActivity extends EduBaseActivity implements LookArticleUI{
     private LinearLayout mUserTitle;
     private TextView mTvActLookUser;
     private TextView mTvActLookHomeTime;
@@ -64,6 +68,7 @@ public class LookArticleActivity extends EduBaseActivity {
 
     private LoginInfo loginInfo;
     private ArticleTable extra;
+    private LookArticlePresenter mPresenter;
 
     public static Intent createIntent(Context mContext){
         return new Intent(mContext,LookArticleActivity.class);
@@ -94,7 +99,7 @@ public class LookArticleActivity extends EduBaseActivity {
         mRefresh = (BGARefreshLayout) findViewById(R.id.refresh);
         mRecyActContentItem = (RecyclerView) findViewById(R.id.recy_act_content_item);
 
-
+        mPresenter=new LookArticlePresenter(this);
         initData();
         setListener();
         initWebView();
@@ -159,6 +164,7 @@ public class LookArticleActivity extends EduBaseActivity {
         String substring = stringBuffer.substring(12, stringBuffer.length() - 2);
         mWbActivityWebviewShow.loadDataWithBaseURL(null,substring, "text/html", "utf-8", null);
 
+        mPresenter.query_Comment(this,extra.getA_id());
         //收藏
         mImgActLookColl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,8 +217,32 @@ public class LookArticleActivity extends EduBaseActivity {
         mCommonDialog.setContentView(inflate);
         mCommonDialog.show();
         mCommonDialog.setLayoutAttrebutes();
-        EditText content= (EditText) inflate.findViewById(R.id.edt_dia_comm);
-        TextView pub= (TextView) inflate.findViewById(R.id.tv_dia_pub);
+        final EditText content= (EditText) inflate.findViewById(R.id.edt_dia_comm);
+        final TextView pub= (TextView) inflate.findViewById(R.id.tv_dia_pub);
+        pub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String con = content.getText().toString().trim();
+                if (con.length()==0){
+                    Toast.makeText(LookArticleActivity.this,"内容不能为空！",Toast.LENGTH_SHORT);
+                    return;
+                }
+                pub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UA_Table ua_table=new UA_Table();
+                        ua_table.setU_id(loginInfo.getId());
+                        ua_table.setU_url(loginInfo.getUrl());
+                        ua_table.setAu_name(loginInfo.getName());
+                        ua_table.setA_id(extra.getA_id());
+                        ua_table.setA_title(extra.getA_title());
+                        ua_table.setUa_comm(con);
+                        ua_table.setUa_coll("0");
+                        mPresenter.addComment(LookArticleActivity.this,ua_table);
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -283,4 +313,28 @@ public class LookArticleActivity extends EduBaseActivity {
 
     }
 
+    @Override
+    public void addComment_ok() {
+        Toast.makeText(this,"发布成功！",Toast.LENGTH_LONG);
+        mCommonDialog.dismiss();
+    }
+
+    @Override
+    public void addComment_fail() {
+
+    }
+
+    @Override
+    public void query_comment_ok(List<UA_Table> list) {
+        if (list!=null && list.size()>0){
+            UA_Table ua_table = list.get(0);
+            System.out.println("uatable"+ua_table.getA_title()+ua_table.getUa_comm());
+        }
+
+    }
+
+    @Override
+    public void query_comment_fail() {
+
+    }
 }

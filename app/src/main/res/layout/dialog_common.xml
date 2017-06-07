@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+              android:background="@color/color_text_blank_100"
+              android:gravity="center_vertical"
+              android:orientation="horizontal">
+
     <EditText
         android:id="@+id/edt_dia_comm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="写评论"
-        android:background="@drawable/shape_search"
         android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/shape_search"
+        android:hint="写评论"
         android:padding="5dp"
         android:textSize="@dimen/dimen_text_content_size"
         />
+
     <TextView
         android:id="@+id/tv_dia_pub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="发布"
         android:layout_marginRight="10dp"
+        android:text="发布"
         android:textSize="@dimen/dimen_text_content_size"/>
 
 </LinearLayout>
