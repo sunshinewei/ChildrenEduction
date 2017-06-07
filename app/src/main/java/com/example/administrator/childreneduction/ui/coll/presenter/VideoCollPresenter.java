@@ -3,6 +3,7 @@ package com.example.administrator.childreneduction.ui.coll.presenter;
 import android.content.Context;
 
 import com.example.administrator.childreneduction.bmob.UV_Table;
+import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.coll.iview.VideoCollUI;
 
@@ -52,4 +53,23 @@ public class VideoCollPresenter {
             }
         });
     }
+
+    public void query_video(Context mContext,String v_id){
+        BmobQuery<VedioTable> query=new BmobQuery<>();
+        query.addWhereEqualTo("objectId",v_id);
+        query.findObjects(mContext, new FindListener<VedioTable>() {
+            @Override
+            public void onSuccess(List<VedioTable> list) {
+                if (list!=null && list.size()>0){
+                    mVideoCollUI.query_video_ok(list.get(0));
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                mVideoCollUI.video_coll_data_fail();
+            }
+        });
+    }
+
 }

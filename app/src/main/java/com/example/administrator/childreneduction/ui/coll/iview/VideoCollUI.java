@@ -1,6 +1,7 @@
 package com.example.administrator.childreneduction.ui.coll.iview;
 
 import com.example.administrator.childreneduction.bmob.UV_Table;
+import com.example.administrator.childreneduction.bmob.VedioTable;
 
 import java.util.List;
 
@@ -20,5 +21,12 @@ public interface VideoCollUI {
      *
      */
     void video_coll_data_fail();
+
+    /**
+     * @param vedioTable
+     */
+    void query_video_ok(VedioTable vedioTable);
+
+    void query_video_fail();
 
 }

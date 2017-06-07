@@ -15,6 +15,7 @@ import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.coll.adapter.VideoCollAdapter;
 import com.example.administrator.childreneduction.ui.coll.iview.VideoCollUI;
 import com.example.administrator.childreneduction.ui.coll.presenter.VideoCollPresenter;
+import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
 import com.google.gson.Gson;
@@ -90,6 +91,12 @@ public class VideoCollFragment extends BaseFagment implements BGARefreshLayout.B
         mRecyFramVideocollItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
         mCollectAdapter=new VideoCollAdapter(getContext());
         mRecyFramVideocollItem.setAdapter(mCollectAdapter);
+        mCollectAdapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void setOnClickListener(View view, int position) {
+
+            }
+        });
     }
 
     @Override

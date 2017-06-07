@@ -145,7 +145,7 @@ public class ArticleCollFragment extends BaseFagment implements BGARefreshLayout
     public void article_data_ok(ArticleTable articleTable) {
         Intent intent = LookArticleActivity.createIntent(getContext());
         intent.putExtra(Content.ARTICLE_INFO, articleTable);
-        startActivity(LookArticleActivity.createIntent(getContext()));
+        startActivity(intent);
     }
 
     @Override
