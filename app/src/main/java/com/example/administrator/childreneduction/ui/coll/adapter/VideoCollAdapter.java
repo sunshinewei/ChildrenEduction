@@ -57,6 +57,9 @@ public class VideoCollAdapter extends RecyclerView.Adapter<VideoCollAdapter.CVie
         notifyDataSetChanged();
     }
 
+    public List<UV_Table> getList() {
+        return mList;
+    }
 
     @Override
     public CViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.bmob.UA_Table;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.adapter.CommonAdapter;
 import com.example.administrator.childreneduction.ui.base.CommonDialog;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.ui.home.iview.LookArticleUI;
@@ -47,7 +49,7 @@ import cn.bmob.v3.listener.SaveListener;
  * 查看文章
  */
 
-public class LookArticleActivity extends EduBaseActivity implements LookArticleUI{
+public class LookArticleActivity extends EduBaseActivity implements LookArticleUI {
     private LinearLayout mUserTitle;
     private TextView mTvActLookUser;
     private TextView mTvActLookHomeTime;
@@ -60,8 +62,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     private BGARefreshLayout mRefresh;
     private RecyclerView mRecyActContentItem;
 
-
-    private long mTime=0;
+    private long mTime = 0;
 
     private SharePrefernceUtils mPrefernceUtils;
     private CommonDialog mCommonDialog;
@@ -70,8 +71,10 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     private ArticleTable extra;
     private LookArticlePresenter mPresenter;
 
-    public static Intent createIntent(Context mContext){
-        return new Intent(mContext,LookArticleActivity.class);
+    private CommonAdapter mCommonAdapter;//评论Adapter
+
+    public static Intent createIntent(Context mContext) {
+        return new Intent(mContext, LookArticleActivity.class);
     }
 
 
@@ -99,13 +102,14 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         mRefresh = (BGARefreshLayout) findViewById(R.id.refresh);
         mRecyActContentItem = (RecyclerView) findViewById(R.id.recy_act_content_item);
 
-        mPresenter=new LookArticlePresenter(this);
+        mPresenter = new LookArticlePresenter(this);
         initData();
         setListener();
         initWebView();
+        show_common();
     }
 
-    private void initWebView(){
+    private void initWebView() {
         mWbActivityWebviewShow.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -115,26 +119,26 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         WebViewHelper.getInstance().setUpWebView(mWbActivityWebviewShow, new WebViewHelper.OnGetDataListener() {
             @Override
             public void getDataListener(String text) {
-                Intent intent = new Intent(LookArticleActivity.this,GenPictureActivity.class);
-                Article article = new Article(extra.getA_content(),extra.getA_title());
+                Intent intent = new Intent(LookArticleActivity.this, GenPictureActivity.class);
+                Article article = new Article(extra.getA_content(), extra.getA_title());
 //                TextUtils.isEmpty(WebViewHelper.getInstance().getTitle())?"":"《"+WebViewHelper.getInstance().getTitle()+"》"
 //                if (extra!=null){
 //                    intent.putExtra("data",extra);
 //                    System.out.println("data"+extra.getA_title());
 //              }
-                intent.putExtra("data",article);
+                intent.putExtra("data", article);
                 startActivity(intent);
             }
         });
         mWbActivityWebviewShow.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         mTime = SystemClock.uptimeMillis();
                         break;
                     case MotionEvent.ACTION_UP:
-                        if(SystemClock.uptimeMillis() - mTime < 300){
+                        if (SystemClock.uptimeMillis() - mTime < 300) {
                             mBtnGetData.setVisibility(View.GONE);
                         }
                         break;
@@ -147,29 +151,29 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     /**
      *
      */
-    private void initData(){
+    private void initData() {
 
-        mPrefernceUtils=new SharePrefernceUtils(mContext, Content.SP_NAME);
+        mPrefernceUtils = new SharePrefernceUtils(mContext, Content.SP_NAME);
         Gson gson = new Gson();
         String string = mPrefernceUtils.getString(Content.SP_NAME);
         loginInfo = gson.fromJson(string, LoginInfo.class);
 
         Intent intent = getIntent();
-        extra= (ArticleTable) intent.getSerializableExtra(Content.ARTICLE_INFO);
+        extra = (ArticleTable) intent.getSerializableExtra(Content.ARTICLE_INFO);
         mTvActLookTitle.setText(extra.getA_title());
-        mTvActLookHomeTime.setText("发表日期："+extra.getCreatedAt());
+        mTvActLookHomeTime.setText("发表日期：" + extra.getCreatedAt());
 //        mWbActivityWebviewShow.loadDataWithBaseURL(null,extra.getA_content(), "text/html", "utf-8", null);
         String content = extra.getA_content();
-        StringBuffer stringBuffer=new StringBuffer(content);
+        StringBuffer stringBuffer = new StringBuffer(content);
         String substring = stringBuffer.substring(12, stringBuffer.length() - 2);
-        mWbActivityWebviewShow.loadDataWithBaseURL(null,substring, "text/html", "utf-8", null);
+        mWbActivityWebviewShow.loadDataWithBaseURL(null, substring, "text/html", "utf-8", null);
 
-        mPresenter.query_Comment(this,extra.getA_id());
+        mPresenter.query_Comment(this, extra.getA_id());
         //收藏
         mImgActLookColl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UA_Table ua_table=new UA_Table();
+                UA_Table ua_table = new UA_Table();
                 ua_table.setU_id(loginInfo.getId());
                 ua_table.setA_id(extra.getObjectId());
                 ua_table.setA_title(extra.getA_title());
@@ -178,7 +182,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                 ua_table.save(LookArticleActivity.this, new SaveListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(LookArticleActivity.this,"收藏成功！",Toast.LENGTH_LONG);
+                        Toast.makeText(LookArticleActivity.this, "收藏成功！", Toast.LENGTH_LONG);
                     }
 
                     @Override
@@ -192,9 +196,9 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         mImgActLookShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Build.VERSION.SDK_INT>=23){
-                    String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-                    ActivityCompat.requestPermissions(LookArticleActivity.this,mPermissionList,123);
+                if (Build.VERSION.SDK_INT >= 23) {
+                    String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
+                    ActivityCompat.requestPermissions(LookArticleActivity.this, mPermissionList, 123);
                 }
                 new ShareAction(LookArticleActivity.this).withText(extra.getA_title())
                         .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
@@ -209,28 +213,28 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                 setDialog();
             }
         });
-
     }
-    private void setDialog(){
-        mCommonDialog=new CommonDialog(this);
+
+    private void setDialog() {
+        mCommonDialog = new CommonDialog(this);
         View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_common, null, false);
         mCommonDialog.setContentView(inflate);
         mCommonDialog.show();
         mCommonDialog.setLayoutAttrebutes();
-        final EditText content= (EditText) inflate.findViewById(R.id.edt_dia_comm);
-        final TextView pub= (TextView) inflate.findViewById(R.id.tv_dia_pub);
+        final EditText content = (EditText) inflate.findViewById(R.id.edt_dia_comm);
+        final TextView pub = (TextView) inflate.findViewById(R.id.tv_dia_pub);
         pub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String con = content.getText().toString().trim();
-                if (con.length()==0){
-                    Toast.makeText(LookArticleActivity.this,"内容不能为空！",Toast.LENGTH_SHORT);
+                if (con.length() == 0) {
+                    Toast.makeText(LookArticleActivity.this, "内容不能为空！", Toast.LENGTH_SHORT);
                     return;
                 }
                 pub.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        UA_Table ua_table=new UA_Table();
+                        UA_Table ua_table = new UA_Table();
                         ua_table.setU_id(loginInfo.getId());
                         ua_table.setU_url(loginInfo.getUrl());
                         ua_table.setAu_name(loginInfo.getName());
@@ -238,18 +242,27 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                         ua_table.setA_title(extra.getA_title());
                         ua_table.setUa_comm(con);
                         ua_table.setUa_coll("0");
-                        mPresenter.addComment(LookArticleActivity.this,ua_table);
+                        mPresenter.addComment(LookArticleActivity.this, ua_table);
                     }
                 });
             }
         });
     }
 
+    public void show_common() {
+        mCommonAdapter = new CommonAdapter(this, "0");
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyActContentItem.setLayoutManager(layoutManager);
+        mRecyActContentItem.setAdapter(mCommonAdapter);
+    }
+
+
     /**
      * 生成图片按钮
+     *
      * @param v
      */
-    public void ClickOnSelect(View v){
+    public void ClickOnSelect(View v) {
         mWbActivityWebviewShow.post(new Runnable() {
             @Override
             public void run() {
@@ -259,7 +272,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         mBtnGetData.setVisibility(View.GONE);
     }
 
-    private UMShareListener mShareListener=new UMShareListener() {
+    private UMShareListener mShareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA media) {
 
@@ -302,7 +315,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
 
 
     //设置监听
-    private void setListener(){
+    private void setListener() {
 
     }
 
@@ -315,7 +328,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
 
     @Override
     public void addComment_ok() {
-        Toast.makeText(this,"发布成功！",Toast.LENGTH_LONG);
+        Toast.makeText(this, "发布成功！", Toast.LENGTH_LONG);
         mCommonDialog.dismiss();
     }
 
@@ -326,9 +339,8 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
 
     @Override
     public void query_comment_ok(List<UA_Table> list) {
-        if (list!=null && list.size()>0){
-            UA_Table ua_table = list.get(0);
-            System.out.println("uatable"+ua_table.getA_title()+ua_table.getUa_comm());
+        if (list != null && list.size() > 0) {
+            mCommonAdapter.addData(list);
         }
 
     }

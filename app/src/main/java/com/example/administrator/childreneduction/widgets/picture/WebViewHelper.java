@@ -45,9 +45,10 @@ public class WebViewHelper {
         mSettings.setDomStorageEnabled(true);//开启DOM
         mSettings.setDefaultTextEncodingName("utf-8");//设置字符编码
         //设置web页面
-        mSettings.setUseWideViewPort(true);// 调整到适合webview大小
+//        mSettings.setUseWideViewPort(true);// 调整到适合webview大小
         mSettings.setLoadWithOverviewMode(true);// 调整到适合webview大小
-        mSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);// 屏幕自适应网页
+//        mSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);// 屏幕自适应网页
+//        mSettings.setSupportZoom(false);
         mSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         mSettings.setJavaScriptEnabled(true);
 
@@ -75,35 +76,35 @@ public class WebViewHelper {
     }
 
     public void getSelectedData(WebView webView) {
-//        String js = "(function getSelectedText() {" +
-//                "var txt;" +
-//                "if (window.getSelection) {" +
-//                "txt = window.getSelection().toString();" +
-//                "} else if (window.document.getSelection) {" +
-//                "txt = window.document.getSelection().toString();" +
-//                "} else if (window.document.selection) {" +
-//                "txt = window.document.selection.createRange().text;" +
-//                "}" +
-//                "JSInterface.getText(txt);" +
-//                "})()";
-
         String js = "(function getSelectedText() {" +
                 "var txt;" +
                 "if (window.getSelection) {" +
-                "var range=window.getSelection().getRangeAt(0);" +
-                "var container = window.document.createElement('div');" +
-                "container.appendChild(range.cloneContents());" +
-                "txt = container.innerHTML;" +
+                "txt = window.getSelection().toString();" +
                 "} else if (window.document.getSelection) {" +
-                "var range=window.getSelection().getRangeAt(0);" +
-                "var container = window.document.createElement('div');" +
-                "container.appendChild(range.cloneContents());" +
-                "txt = container.innerHTML;" +
+                "txt = window.document.getSelection().toString();" +
                 "} else if (window.document.selection) {" +
-                "txt = window.document.selection.createRange().htmlText;" +
+                "txt = window.document.selection.createRange().text;" +
                 "}" +
                 "JSInterface.getText(txt);" +
                 "})()";
+
+//        String js = "(function getSelectedText() {" +
+//                "var txt;" +
+//                "if (window.getSelection) {" +
+//                "var range=window.getSelection().getRangeAt(0);" +
+//                "var container = window.document.createElement('div');" +
+//                "container.appendChild(range.cloneContents());" +
+//                "txt = container.innerHTML;" +
+//                "} else if (window.document.getSelection) {" +
+//                "var range=window.getSelection().getRangeAt(0);" +
+//                "var container = window.document.createElement('div');" +
+//                "container.appendChild(range.cloneContents());" +
+//                "txt = container.innerHTML;" +
+//                "} else if (window.document.selection) {" +
+//                "txt = window.document.selection.createRange().htmlText;" +
+//                "}" +
+//                "JSInterface.getText(txt);" +
+//                "})()";
 
         // calling the js function
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

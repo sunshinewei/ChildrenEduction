@@ -1,5 +1,6 @@
 package com.example.administrator.childreneduction.ui.coll.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -9,6 +10,7 @@ import android.view.View;
 
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.UV_Table;
+import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
@@ -16,6 +18,7 @@ import com.example.administrator.childreneduction.ui.coll.adapter.VideoCollAdapt
 import com.example.administrator.childreneduction.ui.coll.iview.VideoCollUI;
 import com.example.administrator.childreneduction.ui.coll.presenter.VideoCollPresenter;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
+import com.example.administrator.childreneduction.ui.vedio.activity.VideoPlayerActivity;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
 import com.google.gson.Gson;
@@ -94,7 +97,9 @@ public class VideoCollFragment extends BaseFagment implements BGARefreshLayout.B
         mCollectAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void setOnClickListener(View view, int position) {
-
+                List<UV_Table> list = mCollectAdapter.getList();
+                UV_Table uv_table = list.get(position);
+                mCollPresenter.query_video(getContext(),uv_table.getV_id());
             }
         });
     }
@@ -125,6 +130,18 @@ public class VideoCollFragment extends BaseFagment implements BGARefreshLayout.B
 
     @Override
     public void video_coll_data_fail() {
+
+    }
+
+    @Override
+    public void query_video_ok(VedioTable vedioTable) {
+        Intent intent = VideoPlayerActivity.createIntent(getContext());
+        intent.putExtra("VEDIO", vedioTable);
+        startActivity(intent);
+    }
+
+    @Override
+    public void query_video_fail() {
 
     }
 }

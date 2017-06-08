@@ -1,34 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <com.afollestad.easyvideoplayer.EasyVideoPlayer
-        android:id="@+id/evp_act_vp_player"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/user_care"
-        app:evp_autoPlay="false"
-        app:evp_customLabelText="Custom label text if rightAction is customLabel"
-        app:evp_disableControls="false"
-        app:evp_hideControlsOnPlay="true"
-        app:evp_leftAction="restart"
-        app:evp_pauseDrawable="@drawable/evp_action_pause"
-        app:evp_playDrawable="@drawable/evp_action_play"
-        app:evp_restartDrawable="@drawable/evp_action_restart"
-        app:evp_retryText="@string/evp_retry"
-        app:evp_rightAction="none"
-        app:evp_submitText="@string/evp_submit"
-        app:evp_autoFullscreen="false"
-        app:evp_loop="false"/>
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical|end"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/user_care"
+        android:orientation="vertical">
+        <com.afollestad.easyvideoplayer.EasyVideoPlayer
+            android:id="@+id/evp_act_vp_player"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            app:evp_autoFullscreen="false"
+            app:evp_autoPlay="false"
+            app:evp_customLabelText="Custom label text if rightAction is customLabel"
+            app:evp_disableControls="false"
+            app:evp_hideControlsOnPlay="true"
+            app:evp_leftAction="restart"
+            app:evp_loop="false"
+            app:evp_pauseDrawable="@drawable/evp_action_pause"
+            app:evp_playDrawable="@drawable/evp_action_play"
+            app:evp_restartDrawable="@drawable/evp_action_restart"
+            app:evp_retryText="@string/evp_retry"
+            app:evp_rightAction="none"
+            app:evp_submitText="@string/evp_submit"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/color_text_blank_500"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_act_comm"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/user_care"
-        android:layout_alignParentBottom="true">
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|end">
+
+        <ImageView
+            android:id="@+id/img_act_comm"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/content"/>
 
         <ImageView
             android:id="@+id/img_adapter_home_coll"

@@ -55,9 +55,16 @@
             <WebView
                 android:id="@+id/wb_activity_webview_show"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_act_look_title">
             </WebView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/color_text_blank_500"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"/>
 
             <cn.bingoogolapple.refreshlayout.BGARefreshLayout
                 android:id="@+id/refresh"
