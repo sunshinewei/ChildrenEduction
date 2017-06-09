@@ -61,6 +61,8 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     private Button mBtnGetData;
     private BGARefreshLayout mRefresh;
     private RecyclerView mRecyActContentItem;
+    private ImageView mImgActLookClear;
+
 
     private long mTime = 0;
 
@@ -72,6 +74,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     private LookArticlePresenter mPresenter;
 
     private CommonAdapter mCommonAdapter;//评论Adapter
+
 
     public static Intent createIntent(Context mContext) {
         return new Intent(mContext, LookArticleActivity.class);
@@ -101,6 +104,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         mBtnGetData = (Button) findViewById(R.id.btn_getData);
         mRefresh = (BGARefreshLayout) findViewById(R.id.refresh);
         mRecyActContentItem = (RecyclerView) findViewById(R.id.recy_act_content_item);
+        mImgActLookClear = (ImageView) findViewById(R.id.img_act_look_clear);
 
         mPresenter = new LookArticlePresenter(this);
         initData();
@@ -168,17 +172,19 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         String substring = stringBuffer.substring(12, stringBuffer.length() - 2);
         mWbActivityWebviewShow.loadDataWithBaseURL(null, substring, "text/html", "utf-8", null);
 
-        mPresenter.query_Comment(this, extra.getA_id());
+        mPresenter.query_Comment(this, extra.getObjectId());
         //收藏
         mImgActLookColl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UA_Table ua_table = new UA_Table();
                 ua_table.setU_id(loginInfo.getId());
+                ua_table.setU_url(loginInfo.getUrl());
                 ua_table.setA_id(extra.getObjectId());
                 ua_table.setA_title(extra.getA_title());
                 ua_table.setAu_name(extra.getU_name());
                 ua_table.setUa_coll("1");
+                ua_table.setUa_comm(".");
                 ua_table.save(LookArticleActivity.this, new SaveListener() {
                     @Override
                     public void onSuccess() {
@@ -238,11 +244,12 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                         ua_table.setU_id(loginInfo.getId());
                         ua_table.setU_url(loginInfo.getUrl());
                         ua_table.setAu_name(loginInfo.getName());
-                        ua_table.setA_id(extra.getA_id());
+                        ua_table.setA_id(extra.getObjectId());
                         ua_table.setA_title(extra.getA_title());
                         ua_table.setUa_comm(con);
                         ua_table.setUa_coll("0");
                         mPresenter.addComment(LookArticleActivity.this, ua_table);
+                        mCommonAdapter.add_common(null,ua_table);
                     }
                 });
             }

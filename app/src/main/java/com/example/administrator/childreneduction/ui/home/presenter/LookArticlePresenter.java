@@ -50,7 +50,8 @@ public class LookArticlePresenter {
     public void query_Comment(Context mContext, String a_id) {
         BmobQuery<UA_Table> query = new BmobQuery<>();
         query.addWhereEqualTo("a_id", a_id);
-        query.addWhereNotEqualTo("ua_comm", ".");
+//        query.addWhereNotEqualTo("ua_comm", ".");
+        System.out.println("a_id为"+a_id);
         query.findObjects(mContext, new FindListener<UA_Table>() {
             @Override
             public void onSuccess(List<UA_Table> list) {

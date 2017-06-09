@@ -48,6 +48,25 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CViewHolde
         notifyDataSetChanged();
     }
 
+    public void add_common(UV_Table uv_table,UA_Table ua_table){
+        if ("1".equals(mType)) {
+            mUV_tables.add(0,uv_table);
+        }
+        if ("0".equals(mType)) {
+            mUATables.add(0,ua_table);
+        }
+        notifyItemInserted(0);
+    }
+
+
+    public List<UA_Table> getUATables() {
+        return mUATables;
+    }
+
+    public List<UV_Table> getUV_tables() {
+        return mUV_tables;
+    }
+
     @Override
     public CViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.adapter_common, parent, false);
@@ -58,19 +77,41 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CViewHolde
     public void onBindViewHolder(CViewHolder holder, int position) {
         if ("1".equals(mType)) {
             UV_Table uv_table = mUV_tables.get(position);
-            holder.mTvAdaCommComm.setText(uv_table.getUv_comm());
-            System.out.println("评论为" + uv_table.getUv_comm());
+            if (".".equals(uv_table.getUv_comm())){
+                holder.mTvAdaCommComm.setTextColor(mContext.getResources().getColor(R.color.color_toolbar_background_red));
+                holder.mTvAdaCommComm.setText(uv_table.getVu_name()+"收藏了此文章");
+            }
+            else {
+                holder.mTvAdaCommComm.setTextColor(mContext.getResources().getColor(R.color.color_text_blank_800));
+                holder.mTvAdaCommComm.setText(uv_table.getUv_comm());
+            }
             holder.mTvAdaCommName.setText(uv_table.getVu_name());
-            holder.mTvAdaCommTime.setText(uv_table.getCreatedAt());
+            if (uv_table.getCreatedAt()==null){
+                holder.mTvAdaCommTime.setText("刚刚");
+            }
+            else {
+                holder.mTvAdaCommTime.setText(uv_table.getCreatedAt());
+            }
             Glide.with(mContext)
                     .load(uv_table.getU_url())
                     .into(holder.mCivAdaComHead);
         }
         if ("0".equals(mType)) {
             UA_Table ua_table = mUATables.get(position);
-            holder.mTvAdaCommComm.setText(ua_table.getUa_comm());
+            if (".".equals(ua_table.getUa_comm())){
+                holder.mTvAdaCommComm.setTextColor(mContext.getResources().getColor(R.color.color_toolbar_background_red));
+                holder.mTvAdaCommComm.setText(ua_table.getAu_name()+"收藏了此文章");
+            }
+            else {
+                holder.mTvAdaCommComm.setTextColor(mContext.getResources().getColor(R.color.color_text_blank_800));
+                holder.mTvAdaCommComm.setText(ua_table.getUa_comm());
+            }
             holder.mTvAdaCommName.setText(ua_table.getAu_name());
-            holder.mTvAdaCommTime.setText(ua_table.getCreatedAt());
+            if (ua_table.getCreatedAt()==null){
+                holder.mTvAdaCommTime.setText("刚刚");
+            }else {
+                holder.mTvAdaCommTime.setText(ua_table.getCreatedAt());
+            }
             Glide.with(mContext)
                     .load(ua_table.getU_url())
                     .into(holder.mCivAdaComHead);

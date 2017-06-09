@@ -68,6 +68,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
     private Activity mActivity;
     private SharePrefernceUtils mPrefernceUtils;
     private Gson gson;
+    private LoginInfo mLoginInfo;
 
     private boolean isExit;
     boolean isauth;

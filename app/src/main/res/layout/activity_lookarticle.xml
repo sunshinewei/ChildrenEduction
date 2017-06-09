@@ -111,6 +111,15 @@
             android:gravity="center_vertical|end">
 
             <ImageView
+                android:id="@+id/img_act_look_clear"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="30dp"
+                android:src="@mipmap/clear"
+                android:visibility="gone"
+                />
+
+            <ImageView
                 android:id="@+id/img_act_look_content"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

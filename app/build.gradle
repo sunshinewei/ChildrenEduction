@@ -164,4 +164,6 @@ dependencies {
     compile 'com.willowtreeapps.spruce:spruce-android:1.0.0'
     //viewpager
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    //切换皮肤
+    compile 'com.bilibili:magicasakura:0.1.6@aar'
 }

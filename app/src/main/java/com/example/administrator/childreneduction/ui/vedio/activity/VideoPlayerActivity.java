@@ -88,8 +88,8 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
         mRecyActComm.setLayoutManager(layoutManager);
         mRecyActComm.setAdapter(mCommonAdapter);
         BmobQuery<UV_Table> query=new BmobQuery<>();
-        query.addWhereEqualTo("v_id",vedio.getV_id());
-        query.addWhereNotEqualTo("uv_comm",".");
+        query.addWhereEqualTo("v_id",vedio.getObjectId());
+//        query.addWhereNotEqualTo("uv_comm",".");
         query.findObjects(this, new FindListener<UV_Table>() {
             @Override
             public void onSuccess(List<UV_Table> list) {

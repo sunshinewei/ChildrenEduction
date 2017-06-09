@@ -45,7 +45,8 @@ public class CollectFragment extends BaseFagment {
     public void initData() {
         mArticleCollFragment = ArticleCollFragment.newInstance();
         mVideoCollFragment = VideoCollFragment.newInsatance();
-
+        mTvFragCollArt.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
+        mTvFragCollVideo.setTextColor(getResources().getColor(R.color.color_text_blank_800));
         mManager = getChildFragmentManager();
         mManager.beginTransaction()
                 .add(R.id.fram_fram_coll_view, mArticleCollFragment)
@@ -66,7 +67,8 @@ public class CollectFragment extends BaseFagment {
         mTvFragCollArt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mTvFragCollArt.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
+                mTvFragCollVideo.setTextColor(getResources().getColor(R.color.color_text_blank_800));
                 mManager = getChildFragmentManager();
                 mManager.beginTransaction()
 //                        .add(R.id.fram_fram_coll_view, mArticleCollFragment)
@@ -81,6 +83,8 @@ public class CollectFragment extends BaseFagment {
             @Override
             public void onClick(View v) {
 
+                mTvFragCollArt.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+                mTvFragCollVideo.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
                 mManager = getChildFragmentManager();
                 mManager.beginTransaction()
 //                .add(R.id.fram_fram_coll_view, mArticleCollFragment)
