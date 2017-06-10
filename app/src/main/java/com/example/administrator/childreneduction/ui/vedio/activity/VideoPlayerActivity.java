@@ -21,6 +21,7 @@ import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.UV_Table;
 import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.model.InforType;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.adapter.CommonAdapter;
 import com.example.administrator.childreneduction.ui.base.CommonDialog;
@@ -32,9 +33,14 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -48,7 +54,7 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
     private ImageView mImgAdapterHomeShare;
     private RecyclerView mRecyActComm;
     private ImageView mImgActComm;
-
+    private ImageView mImgActClear;
 
     private SharePrefernceUtils mPrefernceUtils;
     private Gson mGson;
@@ -70,11 +76,14 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
+
         mEvpActVpPlayer = (EasyVideoPlayer) findViewById(R.id.evp_act_vp_player);
         mImgAdapterHomeColl = (ImageView) findViewById(R.id.img_adapter_home_coll);
         mImgAdapterHomeShare = (ImageView) findViewById(R.id.img_adapter_home_share);
         mRecyActComm = (RecyclerView) findViewById(R.id.recy_act_comm);
         mImgActComm = (ImageView) findViewById(R.id.img_act_comm);
+        mImgActClear = (ImageView) findViewById(R.id.img_act_clear);
 
         initData();
     }
@@ -112,7 +121,16 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
         Intent intent = getIntent();
         VedioTable vedio = (VedioTable) intent.getSerializableExtra("VEDIO");
 
-        System.out.println("视频地址" + vedio.getV_url());
+        if (vedio.getType()!=null){
+            if ("video".equals(vedio.getType())){
+                mImgActClear.setVisibility(View.VISIBLE);
+                mImgAdapterHomeColl.setVisibility(View.GONE);
+            }
+        }else {
+                mImgActClear.setVisibility(View.GONE);
+                mImgAdapterHomeColl.setVisibility(View.VISIBLE);
+        }
+
         mVideoPath=vedio.getV_url();
 //
         initCommon(vedio);
@@ -122,6 +140,23 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
         mEvpActVpPlayer.setSource(Uri.parse(vedio.getV_url()));
         mEvpActVpPlayer.stop();
         setListner(vedio);
+    }
+
+    /**
+     * 从哪个条目中跳转到视频播放
+     * @param inforType
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void me_look_video(InforType inforType){
+        System.out.println("我的界面进来");
+        if ("video".equals(inforType.getType())){
+            mImgActClear.setVisibility(View.VISIBLE);
+            mImgAdapterHomeColl.setVisibility(View.GONE);
+        }
+        else {
+            mImgActClear.setVisibility(View.GONE);
+            mImgAdapterHomeColl.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -135,7 +170,7 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
                 UV_Table uv_table = new UV_Table();
                 uv_table.setU_id(mLoginInfo.getId());
                 uv_table.setU_url(mLoginInfo.getUrl());
-                uv_table.setV_id(vedio.getV_id());
+                uv_table.setV_id(vedio.getObjectId());
                 uv_table.setVu_name(vedio.getU_name());
                 uv_table.setVu_title(vedio.getV_title());
                 uv_table.setUv_url(vedio.getV_url());
@@ -177,6 +212,26 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
             }
         });
 
+        //删除此文章
+        mImgActClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VedioTable vedioTable=new VedioTable();
+                vedioTable.setObjectId(vedio.getObjectId());
+                vedioTable.delete(VideoPlayerActivity.this, new DeleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(VideoPlayerActivity.this,"视频删除成功！",Toast.LENGTH_LONG);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
+            }
+        });
     }
 
     private void setDialog(final VedioTable vedio) {
@@ -325,5 +380,11 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
     public void onSubmit(EasyVideoPlayer player, Uri source) {
 //        mEvpActVpPlayer.setSource();
         System.out.println("点击提交，加载数据中");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

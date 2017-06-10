@@ -68,6 +68,16 @@ public class ArticleTable extends BmobObject implements Serializable {
     private String a_coll;
     private String a_comm;
 
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getA_id() {
         return a_id;
     }

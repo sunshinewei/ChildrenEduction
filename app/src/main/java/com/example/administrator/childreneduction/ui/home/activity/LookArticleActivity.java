@@ -24,6 +24,7 @@ import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.bmob.UA_Table;
 import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.model.InforType;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.adapter.CommonAdapter;
 import com.example.administrator.childreneduction.ui.base.CommonDialog;
@@ -39,9 +40,14 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -93,6 +99,8 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
+
         mUserTitle = (LinearLayout) findViewById(R.id.user_title);
         mTvActLookUser = (TextView) findViewById(R.id.tv_act_look_user);
         mTvActLookHomeTime = (TextView) findViewById(R.id.tv_act_look_home_time);
@@ -164,6 +172,17 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
 
         Intent intent = getIntent();
         extra = (ArticleTable) intent.getSerializableExtra(Content.ARTICLE_INFO);
+
+        if (extra.getType() != null) {
+            if ("me".equals(extra.getType())) {
+                mImgActLookClear.setVisibility(View.VISIBLE);
+                mImgActLookColl.setVisibility(View.GONE);
+            }
+        } else {
+            mImgActLookClear.setVisibility(View.GONE);
+            mImgActLookColl.setVisibility(View.VISIBLE);
+        }
+
         mTvActLookTitle.setText(extra.getA_title());
         mTvActLookHomeTime.setText("发表日期：" + extra.getCreatedAt());
 //        mWbActivityWebviewShow.loadDataWithBaseURL(null,extra.getA_content(), "text/html", "utf-8", null);
@@ -219,6 +238,26 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                 setDialog();
             }
         });
+        //删除文章
+        mImgActLookClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArticleTable articleTable = new ArticleTable();
+                articleTable.setObjectId(extra.getObjectId());
+                articleTable.delete(LookArticleActivity.this, new DeleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(LookArticleActivity.this, "文章删除成功！", Toast.LENGTH_LONG);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Toast.makeText(LookArticleActivity.this, "文章删除失败！", Toast.LENGTH_LONG);
+                    }
+                });
+            }
+        });
     }
 
     private void setDialog() {
@@ -249,7 +288,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                         ua_table.setUa_comm(con);
                         ua_table.setUa_coll("0");
                         mPresenter.addComment(LookArticleActivity.this, ua_table);
-                        mCommonAdapter.add_common(null,ua_table);
+                        mCommonAdapter.add_common(null, ua_table);
                     }
                 });
             }
@@ -263,6 +302,22 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         mRecyActContentItem.setAdapter(mCommonAdapter);
     }
 
+
+    /**
+     * 判断从哪个业务逻辑跳进阅读界面
+     *
+     * @param inforType
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void me_look_article(InforType inforType) {
+        if ("me".equals(inforType.getType())) {
+            mImgActLookClear.setVisibility(View.VISIBLE);
+            mImgActLookColl.setVisibility(View.GONE);
+        } else {
+            mImgActLookClear.setVisibility(View.GONE);
+            mImgActLookColl.setVisibility(View.VISIBLE);
+        }
+    }
 
     /**
      * 生成图片按钮
@@ -355,5 +410,11 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     @Override
     public void query_comment_fail() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

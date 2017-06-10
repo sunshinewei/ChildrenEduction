@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.model.InforType;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.ui.me.adapter.MeVideoAdapter;
@@ -24,6 +25,8 @@ import com.google.gson.Gson;
 import com.willowtreeapps.spruce.Spruce;
 import com.willowtreeapps.spruce.animation.DefaultAnimations;
 import com.willowtreeapps.spruce.sort.DefaultSort;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -59,6 +62,8 @@ public class MeVideoActivity extends BaseActivity implements MeVideoUI, BGARefre
     public void initView() {
         mRefresh = (BGARefreshLayout) findViewById(R.id.refresh);
         mRecyActViditem = (RecyclerView) findViewById(R.id.recy_act_viditem);
+
+        EventBus.getDefault().post(new InforType("video"));
 
         initData();
     }
@@ -100,7 +105,9 @@ public class MeVideoActivity extends BaseActivity implements MeVideoUI, BGARefre
        mVideoAdapter.setOnClickListener(new OnClickListener() {
            @Override
            public void setOnClickListener(View view, int position) {
+
                VedioTable vedioTable = mVideoAdapter.getList().get(position);
+               vedioTable.setType("video");
                Intent intent = VideoPlayerActivity.createIntent(MeVideoActivity.this);
                intent.putExtra("VEDIO", vedioTable);
                startActivity(intent);

@@ -23,6 +23,16 @@ public class VedioTable extends BmobObject implements Serializable{
     private String v_coll;
     private String v_comm;
 
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getU_url() {
         return u_url;
     }

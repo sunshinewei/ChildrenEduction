@@ -4,6 +4,29 @@
               android:layout_height="match_parent"
               android:background="@color/color_text_blank_100"
               android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:background="@color/color_text_blank_100"
+        android:layout_height="60dp"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/tv_activity_article"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:textColor="@color/color_text_blank_600"
+                android:text="我的文章"
+                android:gravity="center"
+                android:textSize="@dimen/dime_text_title_size"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"

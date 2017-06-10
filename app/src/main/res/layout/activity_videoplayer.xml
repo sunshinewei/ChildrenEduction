@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/user_care"
         android:orientation="vertical">
+
         <com.afollestad.easyvideoplayer.EasyVideoPlayer
             android:id="@+id/evp_act_vp_player"
             android:layout_width="match_parent"
@@ -31,9 +32,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/color_text_blank_500"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:background="@color/color_text_blank_500"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recy_act_comm"
@@ -52,9 +53,17 @@
         android:gravity="center_vertical|end">
 
         <ImageView
-            android:id="@+id/img_act_comm"
+            android:id="@+id/img_act_clear"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/clear"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/img_act_comm"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginRight="30dp"
             android:src="@mipmap/content"/>
 

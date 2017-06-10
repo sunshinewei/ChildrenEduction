@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.model.InforType;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.home.activity.LookArticleActivity;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
@@ -24,6 +25,8 @@ import com.google.gson.Gson;
 import com.willowtreeapps.spruce.Spruce;
 import com.willowtreeapps.spruce.animation.DefaultAnimations;
 import com.willowtreeapps.spruce.sort.DefaultSort;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -60,6 +63,8 @@ public class MeArticleActivity extends BaseActivity implements BGARefreshLayout.
     public void initView() {
         mRefresh = (BGARefreshLayout) findViewById(R.id.refresh);
         mRecyActItem = (RecyclerView) findViewById(R.id.recy_act_item);
+        EventBus.getDefault().post(new InforType("me"));
+
         initData();
     }
 
@@ -101,7 +106,9 @@ public class MeArticleActivity extends BaseActivity implements BGARefreshLayout.
         mArticleAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void setOnClickListener(View view, int position) {
+
                 ArticleTable articleTable = mArticleAdapter.getList().get(position);
+                articleTable.setType("me");
                 Intent intent = LookArticleActivity.createIntent(MeArticleActivity.this);
                 intent.putExtra(Content.ARTICLE_INFO,articleTable);
                 startActivity(intent);
@@ -136,6 +143,5 @@ public class MeArticleActivity extends BaseActivity implements BGARefreshLayout.
 
     @Override
     public void load_mearticle_fail() {
-
     }
 }
