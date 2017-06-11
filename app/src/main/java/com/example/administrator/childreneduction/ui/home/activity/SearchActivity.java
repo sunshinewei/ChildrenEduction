@@ -23,11 +23,11 @@ import android.widget.TextView;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.model.LabelBean;
 import com.example.administrator.childreneduction.ui.adapter.LabelAdater;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.ui.home.fragment.SearchArticleFragment;
 import com.example.administrator.childreneduction.ui.home.fragment.SearchVideoFragment;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
-import com.example.baselibrary.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import java.util.List;
  * 搜索Activity
  */
 
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends EduBaseActivity {
 
     private EditText mTvActivityLabel;
     private TextView mTvActSearchDelete;
@@ -171,6 +171,11 @@ public class SearchActivity extends BaseActivity {
                 return false;
             }
         });
+
+    }
+
+    @Override
+    public void initActivityComponent() {
 
     }
 

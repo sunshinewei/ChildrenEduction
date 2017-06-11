@@ -6,7 +6,11 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.administrator.childreneduction.R;
+import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
+import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
+import com.google.gson.Gson;
 
 /**
  * Created by Administrator on 2017/5/7.
@@ -25,6 +29,10 @@ public class CollectFragment extends BaseFagment {
 
     private  FragmentManager mManager;
 
+    private LoginInfo mLoginInfo;
+    private SharePrefernceUtils mPrefernceUtils;
+    private Gson gson;
+
     public static CollectFragment newInstance(){
         return new CollectFragment();
     }
@@ -39,24 +47,32 @@ public class CollectFragment extends BaseFagment {
         mTvFragCollArt = (TextView) mRootView.findViewById(R.id.tv_frag_coll_art);
         mTvFragCollVideo = (TextView) mRootView.findViewById(R.id.tv_frag_coll_video);
         mFramFramCollView = (FrameLayout) mRootView.findViewById(R.id.fram_fram_coll_view);
+
+        gson=new Gson();
+        mPrefernceUtils=new SharePrefernceUtils(getContext(), Content.SP_NAME);
+        String string = mPrefernceUtils.getString(Content.SP_NAME);
+        mLoginInfo=gson.fromJson(string,LoginInfo.class);
     }
 
     @Override
     public void initData() {
-        mArticleCollFragment = ArticleCollFragment.newInstance();
-        mVideoCollFragment = VideoCollFragment.newInsatance();
-        mTvFragCollArt.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
-        mTvFragCollVideo.setTextColor(getResources().getColor(R.color.color_text_blank_800));
-        mManager = getChildFragmentManager();
-        mManager.beginTransaction()
-                .add(R.id.fram_fram_coll_view, mArticleCollFragment)
-                .add(R.id.fram_fram_coll_view, mVideoCollFragment)
-                .hide(mVideoCollFragment)
-                .hide(mArticleCollFragment)
-                .show(mArticleCollFragment)
-                .commit();
 
-        setListener();
+        if (mLoginInfo!=null){
+            mArticleCollFragment = ArticleCollFragment.newInstance();
+            mVideoCollFragment = VideoCollFragment.newInsatance();
+            mTvFragCollArt.setTextColor(getResources().getColor(R.color.color_toolbar_background_red));
+            mTvFragCollVideo.setTextColor(getResources().getColor(R.color.color_text_blank_800));
+            mManager = getChildFragmentManager();
+            mManager.beginTransaction()
+                    .add(R.id.fram_fram_coll_view, mArticleCollFragment)
+                    .add(R.id.fram_fram_coll_view, mVideoCollFragment)
+                    .hide(mVideoCollFragment)
+                    .hide(mArticleCollFragment)
+                    .show(mArticleCollFragment)
+                    .commit();
+
+            setListener();
+        }
     }
 
     /**

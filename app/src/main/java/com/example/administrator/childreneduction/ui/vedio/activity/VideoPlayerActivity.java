@@ -25,8 +25,8 @@ import com.example.administrator.childreneduction.model.InforType;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.adapter.CommonAdapter;
 import com.example.administrator.childreneduction.ui.base.CommonDialog;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
-import com.example.baselibrary.base.BaseActivity;
 import com.google.gson.Gson;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -48,7 +48,7 @@ import cn.bmob.v3.listener.SaveListener;
  * Created by Administrator on 2017/5/21.
  */
 
-public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallback {
+public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCallback {
     private EasyVideoPlayer mEvpActVpPlayer;
     private ImageView mImgAdapterHomeColl;
     private ImageView mImgAdapterHomeShare;
@@ -386,5 +386,10 @@ public class VideoPlayerActivity extends BaseActivity implements EasyVideoCallba
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void initActivityComponent() {
+
     }
 }

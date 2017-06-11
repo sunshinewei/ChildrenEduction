@@ -89,9 +89,9 @@ public class App extends Application {
      * Umeng  三方登录与分享
      */
     private void initUmengShareAndLogin() {
-        Config.DEBUG = true;
-        //wxf7a2f8665504efde    48857a9510b16804ea939f9046b03b18
-        PlatformConfig.setWeixin("wxf7a2f8665504efde", "48857a9510b16804ea939f9046b03b18");
+        Config.DEBUG = false;
+        //wxf7a2f8665504efde    48857a9510b16804ea939f9046b03b18   wxf7a2f8665504efde
+        PlatformConfig.setWeixin("wxf7a2f8665504efde", "12afdd4e2f876e7c864e9c5887481373");
         //豆瓣RENREN平台目前只能在服务器端配置94c91203c01a414c7d120052b9a95863
         PlatformConfig.setSinaWeibo("1568177975", "94c91203c01a414c7d120052b9a95863", "http://sns.whalecloud.com");
         PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
@@ -110,7 +110,7 @@ public class App extends Application {
      * 初始化极光推送
      */
     private void initJpush() {
-        JPushInterface.setDebugMode(true);//设置为调试模式
+        JPushInterface.setDebugMode(false);//设置为调试模式
         JPushInterface.init(this);//初始化SDK
     }
 

@@ -13,8 +13,8 @@ import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LabelBean;
 import com.example.administrator.childreneduction.ui.adapter.LabelAdater;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
-import com.example.baselibrary.base.BaseActivity;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * 标签Activity。
  */
 
-public class LabelActivity extends BaseActivity {
+public class LabelActivity extends EduBaseActivity {
     private RecyclerView mRecyActLabelItem;
     private TextView mTvActLabelOk;
 

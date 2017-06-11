@@ -19,6 +19,7 @@ import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.me.activity.ArticleActivty;
 import com.example.administrator.childreneduction.ui.me.activity.MeArticleActivity;
 import com.example.administrator.childreneduction.ui.me.activity.MeVideoActivity;
+import com.example.administrator.childreneduction.ui.me.activity.SettingActivity;
 import com.example.administrator.childreneduction.ui.me.activity.VideoPublishActivity;
 import com.example.administrator.childreneduction.ui.me.iview.MeFragmentUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeFragmentPresenter;
@@ -132,6 +133,22 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
 
         mContext = this.getContext();
         mActivity = this.getActivity();
+
+        gson = new Gson();
+        mPrefernceUtils = new SharePrefernceUtils(getContext(), Content.SP_NAME);
+        String string = mPrefernceUtils.getString(Content.SP_NAME);
+        mLoginInfo = gson.fromJson(string, LoginInfo.class);
+
+        if (mLoginInfo != null) {
+            mUserLogined.setVisibility(View.VISIBLE);
+            mUserLogin.setVisibility(View.GONE);
+            Glide.with(getContext())
+                    .load(mLoginInfo.getUrl());
+            mTvFragMeName.setText(mLoginInfo.getName());
+        } else {
+            mUserLogined.setVisibility(View.GONE);
+            mUserLogin.setVisibility(View.VISIBLE);
+        }
         setListener();
     }
 
@@ -170,7 +187,6 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
             public void onClick(View v) {
                 Toast.makeText(mContext, "授权" + isauth, Toast.LENGTH_LONG);
                 isauth = UMShareAPI.get(mContext).isAuthorize(mActivity, SHARE_MEDIA.WEIXIN);
-
                 if (isauth) {
 //                    UMShareAPI.get(mContext).deleteOauth(mActivity, SHARE_MEDIA.WEIXIN, umAuthListener);
                 } else {
@@ -198,15 +214,23 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(ArticleActivty.createInent(getContext()));
+                if (mLoginInfo != null) {
+                    startActivity(ArticleActivty.createInent(getContext()));
+                } else {
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                }
             }
         });
         //添加视频
         mTvFragMeVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(getContext(), VideoPublishActivity.class);
-                startActivity(mIntent);
+                if (mLoginInfo != null) {
+                    Intent mIntent = new Intent(getContext(), VideoPublishActivity.class);
+                    startActivity(mIntent);
+                } else {
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                }
 
             }
         });
@@ -214,14 +238,29 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeMearct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(MeArticleActivity.createIntent(getContext()));
+                if (mLoginInfo != null) {
+                    startActivity(MeArticleActivity.createIntent(getContext()));
+                } else {
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                }
             }
         });
         //我的视频
         mTvFragMeMevideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(MeVideoActivity.createIntent(getContext()));
+                if (mLoginInfo != null) {
+                    startActivity(MeVideoActivity.createIntent(getContext()));
+                } else {
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                }
+            }
+        });
+        //系统设置
+        mTvFragMeSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SettingActivity.createIntent(getContext()));
             }
         });
 

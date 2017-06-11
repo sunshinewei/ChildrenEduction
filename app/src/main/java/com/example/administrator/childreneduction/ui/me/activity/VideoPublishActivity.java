@@ -11,17 +11,17 @@ import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.ui.me.iview.VideoPublishUI;
 import com.example.administrator.childreneduction.ui.me.presenter.VideoPublishPresenter;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
-import com.example.baselibrary.base.BaseActivity;
 import com.google.gson.Gson;
 
 /**
  * Created by Administrator on 2017/5/20.
  */
 
-public class VideoPublishActivity extends BaseActivity implements VideoPublishUI{
+public class VideoPublishActivity extends EduBaseActivity implements VideoPublishUI{
 
     private TextView mTvActivityVideoBack;
     private TextView mTvActivityVideoPub;

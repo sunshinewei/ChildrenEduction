@@ -18,9 +18,9 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.administrator.childreneduction.R;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.widgets.picture.Article;
 import com.example.administrator.childreneduction.widgets.picture.GeneratePictureView;
-import com.example.baselibrary.base.BaseActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,7 +38,7 @@ import static com.example.administrator.childreneduction.R.id.rb_night;
  * 生成图片
  */
 
-public class GenPictureActivity extends BaseActivity {
+public class GenPictureActivity extends EduBaseActivity {
 
     private RadioButton mRbDay;
     private RadioButton mRbNight;
@@ -53,6 +53,12 @@ public class GenPictureActivity extends BaseActivity {
     private static final int FAILE = 2;
     ProgressDialog pd;
     private Handler mHandler = new Handler_Capture(this);
+
+    @Override
+    public void initActivityComponent() {
+
+    }
+
     class Handler_Capture extends Handler{
         WeakReference<Activity> weakReference;
         public Handler_Capture(Activity activity){

@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.model.Content;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.widgets.BothWayProgressBar;
-import com.example.baselibrary.base.BaseActivity;
 import com.yanzhenjie.permission.AndPermission;
 
 import java.io.File;
@@ -32,7 +32,7 @@ import java.util.List;
  * Created by Administrator on 2017/5/20.
  */
 
-public class VideoActivity extends BaseActivity implements SurfaceHolder.Callback, View.OnTouchListener, BothWayProgressBar.OnProgressEndListener {
+public class VideoActivity extends EduBaseActivity implements SurfaceHolder.Callback, View.OnTouchListener, BothWayProgressBar.OnProgressEndListener {
     private static final int LISTENER_START = 200;
     private static final String TAG = "MainActivity";
     //预览SurfaceView

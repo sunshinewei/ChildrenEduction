@@ -13,6 +13,7 @@ import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.InforType;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.ui.me.adapter.MeVideoAdapter;
 import com.example.administrator.childreneduction.ui.me.iview.MeVideoUI;
@@ -20,7 +21,6 @@ import com.example.administrator.childreneduction.ui.me.presenter.MeVideoPresent
 import com.example.administrator.childreneduction.ui.vedio.activity.VideoPlayerActivity;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
-import com.example.baselibrary.base.BaseActivity;
 import com.google.gson.Gson;
 import com.willowtreeapps.spruce.Spruce;
 import com.willowtreeapps.spruce.animation.DefaultAnimations;
@@ -37,7 +37,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Administrator on 2017/5/22.
  */
 
-public class MeVideoActivity extends BaseActivity implements MeVideoUI, BGARefreshLayout.BGARefreshLayoutDelegate {
+public class MeVideoActivity extends EduBaseActivity implements MeVideoUI, BGARefreshLayout.BGARefreshLayoutDelegate {
 
     private BGARefreshLayout mRefresh;
     private RecyclerView mRecyActViditem;

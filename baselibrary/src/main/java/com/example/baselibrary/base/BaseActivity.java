@@ -25,6 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         setContentView(setLayout());
         ButterKnife.bind(this);
         mContext = this;
+
+        shareSDK(savedInstanceState);
         initView();
     }
 
@@ -38,6 +40,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
      * 初始化布局文件中的控件
      */
     public abstract void initView();
+
+    public abstract void shareSDK(Bundle savedInstanceState);
 
 
     @Override

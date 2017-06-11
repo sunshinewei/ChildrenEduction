@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -113,6 +114,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         mRefresh = (BGARefreshLayout) findViewById(R.id.refresh);
         mRecyActContentItem = (RecyclerView) findViewById(R.id.recy_act_content_item);
         mImgActLookClear = (ImageView) findViewById(R.id.img_act_look_clear);
+
 
         mPresenter = new LookArticlePresenter(this);
         initData();
@@ -337,41 +339,41 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     private UMShareListener mShareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA media) {
-
+            System.out.println("开始分享");
         }
-
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            if (platform.name().equals("WEIXIN_FAVORITE")) {
-                Toast.makeText(LookArticleActivity.this, platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
-            } else {
-                if (platform != SHARE_MEDIA.MORE && platform != SHARE_MEDIA.SMS
-                        && platform != SHARE_MEDIA.EMAIL
-                        && platform != SHARE_MEDIA.FLICKR
-                        && platform != SHARE_MEDIA.FOURSQUARE
-                        && platform != SHARE_MEDIA.TUMBLR
-                        && platform != SHARE_MEDIA.POCKET
-                        && platform != SHARE_MEDIA.PINTEREST
-
-                        && platform != SHARE_MEDIA.INSTAGRAM
-                        && platform != SHARE_MEDIA.GOOGLEPLUS
-                        && platform != SHARE_MEDIA.YNOTE
-                        && platform != SHARE_MEDIA.EVERNOTE) {
-                    Toast.makeText(LookArticleActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-                }
-
-            }
+//            if (platform.name().equals("WEIXIN_FAVORITE")) {
+//                Toast.makeText(LookArticleActivity.this, platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
+//            } else {
+//                if (platform != SHARE_MEDIA.MORE && platform != SHARE_MEDIA.SMS
+//                        && platform != SHARE_MEDIA.EMAIL
+//                        && platform != SHARE_MEDIA.FLICKR
+//                        && platform != SHARE_MEDIA.FOURSQUARE
+//                        && platform != SHARE_MEDIA.TUMBLR
+//                        && platform != SHARE_MEDIA.POCKET
+//                        && platform != SHARE_MEDIA.PINTEREST
+//
+//                        && platform != SHARE_MEDIA.INSTAGRAM
+//                        && platform != SHARE_MEDIA.GOOGLEPLUS
+//                        && platform != SHARE_MEDIA.YNOTE
+//                        && platform != SHARE_MEDIA.EVERNOTE) {
+//                    Toast.makeText(LookArticleActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+            System.out.println("分享成功");
 
         }
 
         @Override
         public void onError(SHARE_MEDIA media, Throwable throwable) {
+            System.out.println("分享失败");
 
         }
 
         @Override
         public void onCancel(SHARE_MEDIA media) {
-
+            System.out.println("撤销分享");
         }
     };
 
@@ -415,6 +417,15 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        UMShareAPI.get(this).release();
         EventBus.getDefault().unregister(this);
+
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        UMShareAPI.get(this).onSaveInstanceState(outState);
+    }
+
 }

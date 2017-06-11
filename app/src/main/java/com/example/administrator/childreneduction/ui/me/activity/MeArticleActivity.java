@@ -13,6 +13,7 @@ import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.InforType;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.ui.home.activity.LookArticleActivity;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 import com.example.administrator.childreneduction.ui.me.adapter.MeArticleAdapter;
@@ -20,7 +21,6 @@ import com.example.administrator.childreneduction.ui.me.iview.MeArticleUI;
 import com.example.administrator.childreneduction.ui.me.presenter.MeArticlePresenter;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.recyclerview.RecycleViewDivider;
-import com.example.baselibrary.base.BaseActivity;
 import com.google.gson.Gson;
 import com.willowtreeapps.spruce.Spruce;
 import com.willowtreeapps.spruce.animation.DefaultAnimations;
@@ -38,7 +38,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * 我的文章
  */
 
-public class MeArticleActivity extends BaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate,MeArticleUI {
+public class MeArticleActivity extends EduBaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate,MeArticleUI {
     private BGARefreshLayout mRefresh;
     private RecyclerView mRecyActItem;
 
