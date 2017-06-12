@@ -34,6 +34,7 @@ public class SearchArticlePresenter {
 //        query.addWhereContains("a_label",label);
         query.addWhereEqualTo("a_label",label);
         query.setLimit(10);
+        query.order("-createdAt");
         if (state==1){
             page++;
             query.setSkip(page*10+1);

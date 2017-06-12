@@ -1,10 +1,13 @@
 package com.example.administrator.childreneduction.ui.home.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -13,9 +16,16 @@ import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/5/29.
@@ -54,7 +64,7 @@ public class SearchVideoAdapter extends RecyclerView.Adapter<SearchVideoAdapter.
     }
 
     @Override
-    public void onBindViewHolder(SVViewHolder holder, int position) {
+    public void onBindViewHolder(final SVViewHolder holder, int position) {
         holder.itemView.setTag(position);
         VedioTable vedioTable = mTables.get(position);
         holder.mTvAdaUser.setText("用户：" + vedioTable.getU_name());
@@ -65,6 +75,28 @@ public class SearchVideoAdapter extends RecyclerView.Adapter<SearchVideoAdapter.
         Glide.with(mContext)
                 .load(vedioTable.getU_url())
                 .into(holder.mCivAdaSearviHead);
+
+        String url = vedioTable.getV_url();
+        if (url != null) {
+            Observable.just(url)
+                    .map(new Function<String, Bitmap>() {
+                        @Override
+                        public Bitmap apply(@NonNull String s) throws Exception {
+                            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                            mmr.setDataSource(s, new HashMap<String, String>());
+                            Bitmap time = mmr.getFrameAtTime();
+                            return time;
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<Bitmap>() {
+                        @Override
+                        public void accept(@NonNull Bitmap s) throws Exception {
+                            holder.mImgAdapterVideoBackground.setImageBitmap(s);
+                        }
+                    });
+        }
     }
 
     @Override
@@ -92,6 +124,7 @@ public class SearchVideoAdapter extends RecyclerView.Adapter<SearchVideoAdapter.
         private TextView mTvAdaTitle;
         private TextView mTvAdaLabel;
         private TextView mTvAdaTime;
+        private ImageView mImgAdapterVideoBackground;
 
         public SVViewHolder(View itemView) {
             super(itemView);
@@ -100,6 +133,7 @@ public class SearchVideoAdapter extends RecyclerView.Adapter<SearchVideoAdapter.
             mTvAdaTitle = (TextView) itemView.findViewById(R.id.tv_ada_title);
             mTvAdaLabel = (TextView) itemView.findViewById(R.id.tv_ada_label);
             mTvAdaTime = (TextView) itemView.findViewById(R.id.tv_ada_time);
+            mImgAdapterVideoBackground = (ImageView) itemView.findViewById(R.id.img_adapter_video_background);
         }
     }
 }

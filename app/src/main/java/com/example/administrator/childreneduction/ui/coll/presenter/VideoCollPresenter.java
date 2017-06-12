@@ -37,6 +37,7 @@ public class VideoCollPresenter {
         query.addWhereEqualTo("u_id", loginInfo.getId());
         query.addWhereEqualTo("uv_coll","1");
         query.setLimit(10);
+        query.order("-createdAt");
         if (state == 1) {
             page++;
             query.setSkip(10 * page + 1);
@@ -57,6 +58,7 @@ public class VideoCollPresenter {
     public void query_video(Context mContext,String v_id){
         BmobQuery<VedioTable> query=new BmobQuery<>();
         query.addWhereEqualTo("objectId",v_id);
+        query.order("-createdAt");
         query.findObjects(mContext, new FindListener<VedioTable>() {
             @Override
             public void onSuccess(List<VedioTable> list) {

@@ -7,12 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Administrator on 2017/5/22.
@@ -64,6 +67,12 @@ public class MeArticleAdapter extends RecyclerView.Adapter<MeArticleAdapter.CVie
         holder.mTvAdapterArticollTile.setText(ua_table.getA_title());
         holder.mTvAdapterArticollUser.setText(ua_table.getU_name());
         holder.mTvAdapterArticollTime.setText(ua_table.getCreatedAt());
+        holder.mTvAdaArtLabel.setText("标签："+ua_table.getA_label());
+        if (ua_table.getU_url()!=null){
+            Glide.with(mContext)
+                    .load(ua_table.getU_url())
+                    .into(holder.mTvAdaArtcollHead);
+        }
     }
 
     @Override
@@ -86,13 +95,16 @@ public class MeArticleAdapter extends RecyclerView.Adapter<MeArticleAdapter.CVie
         private TextView mTvAdapterArticollUser;
         private TextView mTvAdapterArticollTime;
         private TextView mTvAdapterArticollTile;
+        private CircleImageView mTvAdaArtcollHead;
+        private TextView mTvAdaArtLabel;
 
         public CViewHolder(View itemView) {
             super(itemView);
-
             mTvAdapterArticollUser = (TextView) itemView.findViewById(R.id.tv_adapter_articoll_user);
             mTvAdapterArticollTime = (TextView) itemView.findViewById(R.id.tv_adapter_articoll_time);
             mTvAdapterArticollTile = (TextView) itemView.findViewById(R.id.tv_adapter_articoll_tile);
+            mTvAdaArtcollHead = (CircleImageView) itemView.findViewById(R.id.tv_ada_artcoll_head);
+            mTvAdaArtLabel = (TextView) itemView.findViewById(R.id.tv_ada_art_label);
 
         }
     }

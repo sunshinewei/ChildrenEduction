@@ -36,6 +36,7 @@ public class ArticleCollPresenter {
         query.addWhereEqualTo("u_id", loginInfo.getId());
         query.addWhereEqualTo("ua_coll","1");
         query.setLimit(10);
+        query.order("-createdAt");
         if (state==1){
             page++;
             query.setSkip(10 * page + 1);
@@ -62,6 +63,7 @@ public class ArticleCollPresenter {
     public void read_article(Context mContext,String a_id){
         BmobQuery<ArticleTable> query=new BmobQuery<>();
         query.addWhereEqualTo("objectId",a_id);
+        query.order("-createdAt");
         query.findObjects(mContext, new FindListener<ArticleTable>() {
             @Override
             public void onSuccess(List<ArticleTable> list) {

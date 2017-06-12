@@ -75,6 +75,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
         holder.mTvAdapterHomeTile.setText(articleTable.getA_title());
         holder.mTvAdapterHomeTime.setText(articleTable.getCreatedAt());
         holder.mTvAdapterHomeUser.setText(articleTable.getU_name());
+        holder.mTvAdaHomeLabel.setText("标签："+articleTable.getA_label());
         if (articleTable.getU_url()!=null){
             Glide.with(mContext)
                     .load(articleTable.getU_url())
@@ -131,8 +132,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
         private ImageView mImgAdapterHomeColl;
         private ImageView mImgAdapterHomeShare;
         private CircleImageView mCivAdaHomeHead;
-
-
+        private TextView mTvAdaHomeLabel;
 
 
         public HViewHolder(View itemView) {
@@ -144,6 +144,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
             mImgAdapterHomeColl = (ImageView) itemView.findViewById(R.id.img_adapter_home_coll);
             mImgAdapterHomeShare = (ImageView) itemView.findViewById(R.id.img_adapter_home_share);
             mCivAdaHomeHead = (CircleImageView) itemView.findViewById(R.id.civ_ada_home_head);
+            mTvAdaHomeLabel = (TextView) itemView.findViewById(R.id.tv_ada_home_label);
         }
     }
 }

@@ -26,11 +26,11 @@ public class HomeFragmentPresenter {
     public void getArticle(Context mContext,int state){
         BmobQuery<ArticleTable> query=new BmobQuery<>();
         query.setLimit(10);
+        query.order("-createdAt");
         if (state==1){
             page++;
             query.setSkip(page*10+1);
         }
-
         query.findObjects(mContext, new FindListener<ArticleTable>() {
             @Override
             public void onSuccess(List<ArticleTable> list) {

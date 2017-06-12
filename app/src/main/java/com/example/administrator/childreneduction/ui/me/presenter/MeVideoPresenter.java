@@ -27,7 +27,7 @@ public class MeVideoPresenter {
         BmobQuery<VedioTable> query=new BmobQuery<>();
         query.addWhereEqualTo("u_id",uid);
         query.setLimit(10);
-
+        query.order("-createdAt");
         if (state==1){
             page++;
             query.setSkip(10*page+1);

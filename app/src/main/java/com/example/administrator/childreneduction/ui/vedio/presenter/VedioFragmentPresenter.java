@@ -31,6 +31,7 @@ public class VedioFragmentPresenter {
      */
     public void video_item(Context mContext,int state){
         BmobQuery<VedioTable> query=new BmobQuery<>();
+        query.order("-createdAt");
         if (state==1){
             page++;
             query.setSkip(page*10+1);
