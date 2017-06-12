@@ -256,6 +256,7 @@
                   android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".ui.home.activity.GenPictureActivity"/>
         <activity android:name=".ui.me.activity.SettingActivity"/>
+        <activity android:name=".ui.me.activity.JDShopActivity"/>
         <!--<activity-->
         <!--android:name="com.umeng.facebook.FacebookActivity"-->
         <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->

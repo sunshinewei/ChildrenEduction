@@ -23,4 +23,7 @@ public class Content {
     public static final String SEARCH_LABEL="LABEL";//根据标签查询
 
 
+    public static final String URL_PATH="https://www.jd.com/";
+
+
 }

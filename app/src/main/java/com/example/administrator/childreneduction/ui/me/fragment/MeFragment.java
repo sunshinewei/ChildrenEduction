@@ -17,6 +17,7 @@ import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
 import com.example.administrator.childreneduction.ui.base.BaseFagment;
 import com.example.administrator.childreneduction.ui.me.activity.ArticleActivty;
+import com.example.administrator.childreneduction.ui.me.activity.JDShopActivity;
 import com.example.administrator.childreneduction.ui.me.activity.MeArticleActivity;
 import com.example.administrator.childreneduction.ui.me.activity.MeVideoActivity;
 import com.example.administrator.childreneduction.ui.me.activity.SettingActivity;
@@ -275,6 +276,13 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                     Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG).show();
                 }
 
+            }
+        });
+        //京东购物
+        mTvFragMeMesg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(JDShopActivity.createIntent(getContext()));
             }
         });
 
