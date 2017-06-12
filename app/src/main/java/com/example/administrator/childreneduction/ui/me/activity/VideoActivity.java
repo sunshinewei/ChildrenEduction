@@ -330,10 +330,9 @@ public class VideoActivity extends EduBaseActivity implements SurfaceHolder.Call
 
     }
 
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Handler处理
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * hanlder
+     */
     private static class MyHandler extends Handler {
         private WeakReference<VideoActivity> mReference;
         private VideoActivity mActivity;
@@ -458,9 +457,7 @@ public class VideoActivity extends EduBaseActivity implements SurfaceHolder.Call
         return ret;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
     // 变焦手势处理类
-    ///////////////////////////////////////////////////////////////////////////
     class ZoomGestureListener extends GestureDetector.SimpleOnGestureListener {
         //双击手势事件
         @Override

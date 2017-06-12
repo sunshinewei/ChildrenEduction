@@ -215,6 +215,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String string = mPrefernceUtils.getString(Content.SP_NAME);
+                mLoginInfo = gson.fromJson(string, LoginInfo.class);
                 if (mLoginInfo != null) {
                     startActivity(ArticleActivty.createInent(getContext()));
                 } else {
@@ -226,6 +228,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String string = mPrefernceUtils.getString(Content.SP_NAME);
+                mLoginInfo = gson.fromJson(string, LoginInfo.class);
                 if (mLoginInfo != null) {
                     Intent mIntent = new Intent(getContext(), VideoPublishActivity.class);
                     startActivity(mIntent);
@@ -239,6 +243,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeMearct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String string = mPrefernceUtils.getString(Content.SP_NAME);
+                mLoginInfo = gson.fromJson(string, LoginInfo.class);
                 if (mLoginInfo != null) {
                     startActivity(MeArticleActivity.createIntent(getContext()));
                 } else {
@@ -261,7 +267,14 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         mTvFragMeSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(SettingActivity.createIntent(getContext()));
+                String string = mPrefernceUtils.getString(Content.SP_NAME);
+                mLoginInfo = gson.fromJson(string, LoginInfo.class);
+                if (mLoginInfo!=null){
+                    startActivity(SettingActivity.createIntent(getContext()));
+                }else {
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

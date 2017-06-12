@@ -74,7 +74,9 @@ public class ArticleCollFragment extends BaseFagment implements BGARefreshLayout
         initRecyclerView();
 //        mRefresh.beginRefreshing();
         state = 0;
-        mCollPresenter.coll_article(getContext(), state, login);
+        if (login!=null){
+            mCollPresenter.coll_article(getContext(), state, login);
+        }
     }
 
     @Override

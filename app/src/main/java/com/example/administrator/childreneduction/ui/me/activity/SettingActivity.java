@@ -10,6 +10,7 @@ import com.example.administrator.childreneduction.App;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.model.Content;
 import com.example.administrator.childreneduction.model.LoginInfo;
+import com.example.administrator.childreneduction.ui.MainActivity;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.utils.DataCleanManager;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
@@ -86,6 +87,8 @@ public class SettingActivity extends EduBaseActivity {
                 if (mLoginInfo!=null){
                     mPrefernceUtils.clear();
                     Toast.makeText(SettingActivity.this,"用户已退出！",Toast.LENGTH_LONG).show();
+                    startActivity(MainActivity.createIntent(SettingActivity.this));
+                    finish();
                 }
             }
         });
