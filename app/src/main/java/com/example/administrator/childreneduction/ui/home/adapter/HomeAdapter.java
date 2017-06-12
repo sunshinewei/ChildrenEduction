@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.ArticleTable;
 import com.example.administrator.childreneduction.model.Content;
@@ -18,6 +19,8 @@ import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.google.gson.Gson;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Administrator on 2017/5/14.
@@ -72,6 +75,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
         holder.mTvAdapterHomeTile.setText(articleTable.getA_title());
         holder.mTvAdapterHomeTime.setText(articleTable.getCreatedAt());
         holder.mTvAdapterHomeUser.setText(articleTable.getU_name());
+        if (articleTable.getU_url()!=null){
+            Glide.with(mContext)
+                    .load(articleTable.getU_url())
+                    .into(holder.mCivAdaHomeHead);
+        }else {
+            holder.mCivAdaHomeHead.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.med));
+        }
 
         //分享
     }
@@ -120,6 +130,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
         private TextView mTvAdapterHomeTime;
         private ImageView mImgAdapterHomeColl;
         private ImageView mImgAdapterHomeShare;
+        private CircleImageView mCivAdaHomeHead;
+
+
+
 
         public HViewHolder(View itemView) {
             super(itemView);
@@ -129,6 +143,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HViewHolder> i
             mTvAdapterHomeTime = (TextView) itemView.findViewById(R.id.tv_adapter_home_time);
             mImgAdapterHomeColl = (ImageView) itemView.findViewById(R.id.img_adapter_home_coll);
             mImgAdapterHomeShare = (ImageView) itemView.findViewById(R.id.img_adapter_home_share);
+            mCivAdaHomeHead = (CircleImageView) itemView.findViewById(R.id.civ_ada_home_head);
         }
     }
 }

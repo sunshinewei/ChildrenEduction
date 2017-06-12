@@ -1,11 +1,9 @@
 package com.example.administrator.childreneduction.ui.vedio.activity;
 
-import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +26,6 @@ import com.example.administrator.childreneduction.ui.base.CommonDialog;
 import com.example.administrator.childreneduction.ui.base.EduBaseActivity;
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.google.gson.Gson;
-import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -63,6 +60,7 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
     private CommonAdapter mCommonAdapter;
 
     private String mVideoPath;
+    private ProgressDialog pd;
 
 
     public static Intent createIntent(Context mContext) {
@@ -85,6 +83,7 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
         mImgActComm = (ImageView) findViewById(R.id.img_act_comm);
         mImgActClear = (ImageView) findViewById(R.id.img_act_clear);
 
+        pd=new ProgressDialog(this);
         initData();
     }
 
@@ -179,12 +178,12 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
                 uv_table.save(VideoPlayerActivity.this, new SaveListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(VideoPlayerActivity.this, "收藏成功！", Toast.LENGTH_LONG);
+                        Toast.makeText(VideoPlayerActivity.this, "收藏成功！", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Toast.makeText(VideoPlayerActivity.this, "收藏失败！", Toast.LENGTH_LONG);
+                        Toast.makeText(VideoPlayerActivity.this, "收藏失败！", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -194,14 +193,7 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
         mImgAdapterHomeShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
-                    ActivityCompat.requestPermissions(VideoPlayerActivity.this, mPermissionList, 123);
-                }
-                new ShareAction(VideoPlayerActivity.this).withText(vedio.getV_title())
-                        .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
-                                SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
-                        .setCallback(mShareListener).open();
+                Share(vedio);
             }
         });
         //添加评论
@@ -221,7 +213,7 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
                 vedioTable.delete(VideoPlayerActivity.this, new DeleteListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(VideoPlayerActivity.this,"视频删除成功！",Toast.LENGTH_LONG);
+                        Toast.makeText(VideoPlayerActivity.this,"视频删除成功！",Toast.LENGTH_LONG).show();
                         finish();
                     }
 
@@ -234,6 +226,38 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
         });
     }
 
+    /**
+     * 分享
+     */
+    public void Share(VedioTable vedio) {
+        pd.dismiss();
+        shareMsg("分享", "文章标题：", "视频："+vedio.getV_title()+"视频地址："+vedio.getV_url(), vedio.getV_url());
+    }
+
+    /**
+     * 分享功能
+     *
+     * @param activityTitle Activity的名字
+     * @param msgTitle      消息标题
+     * @param msgText       消息内容
+     * @param imgPath       图片路径，不分享图片则传null
+     */
+    public void shareMsg(String activityTitle, String msgTitle, String msgText,
+                         String imgPath) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        if (imgPath != null || imgPath.equals("")) {
+            intent.setType("text/plain"); // 纯文本
+        }
+        intent.putExtra(Intent.EXTRA_SUBJECT, msgTitle);
+        intent.putExtra(Intent.EXTRA_TEXT, msgText);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(Intent.createChooser(intent, activityTitle));
+    }
+
+    /**
+     * 发表评论对话框
+     * @param vedio
+     */
     private void setDialog(final VedioTable vedio) {
         mCommonDialog = new CommonDialog(this);
         View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_common, null, false);
@@ -247,7 +271,7 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
             public void onClick(View v) {
                 final String con = content.getText().toString().trim();
                 if (con.length() == 0) {
-                    Toast.makeText(VideoPlayerActivity.this, "内容不能为空！", Toast.LENGTH_SHORT);
+                    Toast.makeText(VideoPlayerActivity.this, "内容不能为空！", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 pub.setOnClickListener(new View.OnClickListener() {
@@ -265,12 +289,12 @@ public class VideoPlayerActivity extends EduBaseActivity implements EasyVideoCal
                         uv_table.save(VideoPlayerActivity.this, new SaveListener() {
                             @Override
                             public void onSuccess() {
-                                Toast.makeText(VideoPlayerActivity.this,"添加评论成功！",Toast.LENGTH_LONG);
+                                Toast.makeText(VideoPlayerActivity.this,"添加评论成功！",Toast.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onFailure(int i, String s) {
-                                Toast.makeText(VideoPlayerActivity.this,"添加评论失败！",Toast.LENGTH_LONG);
+                                Toast.makeText(VideoPlayerActivity.this,"添加评论失败！",Toast.LENGTH_LONG).show();
                             }
                         });
                        mCommonDialog.dismiss();

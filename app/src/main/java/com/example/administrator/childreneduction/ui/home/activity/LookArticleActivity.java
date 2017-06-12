@@ -1,12 +1,11 @@
 package com.example.administrator.childreneduction.ui.home.activity;
 
-import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -36,7 +35,6 @@ import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.example.administrator.childreneduction.widgets.picture.Article;
 import com.example.administrator.childreneduction.widgets.picture.WebViewHelper;
 import com.google.gson.Gson;
-import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -45,6 +43,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -79,6 +78,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
     private LoginInfo loginInfo;
     private ArticleTable extra;
     private LookArticlePresenter mPresenter;
+    private ProgressDialog pd;
 
     private CommonAdapter mCommonAdapter;//评论Adapter
 
@@ -117,6 +117,8 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
 
 
         mPresenter = new LookArticlePresenter(this);
+        pd = new ProgressDialog(this);
+
         initData();
         setListener();
         initWebView();
@@ -160,6 +162,41 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                 return false;
             }
         });
+    }
+
+    /**
+     * 分享
+     */
+    public void Share(ArticleTable articleTable) {
+        pd.dismiss();
+        shareMsg("文章标题："+articleTable.getA_title(), "文章标题："+articleTable.getA_title(), "文章内容："+articleTable.getA_content(), "");
+    }
+
+    /**
+     * 分享功能
+     *
+     * @param activityTitle Activity的名字
+     * @param msgTitle      消息标题
+     * @param msgText       消息内容
+     * @param imgPath       图片路径，不分享图片则传null
+     */
+    public void shareMsg(String activityTitle, String msgTitle, String msgText,
+                         String imgPath) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        if (imgPath == null || imgPath.equals("")) {
+            intent.setType("text/plain"); // 纯文本
+        } else {
+            File f = new File(imgPath);
+            if (f != null && f.exists() && f.isFile()) {
+                intent.setType("image/jpg");
+                Uri u = Uri.fromFile(f);
+                intent.putExtra(Intent.EXTRA_STREAM, u);
+            }
+        }
+        intent.putExtra(Intent.EXTRA_SUBJECT, msgTitle);
+        intent.putExtra(Intent.EXTRA_TEXT, msgText);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(Intent.createChooser(intent, activityTitle));
     }
 
     /**
@@ -209,7 +246,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                 ua_table.save(LookArticleActivity.this, new SaveListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(LookArticleActivity.this, "收藏成功！", Toast.LENGTH_LONG);
+                        Toast.makeText(LookArticleActivity.this, "收藏成功！", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -223,14 +260,15 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         mImgActLookShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
-                    ActivityCompat.requestPermissions(LookArticleActivity.this, mPermissionList, 123);
-                }
-                new ShareAction(LookArticleActivity.this).withText(extra.getA_title())
-                        .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
-                                SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
-                        .setCallback(mShareListener).open();
+//                if (Build.VERSION.SDK_INT >= 23) {
+//                    String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
+//                    ActivityCompat.requestPermissions(LookArticleActivity.this, mPermissionList, 123);
+//                }
+//                new ShareAction(LookArticleActivity.this).withText(extra.getA_title())
+//                        .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
+//                                SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
+//                        .setCallback(mShareListener).open();
+                Share(extra);
             }
         });
         //添加评论
@@ -249,13 +287,13 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
                 articleTable.delete(LookArticleActivity.this, new DeleteListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(LookArticleActivity.this, "文章删除成功！", Toast.LENGTH_LONG);
+                        Toast.makeText(LookArticleActivity.this, "文章删除成功！", Toast.LENGTH_LONG).show();
                         finish();
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Toast.makeText(LookArticleActivity.this, "文章删除失败！", Toast.LENGTH_LONG);
+                        Toast.makeText(LookArticleActivity.this, "文章删除失败！", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -275,7 +313,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
             public void onClick(View v) {
                 final String con = content.getText().toString().trim();
                 if (con.length() == 0) {
-                    Toast.makeText(LookArticleActivity.this, "内容不能为空！", Toast.LENGTH_SHORT);
+                    Toast.makeText(LookArticleActivity.this, "内容不能为空！", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 pub.setOnClickListener(new View.OnClickListener() {
@@ -341,33 +379,16 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
         public void onStart(SHARE_MEDIA media) {
             System.out.println("开始分享");
         }
+
         @Override
         public void onResult(SHARE_MEDIA platform) {
-//            if (platform.name().equals("WEIXIN_FAVORITE")) {
-//                Toast.makeText(LookArticleActivity.this, platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
-//            } else {
-//                if (platform != SHARE_MEDIA.MORE && platform != SHARE_MEDIA.SMS
-//                        && platform != SHARE_MEDIA.EMAIL
-//                        && platform != SHARE_MEDIA.FLICKR
-//                        && platform != SHARE_MEDIA.FOURSQUARE
-//                        && platform != SHARE_MEDIA.TUMBLR
-//                        && platform != SHARE_MEDIA.POCKET
-//                        && platform != SHARE_MEDIA.PINTEREST
-//
-//                        && platform != SHARE_MEDIA.INSTAGRAM
-//                        && platform != SHARE_MEDIA.GOOGLEPLUS
-//                        && platform != SHARE_MEDIA.YNOTE
-//                        && platform != SHARE_MEDIA.EVERNOTE) {
-//                    Toast.makeText(LookArticleActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-            System.out.println("分享成功");
+            Toast.makeText(LookArticleActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void onError(SHARE_MEDIA media, Throwable throwable) {
-            System.out.println("分享失败");
+            Toast.makeText(LookArticleActivity.this, "分享失败", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -392,7 +413,7 @@ public class LookArticleActivity extends EduBaseActivity implements LookArticleU
 
     @Override
     public void addComment_ok() {
-        Toast.makeText(this, "发布成功！", Toast.LENGTH_LONG);
+        Toast.makeText(this, "发布成功！", Toast.LENGTH_LONG).show();
         mCommonDialog.dismiss();
     }
 

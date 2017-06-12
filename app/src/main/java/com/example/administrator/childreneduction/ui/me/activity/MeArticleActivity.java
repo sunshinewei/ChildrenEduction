@@ -99,7 +99,7 @@ public class MeArticleActivity extends EduBaseActivity implements BGARefreshLayo
             }
         };
         mRecyActItem.setLayoutManager(manager);
-        mRecyActItem.addItemDecoration(new RecycleViewDivider(this, DividerItemDecoration.VERTICAL));
+        mRecyActItem.addItemDecoration(new RecycleViewDivider(this, DividerItemDecoration.VERTICAL,3,R.color.color_text_blank_100));
         mArticleAdapter=new MeArticleAdapter(this);
         mRecyActItem.setAdapter(mArticleAdapter);
 

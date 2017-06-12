@@ -94,7 +94,7 @@ public class ArticleCollFragment extends BaseFagment implements BGARefreshLayout
             }
         };
         mRecyFramArtcollItem.setLayoutManager(manager);
-        mRecyFramArtcollItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
+        mRecyFramArtcollItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL,3,R.color.color_text_blank_100));
         mCollectAdapter = new ArticleCollAdapter(getContext());
         mRecyFramArtcollItem.setAdapter(mCollectAdapter);
 

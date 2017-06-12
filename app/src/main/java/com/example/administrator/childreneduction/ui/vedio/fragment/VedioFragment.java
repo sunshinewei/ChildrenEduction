@@ -6,7 +6,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.administrator.childreneduction.App;
 import com.example.administrator.childreneduction.R;
@@ -29,6 +28,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
  * Created by Administrator on 2017/5/7.
+ * 视频条目Fragment
  */
 
 public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARefreshLayout.BGARefreshLayoutDelegate {
@@ -69,7 +69,7 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
             }
         };
         mRecyFragVedioItem.setLayoutManager(manager);
-        mRecyFragVedioItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
+        mRecyFragVedioItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL,3,R.color.color_text_blank_100));
         mVedioAdapter = new VedioAdapter(getContext());
         mRecyFragVedioItem.setAdapter(mVedioAdapter);
 
@@ -80,8 +80,6 @@ public class VedioFragment extends BaseFagment implements VedioFragmentUI, BGARe
         mVedioAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void setOnClickListener(View view, int position) {
-                Toast.makeText(getContext(), "点击了" + position, Toast.LENGTH_LONG);
-
                 List<VedioTable> list = mVedioAdapter.getList();
                 VedioTable vedioTable = list.get(position);
                 if (vedioTable != null) {

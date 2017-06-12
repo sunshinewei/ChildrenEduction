@@ -1,6 +1,8 @@
 package com.example.administrator.childreneduction.ui.me.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,11 +19,18 @@ import com.example.administrator.childreneduction.ui.me.presenter.VideoPublishPr
 import com.example.administrator.childreneduction.utils.SharePrefernceUtils;
 import com.google.gson.Gson;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Created by Administrator on 2017/5/20.
  */
 
-public class VideoPublishActivity extends EduBaseActivity implements VideoPublishUI{
+public class VideoPublishActivity extends EduBaseActivity implements VideoPublishUI {
 
     private TextView mTvActivityVideoBack;
     private TextView mTvActivityVideoPub;
@@ -52,21 +61,22 @@ public class VideoPublishActivity extends EduBaseActivity implements VideoPublis
         setListener();
     }
 
-    private void initData(){
-        mPrefernceUtils=new SharePrefernceUtils(getApplicationContext(),Content.SP_NAME);
-        mPresenter=new VideoPublishPresenter(this);
-        mGson=new Gson();
+    private void initData() {
+        mPrefernceUtils = new SharePrefernceUtils(getApplicationContext(), Content.SP_NAME);
+        mPresenter = new VideoPublishPresenter(this);
+        mGson = new Gson();
     }
+
     /**
      * 设置监听
      */
-    private void setListener(){
+    private void setListener() {
         //标签
         mTvActivityVideoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = LabelActivity.createIntent(VideoPublishActivity.this);
-                startActivityForResult(intent,Content.REQUEST_LABEL);
+                startActivityForResult(intent, Content.REQUEST_LABEL);
             }
         });
 
@@ -78,19 +88,19 @@ public class VideoPublishActivity extends EduBaseActivity implements VideoPublis
                 LoginInfo loginInfo = mGson.fromJson(string, LoginInfo.class);
                 String title = mEdtActivityVideoTilte.getText().toString().trim();
                 String content = mEdtActivityVideoContebt.getText().toString().trim();
-                if (title.length()==0 || content.length()==0){
-                    Toast.makeText(VideoPublishActivity.this,"请添加标题或内容！",Toast.LENGTH_LONG);
+                if (title.length() == 0 || content.length() == 0) {
+                    Toast.makeText(VideoPublishActivity.this, "请添加标题或内容！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (mVideoPath==null || mVideoPath.length()==0){
-                    Toast.makeText(VideoPublishActivity.this,"请添加视频！",Toast.LENGTH_LONG);
+                if (mVideoPath == null || mVideoPath.length() == 0) {
+                    Toast.makeText(VideoPublishActivity.this, "请添加视频！", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (mLabel==null){
-                    Toast.makeText(VideoPublishActivity.this,"请选择标签！",Toast.LENGTH_LONG);
+                if (mLabel == null) {
+                    Toast.makeText(VideoPublishActivity.this, "请选择标签！", Toast.LENGTH_LONG).show();
                     return;
                 }
-                VedioTable vedioTable=new VedioTable();
+                VedioTable vedioTable = new VedioTable();
                 vedioTable.setU_id(loginInfo.getId());
                 vedioTable.setU_name(loginInfo.getName());
                 vedioTable.setV_coll("0");
@@ -101,15 +111,15 @@ public class VideoPublishActivity extends EduBaseActivity implements VideoPublis
                 vedioTable.setU_url(loginInfo.getUrl());
                 vedioTable.setV_label(mLabel);
                 //发布
-                mPresenter.pub_video(VideoPublishActivity.this,vedioTable);
+                mPresenter.pub_video(VideoPublishActivity.this, vedioTable);
             }
-      });
+        });
         //视频
         mImgActVideoRecode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VideoPublishActivity.this, VideoActivity.class);
-                startActivityForResult(intent,Content.REQUEST_VIDEO);
+                startActivityForResult(intent, Content.REQUEST_VIDEO);
             }
         });
     }
@@ -117,22 +127,40 @@ public class VideoPublishActivity extends EduBaseActivity implements VideoPublis
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== Content.REQUEST_VIDEO && resultCode== Content.RESULT_VIDEO){
+        if (requestCode == Content.REQUEST_VIDEO && resultCode == Content.RESULT_VIDEO) {
             String path = data.getStringExtra("PATH");
-            System.out.println("path+fragment"+path);
-            if (path!=null){
-                mPresenter.upload_video(VideoPublishActivity.this,path);
+            if (path != null) {
+                Observable.just(path)
+                        .map(new Function<String, Bitmap>() {
+                            @Override
+                            public Bitmap apply(@NonNull String s) throws Exception {
+                                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                                mmr.setDataSource(s);
+                                Bitmap time = mmr.getFrameAtTime();
+                                return time;
+                            }
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<Bitmap>() {
+                            @Override
+                            public void accept(@NonNull Bitmap s) throws Exception {
+                                mImgActVideoRecode.setImageBitmap(s);
+                            }
+                        });
+                mPresenter.upload_video(VideoPublishActivity.this, path);
             }
         }
-        if (requestCode==Content.REQUEST_LABEL && resultCode==RESULT_OK){
-            mLabel=data.getStringExtra(Content.LABEL);
+        if (requestCode == Content.REQUEST_LABEL && resultCode == RESULT_OK) {
+            mLabel = data.getStringExtra(Content.LABEL);
         }
     }
 
     @Override
     public void upload_video_ok(String link) {
-        if (link!=null){
-            mVideoPath=link;
+        if (link != null) {
+            mVideoPath = link;
+            Toast.makeText(this, "视频上传成功！", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -143,13 +171,13 @@ public class VideoPublishActivity extends EduBaseActivity implements VideoPublis
 
     @Override
     public void pub_video_ok() {
-        Toast.makeText(VideoPublishActivity.this,"发布成功！",Toast.LENGTH_LONG);
+        Toast.makeText(VideoPublishActivity.this, "发布成功！", Toast.LENGTH_LONG).show();
         finish();
     }
 
     @Override
     public void pub_video_fail() {
-        Toast.makeText(VideoPublishActivity.this,"发布失败！",Toast.LENGTH_LONG);
+        Toast.makeText(VideoPublishActivity.this, "发布失败！", Toast.LENGTH_LONG).show();
     }
 
 }

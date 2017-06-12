@@ -111,7 +111,7 @@ public class HomeFragment extends BaseFagment implements HomeFragmentUI, BGARefr
         mRecyFragHomeItem.setLayoutManager(manager);
         mHomeAdapter = new HomeAdapter(getContext());
         mRecyFragHomeItem.setAdapter(mHomeAdapter);
-        mRecyFragHomeItem.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
+        mRecyFragHomeItem.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL,3,R.color.color_text_blank_100));
 
         setListener();
 

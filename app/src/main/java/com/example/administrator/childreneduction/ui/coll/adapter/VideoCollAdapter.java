@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.UV_Table;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -76,6 +78,13 @@ public class VideoCollAdapter extends RecyclerView.Adapter<VideoCollAdapter.CVie
         holder.mTvAdapterHomeTile.setText(table.getVu_title());
         holder.mTvAdapterHomeUser.setText(table.getVu_name());
         holder.mTvAdapterHomeTime.setText(table.getCreatedAt());
+        if (table.getU_url() != null) {
+            Glide.with(mContext)
+                    .load(table.getU_url())
+                    .into(holder.mTvAdapterVideocollHead);
+        } else {
+            holder.mTvAdapterVideocollHead.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.med));
+        }
         String url = table.getUv_url();
         if (url != null) {
             Observable.just(url)
@@ -93,7 +102,7 @@ public class VideoCollAdapter extends RecyclerView.Adapter<VideoCollAdapter.CVie
                     .subscribe(new Consumer<Bitmap>() {
                         @Override
                         public void accept(@NonNull Bitmap s) throws Exception {
-                            holder.mImgAdapterVideo.setImageBitmap(s);
+                            holder.mImgAdapterVideoBackground.setImageBitmap(s);
                         }
                     });
         }
@@ -119,14 +128,20 @@ public class VideoCollAdapter extends RecyclerView.Adapter<VideoCollAdapter.CVie
         private TextView mTvAdapterHomeUser;
         private TextView mTvAdapterHomeTime;
         private TextView mTvAdapterHomeTile;
-        private ImageView mImgAdapterVideo;
+        //        private ImageView mImgAdapterVideo;
+        private ImageView mImgAdapterVideoBackground;
+        private CircleImageView mTvAdapterVideocollHead;
 
         public CViewHolder(View itemView) {
             super(itemView);
-            mImgAdapterVideo = (ImageView) itemView.findViewById(R.id.img_adapter_video);
+//            mImgAdapterVideo = (ImageView) itemView.findViewById(R.id.img_adapter_video);
             mTvAdapterHomeUser = (TextView) itemView.findViewById(R.id.tv_adapter_home_user);
             mTvAdapterHomeTime = (TextView) itemView.findViewById(R.id.tv_adapter_home_time);
             mTvAdapterHomeTile = (TextView) itemView.findViewById(R.id.tv_adapter_home_tile);
+            mImgAdapterVideoBackground = (ImageView) itemView.findViewById(R.id.img_adapter_video_background);
+            mTvAdapterVideocollHead = (CircleImageView) itemView.findViewById(R.id.tv_adapter_videocoll_head);
+
+
         }
     }
 }

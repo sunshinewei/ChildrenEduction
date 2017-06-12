@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.childreneduction.R;
 import com.example.administrator.childreneduction.bmob.VedioTable;
 import com.example.administrator.childreneduction.ui.listener.OnClickListener;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -72,6 +74,8 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.VViewHolder>
         holder.mTvAdapterVideoTime.setText(vedioTable.getCreatedAt());
         holder.mTvAdapterVideoTile.setText(vedioTable.getV_title());
         holder.mTvAdapterVideoContent.setText(vedioTable.getV_content());
+        Glide.with(mContext).load(vedioTable.getU_url())
+                .into(holder.mTvAdapterVideoHead);
 
         String url = vedioTable.getV_url();
         if (url!=null){
@@ -124,6 +128,8 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.VViewHolder>
         private TextView mTvAdapterVideoContent;
         private TextView mTvAdapterVideoLabel;
         private ImageView mImgAdapterVideoBackground;
+        private CircleImageView mTvAdapterVideoHead;
+
 
         public VViewHolder(View itemView) {
             super(itemView);
@@ -135,6 +141,7 @@ public class VedioAdapter extends RecyclerView.Adapter<VedioAdapter.VViewHolder>
             mTvAdapterVideoContent = (TextView) itemView.findViewById(R.id.tv_adapter_video_content);
             mTvAdapterVideoLabel = (TextView) itemView.findViewById(R.id.tv_adapter_video_label);
             mImgAdapterVideoBackground = (ImageView) itemView.findViewById(R.id.img_adapter_video_background);
+            mTvAdapterVideoHead = (CircleImageView) itemView.findViewById(R.id.tv_adapter_video_head);
         }
     }
 

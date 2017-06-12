@@ -71,7 +71,7 @@ public class GenPictureActivity extends EduBaseActivity {
                 switch (msg.what){
                     case SAVE:
                         pd.dismiss();
-                        Toast.makeText(getApplicationContext(),"图片已保存在相册!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(GenPictureActivity.this, "图片已保存在相册!", Toast.LENGTH_SHORT).show();
                         break;
                     case SHARE:
                         data = msg.getData();
@@ -80,7 +80,7 @@ public class GenPictureActivity extends EduBaseActivity {
                         break;
                     case FAILE:
                         String strData = (String) msg.obj;
-                        Toast.makeText(getApplicationContext(),strData,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GenPictureActivity.this, strData, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -234,7 +234,6 @@ public class GenPictureActivity extends EduBaseActivity {
     }
     /**
      * 分享功能
-     *
      *
      * @param activityTitle
      *            Activity的名字

@@ -87,7 +87,7 @@ public class LabelActivity extends EduBaseActivity {
                         setResult(RESULT_OK,intent);
                         finish();
                     }else {
-                        Toast.makeText(LabelActivity.this,"请选择标签！",Toast.LENGTH_SHORT);
+                        Toast.makeText(LabelActivity.this,"请选择标签！",Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -139,11 +139,11 @@ public class ArticleActivty extends EduBaseActivity {
             public void onClick(View v) {
                 final String title = mEdtActivityArticleTilte.getText().toString().trim();
                 if (title.length()==0){
-                    Toast.makeText(ArticleActivty.this,"文章标题不能为空！",Toast.LENGTH_LONG);
+                    Toast.makeText(ArticleActivty.this, "文章标题不能为空！", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (mLabel==null){
-                    Toast.makeText(ArticleActivty.this,"请选择标签！",Toast.LENGTH_LONG);
+                    Toast.makeText(ArticleActivty.this, "请选择标签！", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 mIcarus.getContent(new Callback() {
@@ -158,7 +158,7 @@ public class ArticleActivty extends EduBaseActivity {
                                     public void accept(@NonNull String s) throws Exception {
                                         System.out.println("params"+params);
                                         if(params.length()==0){
-                                            Toast.makeText(ArticleActivty.this,"文章内容不能为空！",Toast.LENGTH_LONG);
+                                            Toast.makeText(ArticleActivty.this, "文章内容不能为空！", Toast.LENGTH_SHORT).show();
                                             return;
                                         }
                                         else {
@@ -191,13 +191,13 @@ public class ArticleActivty extends EduBaseActivity {
         articleTable.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
-               Toast.makeText(ArticleActivty.this,"发表成功！",Toast.LENGTH_LONG);
+                Toast.makeText(ArticleActivty.this, "发表成功！", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(int i, String s) {
-                Toast.makeText(ArticleActivty.this,"发表失败！",Toast.LENGTH_LONG);
+                Toast.makeText(ArticleActivty.this, "发表失败！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -285,6 +285,7 @@ public class ArticleActivty extends EduBaseActivity {
         if (requestCode==Content.REQUEST_LABEL && resultCode==RESULT_OK){
             mLabel = data.getStringExtra(Content.LABEL);
             System.out.println("mLabel"+mLabel);
+            Toast.makeText(this, "选择了" + mLabel+"标签！", Toast.LENGTH_SHORT).show();
         }
     }
 }

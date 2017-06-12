@@ -91,7 +91,7 @@ public class VideoCollFragment extends BaseFagment implements BGARefreshLayout.B
     private void initRecyclerView(){
         RecyclerView.LayoutManager manager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         mRecyFramVideocollItem.setLayoutManager(manager);
-        mRecyFramVideocollItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL));
+        mRecyFramVideocollItem.addItemDecoration(new RecycleViewDivider(getContext(), DividerItemDecoration.VERTICAL,3,R.color.color_text_blank_100));
         mCollectAdapter=new VideoCollAdapter(getContext());
         mRecyFramVideocollItem.setAdapter(mCollectAdapter);
         mCollectAdapter.setOnClickListener(new OnClickListener() {

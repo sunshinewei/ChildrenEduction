@@ -9,5 +9,6 @@
     <dimen name="dimen_text_content_size">14sp</dimen>
     <dimen name="dimen_text_anno_size">12sp</dimen>
     <dimen name="dimen_text_title_size_large">18sp</dimen>
+    <dimen name="dimesns_corner">10dp</dimen>
 
 </resources>

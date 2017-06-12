@@ -98,7 +98,7 @@ public class MeVideoActivity extends EduBaseActivity implements MeVideoUI, BGARe
             }
         };
         mRecyActViditem.setLayoutManager(manager);
-        mRecyActViditem.addItemDecoration(new RecycleViewDivider(this, DividerItemDecoration.VERTICAL));
+        mRecyActViditem.addItemDecoration(new RecycleViewDivider(this, DividerItemDecoration.VERTICAL,3,R.color.color_text_blank_100));
         mVideoAdapter=new MeVideoAdapter(this);
         mRecyActViditem.setAdapter(mVideoAdapter);
 

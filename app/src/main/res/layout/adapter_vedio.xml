@@ -1,87 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="150dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:orientation="vertical"
+                                    app:cardCornerRadius="@dimen/dimesns_corner"
+                                    app:cardPreventCornerOverlap="false"
+                                    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/img_adapter_video_background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="120dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:background="@color/color_text_blank_400"
+            android:background="@drawable/loading"
             />
 
-        <LinearLayout
-            android:id="@+id/user_info"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_adapter_video_user"
-                style="@style/commen_text_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textColor="@color/color_text_blank_100"
-                android:text="生命练习"/>
-
-            <TextView
-                android:id="@+id/tv_adapter_video_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:layout_marginRight="10dp"
-                android:gravity="end"
-                android:textColor="@color/color_text_blank_100"
-                android:text="2017-08-09"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_adapter_video_tile"
-            style="@style/commen_text_title"
-            android:layout_below="@+id/user_info"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/color_text_blank_100"
-            android:text="关于教育孩子的几点心得"
-            />
-
-        <TextView
-            android:id="@+id/tv_adapter_video_content"
-            style="@style/commen_text_title"
-            android:layout_below="@id/tv_adapter_video_tile"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/color_text_blank_100"
-            android:text="关于教育孩子的几点心得"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/user_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|end">
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/tv_adapter_video_head"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/med"
+                    android:layout_marginLeft="5dp"/>
 
                 <TextView
-                    android:id="@+id/tv_adapter_video_label"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="30dp"
-                    android:textColor="@color/color_text_blank_100"
-                    />
-            </LinearLayout>
-        </LinearLayout>
+                    android:id="@+id/tv_adapter_video_user"
+                    style="@style/commen_text_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="生命练习"
+                    android:textColor="@color/color_text_blank_700"/>
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_adapter_video_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="2017-08-09"
+                    android:textColor="@color/color_text_blank_700"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_adapter_video_tile"
+                style="@style/commen_text_title"
+                android:layout_below="@+id/user_info"
+                android:layout_marginTop="10dp"
+                android:text="关于教育孩子的几点心得"
+                android:textColor="@color/color_text_blank_700"
+                android:layout_marginBottom="10dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_adapter_video_content"
+                style="@style/commen_text_title"
+                android:layout_below="@id/tv_adapter_video_tile"
+                android:layout_marginTop="5dp"
+                android:text="关于教育孩子的几点心得"
+                android:textColor="@color/color_text_blank_700"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end">
+
+                    <TextView
+                        android:id="@+id/tv_adapter_video_label"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="30dp"
+                        android:textColor="@color/color_text_blank_700"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

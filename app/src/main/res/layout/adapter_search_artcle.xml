@@ -3,7 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_text_white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_text_white"
+    app:cardCornerRadius="@dimen/dimesns_corner"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:gravity="center_vertical"

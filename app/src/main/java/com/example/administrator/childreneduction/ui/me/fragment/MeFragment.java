@@ -143,7 +143,8 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
             mUserLogined.setVisibility(View.VISIBLE);
             mUserLogin.setVisibility(View.GONE);
             Glide.with(getContext())
-                    .load(mLoginInfo.getUrl());
+                    .load(mLoginInfo.getUrl())
+                    .into(mImgFragMeHead);
             mTvFragMeName.setText(mLoginInfo.getName());
         } else {
             mUserLogined.setVisibility(View.GONE);
@@ -217,7 +218,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                 if (mLoginInfo != null) {
                     startActivity(ArticleActivty.createInent(getContext()));
                 } else {
-                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -229,7 +230,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                     Intent mIntent = new Intent(getContext(), VideoPublishActivity.class);
                     startActivity(mIntent);
                 } else {
-                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -241,7 +242,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                 if (mLoginInfo != null) {
                     startActivity(MeArticleActivity.createIntent(getContext()));
                 } else {
-                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -252,7 +253,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
                 if (mLoginInfo != null) {
                     startActivity(MeVideoActivity.createIntent(getContext()));
                 } else {
-                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(), "请用户登录！", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -282,7 +283,7 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
 
         @Override
         public void onError(SHARE_MEDIA media, int i, Throwable throwable) {
-            Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT);
+            Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -314,7 +315,6 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
         String s = gson.toJson(loginInfo);
         SharePrefernceUtils sharePrefernceUtils = new SharePrefernceUtils(getContext(), Content.SP_NAME);
         sharePrefernceUtils.putString(Content.SP_NAME, s);
-        System.out.println("返回信息" + uid + ":" + name + ":" + iconurl);
         mUserLogin.setVisibility(View.GONE);
         mUserLogined.setVisibility(View.VISIBLE);
         Glide.with(mContext).load(iconurl).into(mImgFragMeHead);
@@ -354,12 +354,12 @@ public class MeFragment extends BaseFagment implements MeFragmentUI {
 
             }
         });
-        Toast.makeText(getContext(), "返回信息" + uid + ":" + name + ":" + iconurl, Toast.LENGTH_SHORT);
+        Toast.makeText(getContext(), "返回信息" + uid + ":" + name + ":" + iconurl, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void login_fail() {
-        Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT);
+        Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT).show();
     }
 
 }

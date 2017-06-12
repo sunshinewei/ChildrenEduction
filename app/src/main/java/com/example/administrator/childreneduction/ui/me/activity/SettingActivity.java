@@ -85,7 +85,7 @@ public class SettingActivity extends EduBaseActivity {
             public void onClick(View v) {
                 if (mLoginInfo!=null){
                     mPrefernceUtils.clear();
-                    Toast.makeText(SettingActivity.this,"用户已退出！",Toast.LENGTH_LONG);
+                    Toast.makeText(SettingActivity.this,"用户已退出！",Toast.LENGTH_LONG).show();
                 }
             }
         });
