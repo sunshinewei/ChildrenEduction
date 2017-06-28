@@ -18,6 +18,7 @@ android {
     dexOptions {
         javaMaxHeapSize "4g"
         incremental false
+        preDexLibraries = false
     }
 
     defaultConfig {
@@ -32,9 +33,8 @@ android {
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', "x86"
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
-            abiFilters "armeabi-v7a", "x86"
         }
 
         manifestPlaceholders = [
@@ -51,10 +51,10 @@ android {
     }
     signingConfigs {
         debug {
-                storeFile file('debug.keystore')
-                storePassword "android"
-                keyAlias "androiddebugkey"
-                keyPassword "android"
+            storeFile file('debug.keystore')
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
         }
         release {
             storeFile file('debug.keystore')
@@ -122,98 +122,98 @@ android {
     }
 }
 
-dependencies {
-    provided fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    //    compile 'com.android.support:appcompat-v7:25.1.0'
-    testCompile 'junit:junit:4.12'
-    compile project(':baselibrary')
-    compile 'com.google.dagger:dagger:2.4'
-    apt 'com.google.dagger:dagger-compiler:2.4'
-    //java注解
-    compile 'org.glassfish:javax.annotation:10.0-b28'
-    //    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:cardview-v7:25.1.0'
-    //logger
-    compile 'com.orhanobut:logger:1.15'
-    //圆形头像
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    //友盟统计
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    //glide
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    //网络请求
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    //    compile 'io.reactivex:rxjava:1.0.14'
-    //    compile 'io.reactivex:rxandroid:1.0.1'
-    //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    //    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    ////    compile 'io.reactivex.rxjava2:rxjava:x.y.z'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava's latest version for bug fixes and new features.
-    //butterknife
-    //    compile 'com.jakewharton:butterknife:8.5.1'
-    //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    // JPush 3.0.0 版本为例。
-    compile 'cn.jiguang.sdk:jpush:3.0.0'
-    compile 'cn.jiguang.sdk:jcore:1.0.0'
-    // 此处以JCore 1.0.0 版本为例。
-    //picasso
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    // bmob云服务依赖
-    //以下SDK开发者请根据需要自行选择
-    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
-    //3.4.7-aar：具务必查看下面注释[1]
-    compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
-    //bmob-push：Bmob的推送包
-    //    compile 'cn.bmob.android:bmob-push:0.8'
-    //bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[3]
-    compile 'cn.bmob.android:bmob-im:2.0.4'
-    compile 'cn.bmob.android:androidasync:2.1.6'
-    compile 'cn.bmob.android:bmob-sdk:3.4.6'
-    //注：别忘记导入3.4.6的相关依赖包[2]
-    //bmob-sms ：Bmob单独为短信服务提供的包
-    //    compile 'cn.bmob.android:bmob-sms:1.0.1'
-    //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
-    compile 'cn.bmob.android:http-legacy:1.0'
-    //    如果需要兼容Android6.0系统，请添加以下两项：
-    //    compile 'com.android.support:support-v4:23.2.1'
-    compile 'cn.bmob.android:http-legacy:1.0'
-    //刷新和加载更多
-    compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
-    //    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
-    compile files('libs/SocialSDK_QQ_Simplify.jar')
-    compile files('libs/SocialSDK_Sina_Simplify.jar')
-    compile files('libs/SocialSDK_WeChat_Simplify.jar')
-    compile files('libs/umeng_shareboard_widget.jar')
-    compile files('libs/umeng_social_api.jar')
-    compile files('libs/umeng_social_net.jar')
-    compile files('libs/umeng_social_shareboard.jar')
-    compile files('libs/umeng_social_shareview.jar')
-    compile files('libs/umeng_social_tool.jar')
-    //发表文章
-    compile 'com.github.mr5:icarus:0.1.14'
-    //下拉刷新
-    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
-    //权限申请
-    compile 'com.yanzhenjie:permission:1.0.7'
-    //视频播放
-    compile 'com.afollestad:easyvideoplayer:0.3.0'
-    //动画
-    compile 'com.willowtreeapps.spruce:spruce-android:1.0.0'
-    //viewpager
-    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
-    //切换皮肤
-    compile 'com.bilibili:magicasakura:0.1.6@aar'
-    //EventBus
-    compile 'org.greenrobot:eventbus:3.0.0'
-}
+    dependencies {
+        provided fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        //    compile 'com.android.support:appcompat-v7:25.1.0'
+        testCompile 'junit:junit:4.12'
+        compile project(':baselibrary')
+        compile 'com.google.dagger:dagger:2.4'
+        apt 'com.google.dagger:dagger-compiler:2.4'
+        //java注解
+        compile 'org.glassfish:javax.annotation:10.0-b28'
+        //    compile 'com.android.support:recyclerview-v7:25.1.0'
+        compile 'com.android.support:cardview-v7:25.1.0'
+        //logger
+        compile 'com.orhanobut:logger:1.15'
+        //圆形头像
+        compile 'de.hdodenhof:circleimageview:2.1.0'
+        //友盟统计
+        compile 'com.umeng.analytics:analytics:latest.integration'
+        //glide
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+        //网络请求
+        compile 'com.squareup.retrofit2:retrofit:2.2.0'
+        compile 'com.squareup.okhttp3:okhttp:3.6.0'
+        compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+        compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+        //    compile 'io.reactivex:rxjava:1.0.14'
+        //    compile 'io.reactivex:rxandroid:1.0.1'
+        //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        //    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+        ////    compile 'io.reactivex.rxjava2:rxjava:x.y.z'
+        compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        // Because RxAndroid releases are few and far between, it is recommended you also
+        // explicitly depend on RxJava's latest version for bug fixes and new features.
+        compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+        // Because RxAndroid releases are few and far between, it is recommended you also
+        // explicitly depend on RxJava's latest version for bug fixes and new features.
+        //butterknife
+        //    compile 'com.jakewharton:butterknife:8.5.1'
+        //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+        // JPush 3.0.0 版本为例。
+        compile 'cn.jiguang.sdk:jpush:3.0.0'
+        compile 'cn.jiguang.sdk:jcore:1.0.0'
+        // 此处以JCore 1.0.0 版本为例。
+        //picasso
+        compile 'com.squareup.picasso:picasso:2.5.2'
+        // bmob云服务依赖
+        //以下SDK开发者请根据需要自行选择
+        //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+        //3.4.7-aar：具务必查看下面注释[1]
+        compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+        //bmob-push：Bmob的推送包
+        //    compile 'cn.bmob.android:bmob-push:0.8'
+        //bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[3]
+        compile 'cn.bmob.android:bmob-im:2.0.4'
+        compile 'cn.bmob.android:androidasync:2.1.6'
+        compile 'cn.bmob.android:bmob-sdk:3.4.6'
+        //注：别忘记导入3.4.6的相关依赖包[2]
+        //bmob-sms ：Bmob单独为短信服务提供的包
+        //    compile 'cn.bmob.android:bmob-sms:1.0.1'
+        //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+        compile 'cn.bmob.android:http-legacy:1.0'
+        //    如果需要兼容Android6.0系统，请添加以下两项：
+        //    compile 'com.android.support:support-v4:23.2.1'
+        compile 'cn.bmob.android:http-legacy:1.0'
+        //刷新和加载更多
+        compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
+        //    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+        compile files('libs/SocialSDK_QQ_Simplify.jar')
+        compile files('libs/SocialSDK_Sina_Simplify.jar')
+        compile files('libs/SocialSDK_WeChat_Simplify.jar')
+        compile files('libs/umeng_shareboard_widget.jar')
+        compile files('libs/umeng_social_api.jar')
+        compile files('libs/umeng_social_net.jar')
+        compile files('libs/umeng_social_shareboard.jar')
+        compile files('libs/umeng_social_shareview.jar')
+        compile files('libs/umeng_social_tool.jar')
+        //发表文章
+        compile 'com.github.mr5:icarus:0.1.14'
+        //下拉刷新
+        compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
+        //权限申请
+        compile 'com.yanzhenjie:permission:1.0.7'
+        //视频播放
+        compile 'com.afollestad:easyvideoplayer:0.3.0'
+        //动画
+        compile 'com.willowtreeapps.spruce:spruce-android:1.0.0'
+        //viewpager
+        compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+        //切换皮肤
+        compile 'com.bilibili:magicasakura:0.1.6@aar'
+        //EventBus
+        compile 'org.greenrobot:eventbus:3.0.0'
+    }

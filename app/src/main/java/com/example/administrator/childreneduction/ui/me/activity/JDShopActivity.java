@@ -68,7 +68,7 @@ public class JDShopActivity extends EduBaseActivity {
     private class MyWebviewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
+            mWbActShop.loadUrl(url);
             return true;
         }
 
